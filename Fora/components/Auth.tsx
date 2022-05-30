@@ -32,7 +32,7 @@ export default function Auth() {
 
   return (
     <View>
-      <View style={[styles.verticallySpaced, styles.mt20]}>
+      <View style={[styles.verticallySpaced, styles.mt40]}>
         <Input
           label="Email"
           leftIcon={{ type: 'font-awesome', name: 'envelope' }}
@@ -55,7 +55,7 @@ export default function Auth() {
           autoCompleteType={'off'}
         />
       </View>
-      <View style={[styles.verticallySpaced, styles.mt20]}>
+      <View style={[styles.verticallySpaced, styles.mt40]}>
         <Button title="Sign in" disabled={loading} onPress={() => signInWithEmail()} />
       </View>
       <View style={styles.verticallySpaced}>
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     paddingBottom: 4,
     alignSelf: 'stretch',
   },
-  mt20: {
-    marginTop: 20,
+  mt40: {
+    marginTop: 40,
   },
 })

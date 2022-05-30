@@ -79,7 +79,7 @@ export default function Account({ session }: { session: Session }) {
 
   return (
     <View>
-      <View style={[styles.verticallySpaced, styles.mt20]}>
+      <View style={[styles.verticallySpaced, styles.mt40]}>
         <Input label="Email" value={session?.user?.email} disabled autoCompleteType={'off'}/>
       </View>
       <View style={styles.verticallySpaced}>
@@ -99,7 +99,7 @@ export default function Account({ session }: { session: Session }) {
         />
       </View>
 
-      <View style={[styles.verticallySpaced, styles.mt20]}>
+      <View style={[styles.verticallySpaced, styles.mt40]}>
         <Button
           title={loading ? "Loading ..." : "Update"}
           onPress={() => updateProfile({ username, website, avatar_url })}
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     paddingBottom: 4,
     alignSelf: "stretch",
   },
-  mt20: {
-    marginTop: 20,
+  mt40: {
+    marginTop: 40,
   },
 });
