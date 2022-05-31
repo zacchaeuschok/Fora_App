@@ -5,6 +5,7 @@ import Auth from './components/Auth'
 import Account from './components/Account'
 import { View } from 'react-native'
 import { Session } from '@supabase/supabase-js'
+import { NavigationContainer } from '@react-navigation/native';
 
 export default function App() {
   const [session, setSession] = useState<Session | null> (null)
@@ -18,8 +19,10 @@ export default function App() {
   }, [])
 
   return (
-    <View>
-      {session && session.user ? <Account key={session.user.id} session={session} /> : <Auth />}
-    </View>
+    <NavigationContainer>
+      <View>
+        {session && session.user ? <Account key={session.user.id} session={session} /> : <Auth />}
+      </View>
+    </NavigationContainer>
   )
 }
