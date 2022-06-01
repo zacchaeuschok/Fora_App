@@ -1,28 +1,21 @@
-import 'react-native-url-polyfill/auto'
-import { useState, useEffect } from 'react'
-import { supabase } from './lib/supabase'
-import Auth from './components/Auth'
-import Account from './components/Account'
-import { View } from 'react-native'
-import { Session } from '@supabase/supabase-js'
-import { NavigationContainer } from '@react-navigation/native';
+import { StatusBar } from "expo-status-bar";
+import React from "react";
+import { ThemeProvider } from "react-native-rapi-ui";
+import Navigation from "./src/navigation";
+import { AuthProvider } from "./src/provider/AuthProvider";
 
 export default function App() {
-  const [session, setSession] = useState<Session | null> (null)
-
-  useEffect(() => {
-    setSession(supabase.auth.session())
-
-    supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session)
-    })
-  }, [])
-
+  const images = [
+    require("./assets/images/login.png"),
+    require("./assets/images/register.png"),
+    require("./assets/images/forget.png"),
+  ];
   return (
-    <NavigationContainer>
-      <View>
-        {session && session.user ? <Account key={session.user.id} session={session} /> : <Auth />}
-      </View>
-    </NavigationContainer>
-  )
+    <ThemeProvider images={images}>
+      <AuthProvider>
+        <Navigation />
+      </AuthProvider>
+      <StatusBar />
+    </ThemeProvider>
+  );
 }
