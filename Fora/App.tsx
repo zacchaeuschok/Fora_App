@@ -10,6 +10,7 @@ export default function App() {
     require("./assets/images/register.png"),
     require("./assets/images/forget.png"),
   ];
+
   return (
     <ThemeProvider images={images}>
       <AuthProvider>

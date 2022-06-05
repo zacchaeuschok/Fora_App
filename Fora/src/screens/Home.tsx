@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Linking } from "react-native";
+import { View, Linking, Image, FlatList } from "react-native";
 import { MainStackParamList } from "../types/navigation";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { supabase } from "../initSupabase";
@@ -12,13 +12,19 @@ import {
   SectionContent,
   useTheme,
   themeColor,
+  TextInput,
 } from "react-native-rapi-ui";
 import { Ionicons } from "@expo/vector-icons";
+import { NFTData } from "../../constants"; 
+import { QuestionCard } from "../components";
 
 export default function ({
   navigation,
 }: NativeStackScreenProps<MainStackParamList, "MainTabs">) {
   const { isDarkmode, setTheme } = useTheme();
+  const [text, setText] = React.useState('');
+  const [questionData, setQuestionData] = React.useState(NFTData);
+
   return (
     <Layout>
       <TopNav
@@ -37,53 +43,48 @@ export default function ({
             setTheme("dark");
           }
         }}
+        
       />
-      <View
-        style={{
-          flex: 1,
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Section style={{ marginTop: 20 }}>
-          <SectionContent>
-            <Text fontWeight="bold" style={{ textAlign: "center" }}>
-              These UI components provided by Rapi UI
-            </Text>
-            <Button
-              style={{ marginTop: 10 }}
-              text="Rapi UI Documentation"
-              status="info"
-              onPress={() => Linking.openURL("https://rapi-ui.kikiding.space/")}
-            />
-            <Button
-              text="Go to second screen"
-              onPress={() => {
-                navigation.navigate("SecondScreen");
-              }}
-              style={{
-                marginTop: 10,
-              }}
-            />
-            <Button
-              status="danger"
-              text="Logout"
-              onPress={async () => {
-                const { error } = await supabase.auth.signOut();
-                if (!error) {
-                  alert("Signed out!");
-                }
-                if (error) {
-                  alert(error.message);
-                }
-              }}
-              style={{
-                marginTop: 10,
-              }}
-            />
-          </SectionContent>
-        </Section>
+
+      <View style = {{
+        marginTop: 10
+      }}>
+        <TextInput
+            placeholder="Search for new questions"
+            value={text}
+            onChangeText={(val) => setText(val)}
+            leftContent={
+                <Ionicons name="search-outline" size={20} color={themeColor.gray300} />
+            }
+        />
       </View>
+
+      <View style={{ flex: 1 }}>
+        <View style={{ zIndex: 0 }}>
+          <FlatList
+            data={questionData}
+            renderItem={({ item }) => <QuestionCard data={item} />}
+            keyExtractor={(item) => item.id}
+            showsVerticalScrollIndicator={false}
+          />
+        </View>
+
+        <View
+          style={{
+            position: "absolute",
+            top: 0,
+            bottom: 0,
+            right: 0,
+            left: 0,
+            zIndex: -1,
+          }}
+        >
+          <View
+            style={{ height: 300, }} />
+          <View style={{ flex: 1, backgroundColor: themeColor.white100 }} />
+        </View>
+      </View>
+
     </Layout>
   );
 }
