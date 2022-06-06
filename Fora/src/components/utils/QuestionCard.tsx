@@ -4,7 +4,7 @@ import { View, Image, Text } from "react-native";
 import { Section, SectionContent, SectionImage } from "react-native-rapi-ui";
 import { COLORS, SIZES, SHADOWS, assets } from "../../../constants";
 
-const QuestionCard = ({ data }) => {
+const QuestionCard = ({ data } : {data: any}) => {
     const navigation = useNavigation();
 
     return (
