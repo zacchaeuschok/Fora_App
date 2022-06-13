@@ -13,8 +13,8 @@ Go to the Project Settings (the cog icon), open the API tab, and find your API U
 Create a .env file with the following
 ```bash
 # Update these with your Supabase details from your project settings > API
-REACT_NATIVE_SUPABASE_URL=https://your-project.supabase.co
-REACT_NATIVE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYwMzI2MTI0MCwiZXhwIjoxOTE4ODM3MjQwfQ.PjJY_7ZYozWqoMH4R0XqyBHYo8en5Mfd5iL8hZOh4Ic
+REACT_NATIVE_SUPABASE_URL=
+REACT_NATIVE_SUPABASE_ANON_KEY=
 ```
 Set `REACT_NATIVE_SUPABASE_URL` and `REACT_NATIVE_SUPABASE_ANON_KEY`.
 
