@@ -1,13 +1,14 @@
 import React from "react";
 import { View, Text, Image, TextInput } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { TouchableOpacity, TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
+import { ProfileButton } from "./Button";
 
 import { COLORS, FONTS, SIZES, assets } from "../constants";
 
-const HomeHeader = ({ data, onSearch }) => {
+const HomeHeader = ({ onSearch }) => {
   const navigation = useNavigation();
-  const onPress = navigation.navigate("Profile", { data });
+  const onPress = () => console.log("fuck")
 
   return (
     <View
@@ -30,15 +31,10 @@ const HomeHeader = ({ data, onSearch }) => {
         />
 
         <View style={{ width: 45, height: 45 }}>
-          <TouchableOpacity onPress={onPress}>
-            <Image
-              source={assets.person01}
-              resizeMode="contain"
-              style={{ width: "100%", height: "100%" }
-              // handlePress={() => navigation.navigate("Profile", { data })}
-              }
+          <ProfileButton 
+            imgUrl={assets.person02} 
+            handlePress={() => navigation.navigate("Profile")}
             />
-          </TouchableOpacity>
           <Image
             source={assets.badge}
             resizeMode="contain"
