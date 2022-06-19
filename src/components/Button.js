@@ -28,6 +28,31 @@ export const CircleButton = ({ imgUrl, handlePress, ...props }) => {
   );
 };
 
+export const ProfileButton = ({ imgUrl, handlePress, ...props }) => {
+  return (
+    <TouchableOpacity
+      style={{
+        width: 40,
+        height: 40,
+        backgroundColor: COLORS.white,
+        position: "absolute",
+        borderRadius: SIZES.extraLarge,
+        alignItems: "center",
+        justifyContent: "center",
+        ...SHADOWS.light,
+        ...props,
+      }}
+      onPress={handlePress}
+    >
+      <Image
+        source={imgUrl}
+        resizeMode="contain"
+        style={{ width: 40, height: 40 }}
+      />
+    </TouchableOpacity>
+  );
+};
+
 export const RectButton = ({ minWidth, fontSize, handlePress, ...props }) => {
   return (
     <TouchableOpacity
