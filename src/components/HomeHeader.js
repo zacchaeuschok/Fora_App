@@ -6,7 +6,7 @@ import { ProfileButton } from "./Button";
 
 import { COLORS, FONTS, SIZES, assets } from "../constants";
 
-const HomeHeader = ({ onSearch }) => {
+const HomeHeader = ({ onSearch}) => {
   const navigation = useNavigation();
   const onPress = () => console.log("fuck")
 
