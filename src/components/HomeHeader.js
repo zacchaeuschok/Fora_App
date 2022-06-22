@@ -10,7 +10,7 @@ import { useState, useEffect } from 'react'
 
 import { COLORS, FONTS, SIZES, assets } from "../constants";
 
-const HomeHeader = ({ onSearch }) => {
+const HomeHeader = ({ onSearch}) => {
   const navigation = useNavigation();
   const [username, setUsername] = useState("");
   const [session, setSession] = useState(null)

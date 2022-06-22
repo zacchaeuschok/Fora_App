@@ -3,6 +3,7 @@ import { View, Text, SafeAreaView, Image, StatusBar, FlatList } from "react-nati
 
 import { COLORS, SIZES, assets, SHADOWS, FONTS } from "../constants";
 import { CircleButton, RectButton, SubInfo, DetailsDesc, DetailsBid, FocusedStatusBar } from "../components";
+import CreatePoll from "./CreatePoll";
 
 const DetailsHeader = ({ data, navigation }) => (
   <View style={{ width: "100%", height: 373 }}>
@@ -38,21 +39,6 @@ const Details = ({ route, navigation }) => {
         translucent={true}
       />
 
-      <View
-        style={{
-          width: "100%",
-          position: "absolute",
-          bottom: 0,
-          paddingVertical: SIZES.font,
-          justifyContent: "center",
-          alignItems: "center",
-          backgroundColor: "rgba(255,255,255,0.5)",
-          zIndex: 1,
-        }}
-      >
-        <RectButton minWidth={170} fontSize={SIZES.large} {...SHADOWS.dark} />
-      </View>
-
       <FlatList
         data={data.bids}
         // renderItem={({ item }) => <DetailsBid bid={item} />}
@@ -67,8 +53,7 @@ const Details = ({ route, navigation }) => {
             <SubInfo />
             <View style={{ padding: SIZES.font }}>
               <DetailsDesc data={data} />
-
-              {/* {data.bids.length > 0 && (
+              {data.bids.length > 0 && (
                 <Text
                   style={{
                     fontSize: SIZES.font,
@@ -76,9 +61,10 @@ const Details = ({ route, navigation }) => {
                     color: COLORS.primary,
                   }}
                 >
-                  Current Bid
+                  Polling
                 </Text>
-              )} */}
+              )}
+              <CreatePoll />
             </View>
           </React.Fragment>
         )}
