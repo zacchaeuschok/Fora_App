@@ -7,6 +7,9 @@ import { AuthProvider } from "./src/provider/AuthProvider";
 import Navigation from "./src/navigation";
 import { ThemeProvider } from "react-native-rapi-ui";
 
+// import { useState, useEffect } from 'react';
+// import { Session } from '@supabase/supabase-js'
+// import { supabase } from './src/initSupabase'
 // import Home from "./screens/Home";
 // import Details from "./screens/Details";
 
@@ -29,7 +32,7 @@ const App = () => {
     InterLight: require("./src/assets/fonts/Inter-Light.ttf"),
   });
 
-  if (!loaded) return null;
+  // if (!loaded) return null;
 
   return (
     <ThemeProvider>
