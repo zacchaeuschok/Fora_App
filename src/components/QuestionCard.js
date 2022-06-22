@@ -69,8 +69,4 @@ const QuestionCard = ({ data }) => {
   );
 };
 
-<<<<<<< HEAD:src/components/QuestionCard.js
 export default QuestionCard;
-=======
-export default NFTCard;
->>>>>>> 7c572b1 (Update NFTCard.js):src/components/NFTCard.js
