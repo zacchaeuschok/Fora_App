@@ -5,8 +5,13 @@ import Home from "../screens/Home";
 import Details from "../screens/Details"
 import Profile from "../screens/Profile"
 
+// import { useState, useEffect } from 'react';
+// import { Session } from '@supabase/supabase-js'
+// import { supabase } from '../initSupabase'
+
 const MainStack = createNativeStackNavigator();
 const Main = () => {
+
   return (
     <MainStack.Navigator
       screenOptions={{
