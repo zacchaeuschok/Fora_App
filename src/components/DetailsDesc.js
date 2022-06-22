@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, Text } from "react-native";
 
-import { EthPrice, NFTTitle } from "./SubInfo";
+import { EthPrice, QuestionTitle } from "./SubInfo";
 import { COLORS, SIZES, FONTS } from "../constants";
 
 const DetailsDesc = ({ data }) => {
@@ -18,9 +18,9 @@ const DetailsDesc = ({ data }) => {
           alignItems: "center",
         }}
       >
-        <NFTTitle
-          title={data.name}
-          subTitle={data.creator}
+        <QuestionTitle
+          title={data.category}
+          subTitle={data.question}
           titleSize={SIZES.extraLarge}
           subTitleSize={SIZES.font}
         />

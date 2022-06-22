@@ -1,14 +1,14 @@
 import assets from "./assets";
 
-const NFTData = [
+const QuestionData = [
   {
-    id: "NFT-01",
-    name: "Abstracto #312",
-    creator: "Putri Intan",
+    id: "Q-01",
+    category: "Economics",
+    question: "Will inflation rise more than 0.8% in July?",
     price: 4.25,
     description:
       "The action painter abstract expressionists were directly influenced by automatism. Pollock channelled this into producing gestural. The action painter abstract expressionists were directly influenced by automatism. Pollock channelled this into producing gestural. The action painter abstract expressionists were directly influenced by automatism. Pollock channelled this into producing gestural.",
-    image: assets.nft01,
+    image: assets.img01,
     bids: [
       {
         id: "BID-11",
@@ -34,13 +34,13 @@ const NFTData = [
     ],
   },
   {
-    id: "NFT-02",
-    name: "Green Coins",
-    creator: "Siti Nurhaliza",
+    id: "Q-02",
+    category: "Politics",
+    question: "Will Lawrence Wong lead the next General Elections?",
     price: 7.25,
     description:
       "The action painter abstract expressionists were directly influenced by automatism. Pollock channelled this into producing gestural. Nulla sed velit erat vitae leo sem inceptos diam fames arcu hendrerit, quis ultrices in eleifend posuere ipsum conubia porttitor felis.",
-    image: assets.nft02,
+    image: assets.img02,
     bids: [
       {
         id: "BID-21",
@@ -52,13 +52,13 @@ const NFTData = [
     ],
   },
   {
-    id: "NFT-03",
-    name: "NFT coins race",
-    creator: "Elisabeth aho",
+    id: "Q-03",
+    category: "Climate",
+    question: "Will the high temp in Singapore be <34° on Sun?",
     price: 95.25,
     description:
       "The action painter abstract expressionists were directly influenced by automatism. Pollock channelled this into producing gestural. Lorem ipsum dolor sit amet consectetur adipiscing elit consequat accumsan sapien, lectus convallis malesuada odio curae habitasse dignissim nascetur. Nulla sed velit erat vitae leo sem inceptos diam fames arcu hendrerit, quis ultrices in eleifend posuere ipsum conubia porttitor felis. Lorem ipsum dolor sit amet consectetur adipiscing elit consequat accumsan sapien, lectus convallis malesuada odio curae habitasse dignissim nascetur. Nulla sed velit erat vitae leo sem inceptos diam fames arcu hendrerit, quis ultrices in eleifend posuere ipsum conubia porttitor felis.",
-    image: assets.nft03,
+    image: assets.img03,
     bids: [
       {
         id: "BID-31",
@@ -77,13 +77,13 @@ const NFTData = [
     ],
   },
   {
-    id: "NFT-04",
-    name: "Nifty NFT",
-    creator: "Putri Intan",
+    id: "Q-04",
+    category: "Economics",
+    question: "Will Singapore go into a recession in 2022?",
     price: 54.25,
     description:
       "The action painter abstract expressionists were directly influenced by automatism. Pollock channelled this into producing gestural.Lorem ipsum dolor sit amet consectetur adipiscing elit consequat accumsan sapien, lectus convallis malesuada odio curae habitasse dignissim nascetur.",
-    image: assets.nft04,
+    image: assets.img04,
     bids: [
       {
         id: "BID-41",
@@ -116,13 +116,13 @@ const NFTData = [
     ],
   },
   {
-    id: "NFT-05",
-    name: "Colorful circles",
-    creator: "David doe",
+    id: "Q-05",
+    category: "COVID-19",
+    question: "Will the CDC identify a variant of high consequence by September 30, 2022?",
     price: 10.25,
     description:
       "The action painter abstract expressionists were directly influenced by automatism. Pollock channelled this into producing gestural.",
-    image: assets.nft05,
+    image: assets.img05,
     bids: [
       {
         id: "BID-51",
@@ -134,13 +134,13 @@ const NFTData = [
     ],
   },
   {
-    id: "NFT-06",
-    name: "Black box model",
-    creator: "Leo Messi",
+    id: "Q-06",
+    category: "Climate",
+    question: "Will 2022 be the hottest year on record?",
     price: 20.25,
     description:
       "The action painter abstract expressionists were directly influenced by automatism. Pollock channelled this into producing gestural. Lorem ipsum dolor sit amet consectetur adipiscing elit consequat accumsan sapien, lectus convallis malesuada odio curae habitasse dignissim nascetur. Nulla sed velit erat vitae leo sem inceptos diam fames arcu hendrerit, quis ultrices in eleifend posuere ipsum conubia porttitor felis.",
-    image: assets.nft06,
+    image: assets.img06,
     bids: [
       {
         id: "BID-61",
@@ -180,15 +180,15 @@ const NFTData = [
     ],
   },
   {
-    id: "NFT-07",
-    name: "Abstracto soulful art",
-    creator: "Victor de la Cruz",
+    id: "Q-07",
+    category: "COVID-19",
+    question: "Will the CDC identify a variant of high consequence by August 15, 2022?",
     price: 18.25,
     description:
       "The action painter abstract expressionists were directly influenced by automatism. Pollock channelled this into producing gestural. Lorem ipsum dolor sit amet consectetur adipiscing elit consequat accumsan sapien, lectus convallis malesuada odio curae habitasse dignissim nascetur. Nulla sed velit erat vitae leo sem inceptos diam fames arcu hendrerit, quis ultrices in eleifend posuere ipsum conubia porttitor felis. Ullamcorper platea penatibus ornare egestas nulla ligula hendrerit nisl suscipit sociosqu maximus, tincidunt aptent habitant purus pharetra ultrices dapibus laoreet nisi lacinia. Porta malesuada netus vel sapien conubia porttitor aliquam ut pretium ante litora molestie senectus magna egestas sociosqu, eget aliquet fames pharetra felis posuere varius fringilla quisque in arcu montes eu ullamcorper.",
-    image: assets.nft07,
+    image: assets.img07,
     bids: [],
   },
 ];
 
-export { NFTData };
+export { QuestionData };

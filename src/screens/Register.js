@@ -23,15 +23,24 @@ import { registerAsset } from "react-native-web/dist/cjs/modules/AssetRegistry";
 const Register = ({ navigation }) => {
     const { isDarkmode, setTheme } = useTheme();
     const [email, setEmail] = useState("");
+    const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
 
     async function register() {
         setLoading(true);
-        const { user, error } = await supabase.auth.signUp({
-          email: email,
-          password: password,
-        });
+        const { user, error } = await supabase.auth.signUp(
+          
+          {
+            email: email,
+            password: password,
+          },
+          {
+            data: {
+              username: "morbius"
+            }
+          }
+       );
         if (!error && !user) {
           setLoading(false);
           alert("Check your email for the login link!");
@@ -95,7 +104,16 @@ const Register = ({ navigation }) => {
                   keyboardType="email-address"
                   onChangeText={(text) => setEmail(text)}
                 />
-    
+                <Text style={{ marginTop: 15 }}>Username</Text>
+                <TextInput
+                  containerStyle={{ marginTop: 15 }}
+                  placeholder="Enter your username"
+                  value={username}
+                  autoCapitalize="none"
+                  autoCompleteType="off"
+                  autoCorrect={false}
+                  onChangeText={(text) => setUsername(text)}
+                />
                 <Text style={{ marginTop: 15 }}>Password</Text>
                 <TextInput
                   containerStyle={{ marginTop: 15 }}
