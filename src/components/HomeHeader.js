@@ -4,11 +4,51 @@ import { TouchableOpacity, TouchableWithoutFeedback } from "react-native-gesture
 import { useNavigation } from "@react-navigation/native";
 import { ProfileButton } from "./Button";
 
+import { ApiError, Session } from "@supabase/supabase-js";
+import { supabase } from "../initSupabase";
+import { useState, useEffect } from 'react'
+
 import { COLORS, FONTS, SIZES, assets } from "../constants";
 
 const HomeHeader = ({ onSearch}) => {
   const navigation = useNavigation();
-  const onPress = () => console.log("fuck")
+  const [username, setUsername] = useState("");
+  const [session, setSession] = useState(null)
+
+  useEffect(() => {
+    setSession(supabase.auth.session())
+
+    supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session)
+    })
+  }, [])
+
+  useEffect(() => {
+    if (session) getUsername();
+  }, [session]);
+
+  async function getUsername() {
+    try {
+      const user = supabase.auth.user();
+      if (!user) throw new Error("No user on the session!");
+
+      let { data, error, status } = await supabase
+        .from("profiles")
+        .select(`username`)
+        .eq("id", user.id)
+        .single();
+
+      if (error && status !== 406) {
+        throw error;
+      }
+
+      if (data) {
+        setUsername(data.username)
+      }
+    } catch (error) {
+      alert(error);
+    } 
+  }
 
   return (
     <View
@@ -27,7 +67,7 @@ const HomeHeader = ({ onSearch}) => {
         <Image
           source={assets.logo}
           resizeMode="contain"
-          style={{ width: 90, height: 25 }}
+          style={{ width: 80, height: 50 }}
         />
 
         <View style={{ width: 45, height: 45 }}>
@@ -57,7 +97,7 @@ const HomeHeader = ({ onSearch}) => {
             color: COLORS.white,
           }}
         >
-          Hello Victoria 👋
+          Hello {username} 👋
         </Text>
 
         <Text
@@ -68,7 +108,7 @@ const HomeHeader = ({ onSearch}) => {
             marginTop: SIZES.base / 2,
           }}
         >
-          Let’s find masterpiece Art
+          Let’s discover questions
         </Text>
       </View>
 
@@ -90,7 +130,7 @@ const HomeHeader = ({ onSearch}) => {
             style={{ width: 20, height: 20, marginRight: SIZES.base }}
           />
           <TextInput
-            placeholder="Search NFTs"
+            placeholder="Search Categories"
             style={{ flex: 1 }}
             onChangeText={onSearch}
           />
