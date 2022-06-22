@@ -3,7 +3,7 @@ import { View, Image, Text } from "react-native";
 
 import { SIZES, FONTS, COLORS, SHADOWS, assets } from "../constants";
 
-export const NFTTitle = ({ title, subTitle, titleSize, subTitleSize }) => {
+export const QuestionTitle = ({ title, subTitle, titleSize, subTitleSize }) => {
   return (
     <View>
       <Text
@@ -22,7 +22,7 @@ export const NFTTitle = ({ title, subTitle, titleSize, subTitleSize }) => {
           color: COLORS.primary,
         }}
       >
-        by {subTitle}
+        {subTitle}
       </Text>
     </View>
   );
@@ -120,10 +120,11 @@ export const SubInfo = () => {
         paddingHorizontal: SIZES.font,
         marginTop: -SIZES.extraLarge,
         flexDirection: "row",
-        justifyContent: "space-between",
+        justifyContent: "flex-end",
+        // space-between
       }}
     >
-      <People />
+      {/* <People /> */}
       <EndDate />
     </View>
   );

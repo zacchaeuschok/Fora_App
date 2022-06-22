@@ -3,10 +3,10 @@ import { useNavigation } from "@react-navigation/native";
 import { View, Image } from "react-native";
 
 import { COLORS, SIZES, SHADOWS, assets } from "../constants";
-import { SubInfo, EthPrice, NFTTitle } from "./SubInfo";
+import { SubInfo, EthPrice, QuestionTitle } from "./SubInfo";
 import { RectButton, CircleButton } from "./Button";
 
-const NFTCard = ({ data }) => {
+const QuestionCard = ({ data }) => {
   const navigation = useNavigation();
 
   return (
@@ -42,9 +42,9 @@ const NFTCard = ({ data }) => {
       <SubInfo />
 
       <View style={{ width: "100%", padding: SIZES.font }}>
-        <NFTTitle
-          title={data.name}
-          subTitle={data.creator}
+        <QuestionTitle
+          title={data.category}
+          subTitle={data.question}
           titleSize={SIZES.large}
           subTitleSize={SIZES.small}
         />
@@ -69,4 +69,8 @@ const NFTCard = ({ data }) => {
   );
 };
 
+<<<<<<< HEAD:src/components/QuestionCard.js
+export default QuestionCard;
+=======
 export default NFTCard;
+>>>>>>> 7c572b1 (Update NFTCard.js):src/components/NFTCard.js
