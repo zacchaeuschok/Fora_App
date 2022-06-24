@@ -10,11 +10,8 @@ import { CircleButton, RectButton, SubInfo, DetailsDesc, DetailsBid, FocusedStat
 import { COLORS, SIZES, assets, SHADOWS, FONTS } from "../constants";
 
 const choices: Array<IChoice> = [
-    { id: 1, choice: "Nike", votes: 12 },
-    { id: 2, choice: "Adidas", votes: 1 },
-    { id: 3, choice: "Puma", votes: 3 },
-    { id: 4, choice: "Reebok", votes: 5 },
-    { id: 5, choice: "Under Armour", votes: 9 },
+    { id: 1, choice: "Yes, it will", votes: 12 },
+    { id: 2, choice: "No, it won't", votes: 1 },
   ];
 
 const CreatePoll = ({ }) => {
@@ -25,24 +22,6 @@ const CreatePoll = ({ }) => {
             backgroundColor="transparent"
             translucent={true}
             />
-            <View
-                style={{
-                  flex: 1,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  backgroundColor: "transparent",
-                }}
-              >
-                <Text
-                    style={{
-                        marginTop: 32,
-                        fontSize: 20,
-                        fontFamily: FONTS.semiBold,
-                    }}
-                    >
-                    What is your favorite sport brand?
-                </Text>
-              </View>
               <View
                 style={{
                   flex: 3,
@@ -52,7 +31,7 @@ const CreatePoll = ({ }) => {
                 }}
               >
                 <RNPoll
-                    appearFrom="top"
+                    appearFrom = "left"
                     totalVotes={30}
                     animationDuration={750}
                     choices={choices}

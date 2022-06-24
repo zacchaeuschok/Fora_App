@@ -39,7 +39,7 @@ const QuestionCard = ({ data }) => {
         <CircleButton imgUrl={assets.heart} right={10} top={10} />
       </View>
 
-      <SubInfo />
+      <SubInfo date = {data.expire_at} />
 
       <View style={{ width: "100%", padding: SIZES.font }}>
         <QuestionTitle

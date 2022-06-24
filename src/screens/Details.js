@@ -8,7 +8,7 @@ import CreatePoll from "./CreatePoll";
 const DetailsHeader = ({ data, navigation }) => (
   <View style={{ width: "100%", height: 373 }}>
     <Image
-      source={data.image}
+      source={{uri: data.image}}
       resizeMode="cover"
       style={{ width: "100%", height: "100%" }}
     />
@@ -40,8 +40,6 @@ const Details = ({ route, navigation }) => {
       />
 
       <FlatList
-        data={data.bids}
-        // renderItem={({ item }) => <DetailsBid bid={item} />}
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
@@ -50,20 +48,18 @@ const Details = ({ route, navigation }) => {
         ListHeaderComponent={() => (
           <React.Fragment>
             <DetailsHeader data={data} navigation={navigation} />
-            <SubInfo />
+            <SubInfo date = {data.expire_at}/>
             <View style={{ padding: SIZES.font }}>
               <DetailsDesc data={data} />
-              {data.bids.length > 0 && (
-                <Text
-                  style={{
-                    fontSize: SIZES.font,
-                    fontFamily: FONTS.semiBold,
-                    color: COLORS.primary,
-                  }}
-                >
-                  Polling
-                </Text>
-              )}
+              <Text
+                style={{
+                  fontSize: SIZES.font,
+                  fontFamily: FONTS.semiBold,
+                  color: COLORS.primary,
+                }}
+              >
+                Polling
+              </Text>
               <CreatePoll />
             </View>
           </React.Fragment>
