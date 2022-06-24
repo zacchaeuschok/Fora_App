@@ -26,7 +26,7 @@ const QuestionCard = ({ data }) => {
         }}
       >
         <Image
-          source={data.image}
+          source={{uri: data.image}}
           resizeMode="cover"
           style={{
             width: "100%",
@@ -57,7 +57,7 @@ const QuestionCard = ({ data }) => {
             alignItems: "center",
           }}
         >
-          <EthPrice price={data.price} />
+          <EthPrice price={data.points} />
           <RectButton
             minWidth={120}
             fontSize={SIZES.font}
