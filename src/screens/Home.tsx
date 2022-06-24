@@ -22,6 +22,7 @@ type Question = {
 const Home = () => {
   const { user } = useUser()
   const [questionData, setQuestionData] = useState<Array<Question>>([]);
+  const [originalData, setOriginalData] = useState<Array<Question>>([]);
 
   useEffect(() => {
     fetchQuestions()
@@ -33,15 +34,18 @@ const Home = () => {
       .select('*')
       .order('question_id', { ascending: false })
     if (error) console.log('error', error)
-    else setQuestionData(questionData!)
+    else {
+      setQuestionData(questionData!)
+      setOriginalData(questionData!)
+    }
   }
 
   const handleSearch = (value) => {
     if (value.length === 0) {
-      setQuestionData(questionData);
+      setQuestionData(originalData);
     }
 
-    const filteredData = questionData.filter((item) =>
+    const filteredData = originalData.filter((item) =>
       item.category.toLowerCase().includes(value.toLowerCase())
     );
 
