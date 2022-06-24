@@ -41,7 +41,7 @@ const Register = ({ navigation }) => {
             }
           }
        );
-        if (!error && !user) {
+        if (!user && !error ) {
           setLoading(false);
           alert("Check your email for the login link!");
         }
