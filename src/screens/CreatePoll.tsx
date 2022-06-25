@@ -8,6 +8,7 @@ import RNPoll, { IChoice } from "react-native-poll";
 import RNAnimated from "react-native-animated-component";
 import { CircleButton, RectButton, SubInfo, DetailsDesc, DetailsBid, FocusedStatusBar } from "../components";
 import { COLORS, SIZES, assets, SHADOWS, FONTS } from "../constants";
+import { supabase } from "../initSupabase";
 
 const choices: Array<IChoice> = [
     { id: 1, choice: "Yes, it will", votes: 12 },
@@ -15,6 +16,11 @@ const choices: Array<IChoice> = [
   ];
 
 const CreatePoll = () => {
+
+  const test = (selectedChoice) => {
+    console.log("SelectedChoice: ", selectedChoice)
+  };
+
   return (
       <SafeAreaView style={{ flex: 1 }}>
           <FocusedStatusBar
@@ -41,7 +47,7 @@ const CreatePoll = () => {
                       fontFamily: FONTS.semiBold,
                   }}
                   onChoicePress={(selectedChoice: IChoice) =>
-                      console.log("SelectedChoice: ", selectedChoice)
+                      test(selectedChoice)
                   }
               />
             </View>

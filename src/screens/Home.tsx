@@ -4,7 +4,6 @@ import { View, SafeAreaView, FlatList } from "react-native";
 import { QuestionCard, HomeHeader, FocusedStatusBar } from "../components";
 import { COLORS, QuestionData } from "../constants";
 
-import { useUser } from '../provider/UserContext';
 import { supabase } from "../initSupabase";
 
 type Question = {
@@ -20,7 +19,6 @@ type Question = {
 }
 
 const Home = () => {
-  const { user } = useUser()
   const [questionData, setQuestionData] = useState<Array<Question>>([]);
   const [originalData, setOriginalData] = useState<Array<Question>>([]);
 
