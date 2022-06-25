@@ -21,6 +21,7 @@ import {
   useTheme,
   themeColor,
 } from "react-native-rapi-ui";
+import { Userpoint } from "../components/Userpoint";
 
 
 
@@ -169,6 +170,7 @@ export default function Profile() {
               }}
               disabled={loading}
             />
+            <Userpoint/>
           </View>         
         </ScrollView>
       </Layout>

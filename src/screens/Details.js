@@ -60,7 +60,7 @@ const Details = ({ route, navigation }) => {
               >
                 Polling
               </Text>
-              <CreatePoll />
+              <CreatePoll/>
             </View>
           </React.Fragment>
         )}
