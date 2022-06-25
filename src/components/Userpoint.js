@@ -43,38 +43,47 @@ export const Userpoint = () => {
     } 
   }
   return (
-    <View
-      style={{
-        marginTop: 10,
-        paddingHorizontal: SIZES.font,
-        paddingVertical: SIZES.base,
-        backgroundColor: COLORS.white,
-        borderRadius: SIZES.font,
-        justifyContent: "center",
-        alignItems: "center",
-        ...SHADOWS.light,
-        elevation: 10,
-        maxWidth: "50%",
-      }}
-    >
-      <Text
+    <View style={{
+      width: "100%",
+      paddingHorizontal: SIZES.font,
+      marginTop: 10,
+      flexDirection: "row",
+      justifyContent: "center",
+      // space-between
+    }}>
+      <View
         style={{
-          fontFamily: FONTS.regular,
-          fontSize: SIZES.small,
-          color: COLORS.primary,
+          marginTop: 10,
+          paddingHorizontal: SIZES.font,
+          paddingVertical: SIZES.base,
+          backgroundColor: COLORS.white,
+          borderRadius: SIZES.font,
+          justifyContent: "center",
+          alignItems: "center",
+          ...SHADOWS.light,
+          elevation: 10,
+          maxWidth: "50%",
         }}
       >
-        Current point
-      </Text>
-      <Text
-        style={{
-          fontFamily: FONTS.semiBold,
-          fontSize: SIZES.medium,
-          color: COLORS.primary,
-        }}
-      >
-        {point} 
-      </Text>
+        <Text
+          style={{
+            fontFamily: FONTS.regular,
+            fontSize: SIZES.small,
+            color: COLORS.primary,
+          }}
+        >
+          Current point
+        </Text>
+        <Text
+          style={{
+            fontFamily: FONTS.semiBold,
+            fontSize: SIZES.medium,
+            color: COLORS.primary,
+          }}
+        >
+          {point} 
+        </Text>
+      </View>
     </View>
   );
 };
