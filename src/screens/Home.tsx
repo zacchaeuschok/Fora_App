@@ -1,23 +1,54 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, SafeAreaView, FlatList } from "react-native";
 
 import { QuestionCard, HomeHeader, FocusedStatusBar } from "../components";
 import { COLORS, QuestionData } from "../constants";
 
+import { supabase } from "../initSupabase";
+
+type Question = {
+  question_id: number,
+  category: string,
+  question: string,
+  description: string,
+  image: string,
+  created_at: Date,
+  expire_at: Date,
+  choice: number,
+  points: number
+}
+
 const Home = () => {
-  const [questionData, setQuestionData] = useState(QuestionData);
+  const [questionData, setQuestionData] = useState<Array<Question>>([]);
+  const [originalData, setOriginalData] = useState<Array<Question>>([]);
+
+  useEffect(() => {
+    fetchQuestions()
+  }, [])
+
+  const fetchQuestions = async () => {
+    const { data: questionData, error } = await supabase
+      .from<Question>('questions')
+      .select('*')
+      .order('question_id', { ascending: false })
+    if (error) console.log('error', error)
+    else {
+      setQuestionData(questionData!)
+      setOriginalData(questionData!)
+    }
+  }
 
   const handleSearch = (value) => {
     if (value.length === 0) {
-      setQuestionData(QuestionData);
+      setQuestionData(originalData);
     }
 
-    const filteredData = QuestionData.filter((item) =>
+    const filteredData = originalData.filter((item) =>
       item.category.toLowerCase().includes(value.toLowerCase())
     );
 
     if (filteredData.length === 0) {
-      setQuestionData(QuestionData);
+      setQuestionData(questionData);
     } else {
       setQuestionData(filteredData);
     }
@@ -31,7 +62,7 @@ const Home = () => {
           <FlatList
             data={questionData}
             renderItem={({ item }) => <QuestionCard data={item} />}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item) => `${item.question_id}`}
             showsVerticalScrollIndicator={false}
             ListHeaderComponent={<HomeHeader onSearch={handleSearch}/>}
           />
