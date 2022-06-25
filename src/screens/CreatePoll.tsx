@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
     View,
     Text,
@@ -14,38 +14,38 @@ const choices: Array<IChoice> = [
     { id: 2, choice: "No, it won't", votes: 1 },
   ];
 
-const CreatePoll = ({ }) => {
-    return (
-        <SafeAreaView style={{ flex: 1 }}>
-            <FocusedStatusBar
-            barStyle="dark-content"
-            backgroundColor="transparent"
-            translucent={true}
-            />
-              <View
-                style={{
-                  flex: 3,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  backgroundColor: "transparent" ,
-                }}
-              >
-                <RNPoll
-                    appearFrom = "left"
-                    totalVotes={30}
-                    animationDuration={750}
-                    choices={choices}
-                    PollContainer={RNAnimated}
-                    PollItemContainer={RNAnimated}
-                    choiceTextStyle={{
-                        fontFamily: FONTS.semiBold,
-                    }}
-                    onChoicePress={(selectedChoice: IChoice) =>
-                        console.log("SelectedChoice: ", selectedChoice)
-                    }
-                />
-              </View>
-        </SafeAreaView>
-    )
+const CreatePoll = () => {
+  return (
+      <SafeAreaView style={{ flex: 1 }}>
+          <FocusedStatusBar
+          barStyle="dark-content"
+          backgroundColor="transparent"
+          translucent={true}
+          />
+            <View
+              style={{
+                flex: 3,
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor: "transparent" ,
+              }}
+            >
+              <RNPoll
+                  appearFrom = "left"
+                  totalVotes={30}
+                  animationDuration={750}
+                  choices={choices}
+                  PollContainer={RNAnimated}
+                  PollItemContainer={RNAnimated}
+                  choiceTextStyle={{
+                      fontFamily: FONTS.semiBold,
+                  }}
+                  onChoicePress={(selectedChoice: IChoice) =>
+                      console.log("SelectedChoice: ", selectedChoice)
+                  }
+              />
+            </View>
+      </SafeAreaView>
+  )
 };
 export default CreatePoll;
