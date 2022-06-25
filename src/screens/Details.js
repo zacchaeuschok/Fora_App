@@ -4,7 +4,6 @@ import { View, Text, SafeAreaView, Image, StatusBar, FlatList } from "react-nati
 import { COLORS, SIZES, assets, SHADOWS, FONTS } from "../constants";
 import { CircleButton, RectButton, SubInfo, DetailsDesc, DetailsBid, FocusedStatusBar } from "../components";
 import CreatePoll from "./CreatePoll";
-import { Userpoint } from "../components/Userpoint";
 
 
 const DetailsHeader = ({ data, navigation }) => (
@@ -62,8 +61,7 @@ const Details = ({ route, navigation }) => {
               >
                 Polling
               </Text>
-              <CreatePoll/>
-              <Userpoint/>
+              <CreatePoll data={data}/>
             </View>
           </React.Fragment>
         )}
