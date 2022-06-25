@@ -26,7 +26,7 @@ const QuestionCard = ({ data }) => {
         }}
       >
         <Image
-          source={data.image}
+          source={{uri: data.image}}
           resizeMode="cover"
           style={{
             width: "100%",
@@ -39,7 +39,7 @@ const QuestionCard = ({ data }) => {
         <CircleButton imgUrl={assets.heart} right={10} top={10} />
       </View>
 
-      <SubInfo />
+      <SubInfo date = {data.expire_at} />
 
       <View style={{ width: "100%", padding: SIZES.font }}>
         <QuestionTitle
@@ -57,7 +57,7 @@ const QuestionCard = ({ data }) => {
             alignItems: "center",
           }}
         >
-          <EthPrice price={data.price} />
+          <EthPrice price={data.points} />
           <RectButton
             minWidth={120}
             fontSize={SIZES.font}

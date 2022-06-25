@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Image, Text } from "react-native";
 
 import { SIZES, FONTS, COLORS, SHADOWS, assets } from "../constants";
@@ -75,7 +75,7 @@ export const People = () => {
   );
 };
 
-export const EndDate = () => {
+export const EndDate = ({date}) => {
   return (
     <View
       style={{
@@ -106,13 +106,13 @@ export const EndDate = () => {
           color: COLORS.primary,
         }}
       >
-        12h 30m
+        12 h 30 min
       </Text>
     </View>
   );
 };
 
-export const SubInfo = () => {
+export const SubInfo = ({date}) => {
   return (
     <View
       style={{
@@ -125,7 +125,7 @@ export const SubInfo = () => {
       }}
     >
       {/* <People /> */}
-      <EndDate />
+      <EndDate date = {date}/>
     </View>
   );
 };
