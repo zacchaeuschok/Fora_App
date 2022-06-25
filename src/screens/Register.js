@@ -37,7 +37,7 @@ const Register = ({ navigation }) => {
           },
           {
             data: {
-              username: "morbius"
+              username: username
             }
           }
        );
