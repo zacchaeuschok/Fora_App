@@ -22,11 +22,11 @@ const DetailsHeader = ({ data, navigation }) => (
       top={StatusBar.currentHeight + 10}
     />
 
-    <CircleButton
+    {/* <CircleButton
       imgUrl={assets.heart}
       right={15}
       top={StatusBar.currentHeight + 10}
-    />
+    /> */}
   </View>
 );
 
