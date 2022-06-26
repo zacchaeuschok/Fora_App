@@ -72,7 +72,7 @@ export const Userpoint = () => {
             color: COLORS.primary,
           }}
         >
-          Current point
+          Current points
         </Text>
         <Text
           style={{
