@@ -127,7 +127,7 @@ export default function Profile() {
               }}
               size="h3"
             >
-              Profile
+              Profolio
             </Text>
             {/* <Text style={{ marginTop: 15 }}>Email</Text>
             <TextInput
@@ -139,6 +139,7 @@ export default function Profile() {
              autoCorrect={false}
              keyboardType="email-address"
             /> */}
+            <Userpoint/>
             <Text style={{ marginTop: 15 }}>Username</Text>
             <TextInput
              containerStyle={{ marginTop: 15 }}
@@ -169,8 +170,7 @@ export default function Profile() {
                 marginTop: 20,
               }}
               disabled={loading}
-            />
-            <Userpoint/> 
+            /> 
           </View>        
         </ScrollView>
       </Layout>
