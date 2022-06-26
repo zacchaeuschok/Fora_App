@@ -1,0 +1,128 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  accessible={true}
+  focusable={false}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#FFF",
+      "borderRadius": 24,
+      "elevation": 3,
+      "height": 40,
+      "justifyContent": "center",
+      "opacity": 1,
+      "position": "absolute",
+      "shadowColor": "#74858C",
+      "shadowOffset": Object {
+        "height": 1,
+        "width": 0,
+      },
+      "shadowOpacity": 0.22,
+      "shadowRadius": 2.22,
+      "width": 40,
+    }
+  }
+  testID="circle"
+>
+  <Image
+    resizeMode="contain"
+    style={
+      Object {
+        "height": 24,
+        "width": 24,
+      }
+    }
+  />
+</View>
+`;
+
+exports[`renders correctly 2`] = `
+<View
+  accessible={true}
+  focusable={false}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "backgroundColor": "#001F2D",
+      "borderRadius": 24,
+      "minWidth": undefined,
+      "opacity": 1,
+      "padding": 12,
+    }
+  }
+  testID="rect"
+>
+  <Text
+    style={
+      Object {
+        "color": "#FFF",
+        "fontFamily": "InterSemiBold",
+        "fontSize": undefined,
+        "textAlign": "center",
+      }
+    }
+  >
+    Place a bid
+  </Text>
+</View>
+`;
+
+exports[`renders correctly 3`] = `
+<View
+  accessible={true}
+  focusable={false}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#FFF",
+      "borderRadius": 24,
+      "elevation": 3,
+      "height": 40,
+      "justifyContent": "center",
+      "opacity": 1,
+      "position": "absolute",
+      "shadowColor": "#74858C",
+      "shadowOffset": Object {
+        "height": 1,
+        "width": 0,
+      },
+      "shadowOpacity": 0.22,
+      "shadowRadius": 2.22,
+      "width": 40,
+    }
+  }
+  testID="profile"
+>
+  <Image
+    resizeMode="contain"
+    style={
+      Object {
+        "height": 40,
+        "width": 40,
+      }
+    }
+  />
+</View>
+`;

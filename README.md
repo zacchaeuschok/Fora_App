@@ -99,6 +99,7 @@ begin
 end;
 $$;
 
+DROP TRIGGER IF EXISTS on_auth_user_created on auth.users;
 -- trigger the function every time a user is created
 create trigger on_auth_user_created
   after insert on auth.users
