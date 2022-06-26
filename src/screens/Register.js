@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-// import { StatusBar } from "expo-status-bar";
+import { supabase } from "../initSupabase";
+
 import {
   ScrollView,
   TouchableOpacity,
@@ -7,9 +8,7 @@ import {
   KeyboardAvoidingView,
   Image,
 } from "react-native";
-import { supabase } from "../initSupabase";
-import { AuthStackParamList } from "../types/navigation";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
+
 import {
   Layout,
   Text,
@@ -18,7 +17,6 @@ import {
   useTheme,
   themeColor,
 } from "react-native-rapi-ui";
-import { registerAsset } from "react-native-web/dist/cjs/modules/AssetRegistry";
 
 const Register = ({ navigation }) => {
     const { isDarkmode, setTheme } = useTheme();
@@ -37,11 +35,11 @@ const Register = ({ navigation }) => {
           },
           {
             data: {
-              username: "morbius"
+              username: username    
             }
           }
        );
-        if (!user && !error ) {
+        if (!error && !user) {
           setLoading(false);
           alert("Check your email for the login link!");
         }
@@ -126,6 +124,7 @@ const Register = ({ navigation }) => {
                   onChangeText={(text) => setPassword(text)}
                 />
                 <Button
+                  testID = "Register.Button"
                   text={loading ? "Loading" : "Create an account"}
                   onPress={() => {
                     register();
