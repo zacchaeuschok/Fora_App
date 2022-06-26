@@ -69,7 +69,7 @@ const Details = ({ route, navigation }) => {
                   fontFamily: FONTS.regular,
                   lineHeight: SIZES.large,
                 }}
-              >Pick one of the choices listed below. </Text>
+              >Pick one of the choices listed below. {data.points} points will be deducted. </Text>
               <CreatePoll data={data}/>
             </View>
           </React.Fragment>
