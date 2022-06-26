@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "fora",
+    "name": "Fora",
     "slug": "fora",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./src/assets/icon.png",
+    "icon": "./src/assets/images/palantir.png",
     "splash": {
-      "image": "./src/assets/splash.png",
+      "image": "./src/assets/images/palantir.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#000000"
     },
     "updates": {
       "fallbackToCacheTimeout": 0

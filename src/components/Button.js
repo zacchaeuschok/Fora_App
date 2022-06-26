@@ -6,6 +6,7 @@ import { COLORS, SIZES, FONTS, SHADOWS } from "../constants";
 export const CircleButton = ({ imgUrl, handlePress, ...props }) => {
   return (
     <TouchableOpacity
+      testID="circle"
       style={{
         width: 40,
         height: 40,
@@ -31,6 +32,7 @@ export const CircleButton = ({ imgUrl, handlePress, ...props }) => {
 export const ProfileButton = ({ imgUrl, handlePress, ...props }) => {
   return (
     <TouchableOpacity
+      testID="profile"
       style={{
         width: 40,
         height: 40,
@@ -56,6 +58,7 @@ export const ProfileButton = ({ imgUrl, handlePress, ...props }) => {
 export const RectButton = ({ minWidth, fontSize, handlePress, ...props }) => {
   return (
     <TouchableOpacity
+      testID="rect"
       style={{
         backgroundColor: COLORS.primary,
         padding: SIZES.small,

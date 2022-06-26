@@ -35,8 +35,8 @@ const QuestionCard = ({ data }) => {
             borderTopRightRadius: SIZES.font,
           }}
         />
-
-        <CircleButton imgUrl={assets.heart} right={10} top={10} />
+{/* 
+        <CircleButton imgUrl={assets.heart} right={10} top={10} /> */}
       </View>
 
       <SubInfo date = {data.expire_at} />
