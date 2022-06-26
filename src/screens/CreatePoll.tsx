@@ -56,7 +56,11 @@ const CreatePoll = ({data}) => {
 
   const test = (selectedChoice) => {
     console.log("SelectedChoice: ", selectedChoice)
-    deductPoints();
+    if (point - questionPoints > 0) {
+      deductPoints()
+    } else {
+      setPoint(null);
+    };
   };
 
   return (
@@ -127,7 +131,7 @@ const CreatePoll = ({data}) => {
                     color: COLORS.primary,
                   }}
                 >
-                  {point !== null ? point : "Loading..."}
+                  {point !== null ? point : "Not enough point to bid!"}
                 </Text>
               </View>
             </View>
