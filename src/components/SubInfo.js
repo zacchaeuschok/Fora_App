@@ -106,7 +106,7 @@ export const EndDate = ({date}) => {
           color: COLORS.primary,
         }}
       >
-        {date}
+        {date.substring(0,10)}
       </Text>
     </View>
   );
