@@ -12,6 +12,7 @@ import { supabase } from "../initSupabase";
 import { ApiError, Session } from "@supabase/supabase-js";
 // import { useNavigation } from "@react-navigation/native";
 import 'react-native-url-polyfill/auto'
+import { Userpoint } from "../components/Userpoint";
 
 import {
   Layout,
@@ -169,7 +170,8 @@ export default function Profile() {
               }}
               disabled={loading}
             />
-          </View>         
+            <Userpoint/> 
+          </View>        
         </ScrollView>
       </Layout>
     </KeyboardAvoidingView>

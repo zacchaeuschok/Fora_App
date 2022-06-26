@@ -108,7 +108,7 @@ const HomeHeader = ({ onSearch}) => {
             marginTop: SIZES.base / 2,
           }}
         >
-          Let’s discover questions
+          Let’s click on "Place a bid" to start bidding!
         </Text>
       </View>
 
