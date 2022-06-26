@@ -87,18 +87,19 @@ create policy "Anyone can update an avatar." on storage.objects
 ### 2. handle new users
 ```bash
 -- inserts a row into public.users
-create function public.handle_new_user() 
+create or replace function public.handle_new_user() 
 returns trigger 
 language plpgsql 
 security definer set search_path = public
 as $$
 begin
-  insert into public.profiles (id)
-  values (new.id);
+  insert into public.profiles (id, email, username)
+  values (new.id, new.email, new.raw_user_meta_data->>'username');
   return new;
 end;
 $$;
 
+DROP TRIGGER IF EXISTS on_auth_user_created on auth.users;
 -- trigger the function every time a user is created
 create trigger on_auth_user_created
   after insert on auth.users
@@ -136,13 +137,41 @@ create table choices (
 ### 5. votes table
 ```bash
 create table votes (
+  vote_id uuid,
   voter_id uuid references profiles (id) on delete cascade,
   choice_id uuid references choices (choice_id) on delete cascade,
   created_at timestamp with time zone,
   question_id bigint references questions (question_id) on delete cascade,
 
-  primary key (voter_id)
+  primary key (vote_id)
 );
+```
+
+### 6. deduct points function
+```bash
+create or replace function deduct_points(question_points_input bigint)
+returns bigint 
+language plpgsql
+as $$
+	declare
+                current_points bigint;
+	begin
+        --lookup user current points
+        select user_points
+        into current_points
+        from public.profiles
+        where id = auth.uid();
+        --deduct
+        current_points = current_points - question_points_input;
+        --update
+        update public.profiles
+        set user_points = current_points
+        where id = auth.uid();
+        --return new user point
+        return current_points;
+	end;
+$$;
+
 ```
 
 
