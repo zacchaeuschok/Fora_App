@@ -20,12 +20,13 @@ const DetailsHeader = ({ data, navigation }) => (
       left={15}
       top={StatusBar.currentHeight + 10}
     />
-
+    {/*
     <CircleButton
       imgUrl={assets.heart}
       right={15}
       top={StatusBar.currentHeight + 10}
     />
+    */}
   </View>
 );
 
@@ -61,6 +62,14 @@ const Details = ({ route, navigation }) => {
               >
                 Polling
               </Text>
+              <Text
+                style={{
+                  color: COLORS.secondary,
+                  fontSize: SIZES.small,
+                  fontFamily: FONTS.regular,
+                  lineHeight: SIZES.large,
+                }}
+              >Pick one of the choices listed below. </Text>
               <CreatePoll data={data}/>
             </View>
           </React.Fragment>
