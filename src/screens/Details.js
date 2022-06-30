@@ -50,7 +50,7 @@ const Details = ({ route, navigation }) => {
         ListHeaderComponent={() => (
           <React.Fragment>
             <DetailsHeader data={data} navigation={navigation} />
-            <SubInfo date = {data.expire_at}/>
+            <SubInfo question_id = {data.question_id}/>
             <View style={{ padding: SIZES.font }}>
               <DetailsDesc data={data} />
               <Text

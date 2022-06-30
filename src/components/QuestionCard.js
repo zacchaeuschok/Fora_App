@@ -40,7 +40,7 @@ const QuestionCard = ({ data }) => {
 
       </View>
 
-      <SubInfo date = {data.expire_at} />
+      <SubInfo question_id = {data.question_id} />
 
       <View style={{ width: "100%", padding: SIZES.font }}>
         <QuestionTitle

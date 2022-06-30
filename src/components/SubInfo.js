@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Image, Text } from "react-native";
 
 import { SIZES, FONTS, COLORS, SHADOWS, assets } from "../constants";
+import { supabase } from "../initSupabase";
 
 export const QuestionTitle = ({ title, subTitle, titleSize, subTitleSize }) => {
   return (
@@ -75,7 +76,20 @@ export const People = () => {
   );
 };
 
-export const EndDate = ({date}) => {
+export const EndDate = ({question_id}) => {
+  const [difference, setDifference] = useState(null);
+
+  useEffect(() => {
+    const duration = async () => {
+      const { data } = await supabase.rpc('duration', {id_input: question_id});
+      setDifference(data);
+      console.log(data)
+    };
+
+    duration();
+
+  },[]);
+
   return (
     <View
       style={{
@@ -106,13 +120,13 @@ export const EndDate = ({date}) => {
           color: COLORS.primary,
         }}
       >
-        {date.substring(0,10)}
+        {difference !== null ? difference.substring(0,6) + "s" : "loading"}
       </Text>
     </View>
   );
 };
 
-export const SubInfo = ({date}) => {
+export const SubInfo = ({question_id}) => {
   return (
     <View
       style={{
@@ -125,7 +139,7 @@ export const SubInfo = ({date}) => {
       }}
     >
       {/* <People /> */}
-      <EndDate date = {date}/>
+      <EndDate question_id = {question_id}/>
     </View>
   );
 };
