@@ -170,7 +170,7 @@ export default function Profile() {
                 marginTop: 20,
               }}
               disabled={loading}
-            /> 
+            />
           </View>        
         </ScrollView>
       </Layout>

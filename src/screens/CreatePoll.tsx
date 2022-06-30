@@ -122,7 +122,7 @@ const CreatePoll = ({data}) => {
                     color: COLORS.primary,
                   }}
                 >
-                  Current point
+                  Your points
                 </Text>
                 <Text
                   style={{
