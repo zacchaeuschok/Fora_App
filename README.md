@@ -87,18 +87,19 @@ create policy "Anyone can update an avatar." on storage.objects
 ### 2. handle new users
 ```bash
 -- inserts a row into public.users
-create function public.handle_new_user() 
+create or replace function public.handle_new_user() 
 returns trigger 
 language plpgsql 
 security definer set search_path = public
 as $$
 begin
-  insert into public.profiles (id)
-  values (new.id);
+  insert into public.profiles (id, username)
+  values (new.id, new.raw_user_meta_data->>'username');
   return new;
 end;
 $$;
 
+DROP TRIGGER IF EXISTS on_auth_user_created on auth.users;
 -- trigger the function every time a user is created
 create trigger on_auth_user_created
   after insert on auth.users
