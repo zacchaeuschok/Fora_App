@@ -127,7 +127,7 @@ export default function Profile() {
               }}
               size="h3"
             >
-              Profolio
+              Portfolio
             </Text>
             {/* <Text style={{ marginTop: 15 }}>Email</Text>
             <TextInput
