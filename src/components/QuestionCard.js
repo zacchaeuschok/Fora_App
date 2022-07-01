@@ -45,7 +45,7 @@ const QuestionCard = ({ data }) => {
       <View style={{ width: "100%", padding: SIZES.font }}>
         <QuestionTitle
           title={data.category}
-          subTitle={data.question}
+          subTitle={data.question + "\n\nExpire at: " + data.expire_at.substring(0,10)}
           titleSize={SIZES.large}
           subTitleSize={SIZES.small}
         />

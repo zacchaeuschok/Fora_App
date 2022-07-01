@@ -83,7 +83,6 @@ export const EndDate = ({question_id}) => {
     const duration = async () => {
       const { data } = await supabase.rpc('duration', {id_input: question_id});
       setDifference(data);
-      console.log(data)
     };
 
     duration();
