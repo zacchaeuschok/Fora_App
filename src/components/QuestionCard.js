@@ -1,13 +1,25 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { View, Image } from "react-native";
 
 import { COLORS, SIZES, SHADOWS, assets } from "../constants";
 import { SubInfo, EthPrice, QuestionTitle } from "./SubInfo";
 import { RectButton, CircleButton } from "./Button";
+import { supabase } from "../initSupabase";
 
 const QuestionCard = ({ data }) => {
   const navigation = useNavigation();
+  const [question_id, setQuestionID] = useState(data.question_id);
+  const [totalVotes, setTotalVotes] = useState(null); 
+
+  useEffect(() => {
+    const getTotalVotes = async () => {
+      const { data } = await supabase.rpc('get_total_votes', {id_input: question_id});
+      setTotalVotes(data);
+    };
+    getTotalVotes();
+  },[]);
+
 
   return (
     <View
@@ -58,7 +70,7 @@ const QuestionCard = ({ data }) => {
             alignItems: "center",
           }}
         >
-          <EthPrice price={data.points} />
+          <EthPrice price={totalVotes} />
           <RectButton
             minWidth={120}
             fontSize={SIZES.font}

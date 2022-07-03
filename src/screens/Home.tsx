@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, SafeAreaView, FlatList } from "react-native";
 
 import { QuestionCard, HomeHeader, FocusedStatusBar } from "../components";
-import { COLORS, QuestionData } from "../constants";
+import { COLORS } from "../constants";
 
 import { supabase } from "../initSupabase";
 
