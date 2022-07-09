@@ -3,7 +3,7 @@ import { View, Text, SafeAreaView, Image, StatusBar, FlatList } from "react-nati
 
 import { COLORS, SIZES, assets, SHADOWS, FONTS } from "../constants";
 import { CircleButton, RectButton, SubInfo, DetailsDesc, DetailsBid, FocusedStatusBar } from "../components";
-import CreatePoll from "./Poll";
+import CreatePoll from "../components/Poll";
 
 
 const DetailsHeader = ({ data, navigation }) => (
