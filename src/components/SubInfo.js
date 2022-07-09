@@ -119,7 +119,7 @@ export const EndDate = ({question_id}) => {
           color: COLORS.primary,
         }}
       >
-        {difference !== null ? difference.substring(0,6) + "s" : "loading"}
+        { difference !== null ? ((difference.substring(0,6).slice(-1) == 's') ? difference.substring(0,6): difference.substring(0,7)) : "loading"}
       </Text>
     </View>
   );
