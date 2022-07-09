@@ -8,11 +8,25 @@ import {
   Alert,
   StyleSheet
 } from "react-native";
-import { FocusedStatusBar } from "../components";
+import { FocusedStatusBar } from ".";
 import { COLORS, SIZES, assets, SHADOWS, FONTS } from "../constants";
+import { supabase } from "../initSupabase";
 
-const TestPoll = ({data, onPressHandler,submitted,totalVotes}) => {
-  const [choice,SetChoice] = useState(data.choice)
+const Choice = ({data, totalVotes, submitted}) => {
+  const [choice,SetChoice] = useState(data.choice);
+  const [choiceId,SetChoiceId] = useState(data.choice_id);
+  const [questionId,SetQuestionId] = useState(data.question_id);
+
+  //Increase vote by 1 after user have voted
+  //Record the vote  
+  const updateVote = async () => {
+    const { data } = await supabase.rpc('update_vote', {choice_id_input: choiceId, question_id_input: questionId});
+  };
+  
+
+  const onPressHandler = () => {
+    updateVote();
+  }
 
   return (
     <View
@@ -72,4 +86,4 @@ const styles = StyleSheet.create({
     marginTop: 15,
   }
 });
-export default TestPoll;
+export default Choice;

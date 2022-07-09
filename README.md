@@ -208,9 +208,9 @@ as $$
 $$;
 ```
 
-### 9. update vote -- To increase vote in choice by 1 when user vote (Work but not implemented)
+### 9. update vote -- To increase vote in choice by 1 when user vote and record vote
 ```bash
-create or replace function update_vote(choice_id_input bigint)
+create or replace function update_vote(choice_id_input bigint, question_id_input bigint)
 returns void
 language plpgsql
 as $$
@@ -219,30 +219,26 @@ as $$
     update public.choices
     set votes = votes + 1
     where choice_id = choice_id_input;
+
+    -- insert voter_id, choice_id, question_id
+    insert into public.votes(voter_id,choice_id,question_id)
+    values(auth.uid(), choice_id_input, question_id_input);
 	end;
 $$;
 ```
 
-### 10. trigger to record vote when vote is made (Not implemented/Not working as does not store userid)
+### 10. question done - check if user done the question
 ```bash
--- inserts a row into public.votes
-create or replace function public.record_vote() 
-returns trigger 
-language plpgsql 
-security definer set search_path = public
+create or replace function question_done(question_id_input bigint)
+returns bool
+language plpgsql
 as $$
-
-begin
-  insert into public.votes (voter_id, choice_id, question_id)
-  values (new.voter_id, new.choice_id, new.question_id);
-  return new;
-end;
+	begin
+    --check row exists
+    return exists (select from public.votes v 
+    where v.voter_id = auth.uid() and v.question_id = question_id_input);
+	end;
 $$;
-
--- trigger the function every time a vote is made
-create trigger vote_by_user
-  after update on public.choices
-  for each row execute procedure public.record_vote();
 ```
 
 
