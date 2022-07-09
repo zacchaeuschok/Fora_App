@@ -3,6 +3,8 @@ import eth from "../assets/icons/eth.png";
 import heart from "../assets/icons/heart.png";
 import left from "../assets/icons/left.png";
 import search from "../assets/icons/search.png";
+import home from "../assets/icons/home.png"
+import success from "../assets/icons/success.png"
 
 import logo from "../assets/images/logo.png";
 // import nft01 from "../assets/images/nft01.png";
@@ -32,6 +34,8 @@ export default {
   heart,
   left,
   search,
+  home,
+  success,
 
   logo,
   // nft01,

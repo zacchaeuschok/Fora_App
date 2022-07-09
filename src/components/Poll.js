@@ -8,12 +8,11 @@ import {
     Alert,
     StyleSheet
 } from "react-native";
-import { CircleButton, RectButton, SubInfo, DetailsDesc, DetailsBid, FocusedStatusBar } from "../components";
+import { CircleButton, RectButton, SubInfo, DetailsDesc, DetailsBid, FocusedStatusBar } from ".";
 import { COLORS, SIZES, assets, SHADOWS, FONTS } from "../constants";
 import { supabase } from "../initSupabase";
 import { ApiError, Session } from "@supabase/supabase-js";
-import TestPoll from "../components/Choice";
-import Choice from "../components/Choice";
+import Choice from "./Choice";
 
 const Poll = ({data}) => {
   const [choices, SetChoices] = useState([]);

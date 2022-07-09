@@ -11,11 +11,13 @@ import {
 import { FocusedStatusBar } from ".";
 import { COLORS, SIZES, assets, SHADOWS, FONTS } from "../constants";
 import { supabase } from "../initSupabase";
+import { useNavigation } from "@react-navigation/native";
 
 const Choice = ({data, totalVotes, submitted}) => {
   const [choice,SetChoice] = useState(data.choice);
   const [choiceId,SetChoiceId] = useState(data.choice_id);
   const [questionId,SetQuestionId] = useState(data.question_id);
+  const navigation = useNavigation();
 
   //Increase vote by 1 after user have voted
   //Record the vote  
@@ -26,6 +28,7 @@ const Choice = ({data, totalVotes, submitted}) => {
 
   const onPressHandler = () => {
     updateVote();
+    navigation.navigate("Points")
   }
 
   return (
