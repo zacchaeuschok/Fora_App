@@ -5,6 +5,7 @@ import { QuestionCard, HomeHeader, FocusedStatusBar } from "../components";
 import { COLORS } from "../constants";
 
 import { supabase } from "../initSupabase";
+import { useIsFocused } from "@react-navigation/native";
 
 type Question = {
   question_id: number,
@@ -21,10 +22,11 @@ type Question = {
 const Home = () => {
   const [questionData, setQuestionData] = useState<Array<Question>>([]);
   const [originalData, setOriginalData] = useState<Array<Question>>([]);
+  const isFocused = useIsFocused();
 
   useEffect(() => {
     fetchQuestions()
-  }, [])
+  }, [isFocused])
 
   const fetchQuestions = async () => {
     const { data: questionData, error } = await supabase

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useIsFocused } from "@react-navigation/native";
 import { View, Image } from "react-native";
 
 import { COLORS, SIZES, SHADOWS, assets } from "../constants";
@@ -11,6 +11,7 @@ const QuestionCard = ({ data }) => {
   const navigation = useNavigation();
   const [question_id, setQuestionID] = useState(data.question_id);
   const [totalVotes, setTotalVotes] = useState(null); 
+  const isFocused = useIsFocused();
 
   useEffect(() => {
     const getTotalVotes = async () => {
@@ -18,7 +19,7 @@ const QuestionCard = ({ data }) => {
       setTotalVotes(data);
     };
     getTotalVotes();
-  },[]);
+  },[isFocused]);
 
 
   return (
