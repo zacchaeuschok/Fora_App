@@ -7,6 +7,7 @@ import {
   View,
   Alert,
   StyleSheet,
+  StatusBar
 } from "react-native";
 import { supabase } from "../initSupabase";
 import { ApiError, Session } from "@supabase/supabase-js";
@@ -22,10 +23,14 @@ import {
   useTheme,
   themeColor,
 } from "react-native-rapi-ui";
+import { CircleButton } from "../components";
+import { COLORS, SIZES, assets, SHADOWS, FONTS } from "../constants";
+import { useNavigation } from "@react-navigation/native";
 
 
 
 export default function Profile() {
+
   
   const [loading, setLoading] = useState(false);
   const [username, setUsername] = useState("");
@@ -103,6 +108,7 @@ export default function Profile() {
       setLoading(false);
     }
   }
+  const navigation = useNavigation();
 
   return (
     <KeyboardAvoidingView behavior="height" enabled style={{ flex: 1 }}>
@@ -119,6 +125,12 @@ export default function Profile() {
               paddingBottom: 20,
             }}
           >
+            <CircleButton
+              imgUrl={assets.left}
+              handlePress={() => navigation.goBack()}
+              left={15}
+              top={StatusBar.currentHeight + 10}
+            />
             <Text
               fontWeight="bold"
               style={{
@@ -154,7 +166,11 @@ export default function Profile() {
             <Button
               text= {loading ? "Loading ..." : "Update"}
               onPress={() => {
-                updateProfile({ username });
+                if (username.length > 3) {
+                  updateProfile({ username });
+                } else {
+                  Alert.alert("Username too short!")
+                }
               }}
               style={{
                 marginTop: 20,

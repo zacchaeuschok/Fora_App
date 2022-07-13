@@ -4,21 +4,19 @@ import {
     Text,
     SafeAreaView,
     FlatList,
-    TouchableOpacity,
-    Alert,
-    StyleSheet
 } from "react-native";
-import { CircleButton, RectButton, SubInfo, DetailsDesc, DetailsBid, FocusedStatusBar } from ".";
+import { FocusedStatusBar } from ".";
 import { COLORS, SIZES, assets, SHADOWS, FONTS } from "../constants";
 import { supabase } from "../initSupabase";
-import { ApiError, Session } from "@supabase/supabase-js";
 import Choice from "./Choice";
+import { useIsFocused } from "@react-navigation/native";
 
 const Poll = ({data}) => {
   const [choices, SetChoices] = useState([]);
   const [question_id,SetQuestionID] =useState(data.question_id);
   const [totalVotes, setTotalVotes] = useState(null); 
   const [submitted, SetSubmitted] = useState(false);
+  const isFocused = useIsFocused();
 
   //check if button need to be disable in the beginning
   useEffect(() => {
@@ -27,7 +25,7 @@ const Poll = ({data}) => {
       SetSubmitted(data);
     };
     questionDone();
-  },[data]);
+  },[isFocused]);
 
   //get the total vote from supabase to calculate the percentage of vote per choice when user first visit the page
   useEffect(() => {
@@ -36,7 +34,7 @@ const Poll = ({data}) => {
       setTotalVotes(data);
     };
     getTotalVotes();
-  },[]);
+  },[isFocused]);
 
   //get the choices from supabase base on the question 
   useEffect(() => {

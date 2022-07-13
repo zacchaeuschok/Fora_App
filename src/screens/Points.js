@@ -8,12 +8,15 @@ import {
 } from "react-native";
 import { CircleButton, RectButton, SubInfo, DetailsDesc, DetailsBid, FocusedStatusBar } from "../components";
 import { COLORS, SIZES, assets, SHADOWS, FONTS } from "../constants";
-import { useNavigation } from "@react-navigation/native";
-import { Colors } from "react-native/Libraries/NewAppScreen";
+import { useIsFocused } from "@react-navigation/native";
+import { supabase } from "../initSupabase";
 
 
-const Points = () => {
-  const navigation = useNavigation();
+
+const Points = ({ route, navigation }) => {
+  const { pointDeduct, point } = route.params;
+  const isFocused = useIsFocused();
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <FocusedStatusBar backgroundColor={COLORS.white} />
@@ -74,52 +77,43 @@ const Points = () => {
             style={{ width: "50%", height: "50%" }}
           />
         </View>
+        <View
+          style={{
+            flex: 5,
+            paddingTop:20,
+            paddingBottom:20,
+            width: "100%",
+            flexDirection: "column",
+            justifyContent: "center",
+            backgroundColor: COLORS.primary
+          }}
+        >
+          <Text
+            style={{
+              width: "100%", 
+              fontFamily: FONTS.semiBold,
+              fontSize: SIZES.large,
+              color: COLORS.white,
+              textAlign: "center"
+            }}
+          >
+            {pointDeduct} points is deducted!{'\n'}
+          </Text>
+          <Text
+            style={{
+              width: "100%", 
+              fontFamily: FONTS.semiBold,
+              fontSize: SIZES.large,
+              color: COLORS.white,
+              textAlign: "center"
+            }}
+          >
+            Currently you have {point - pointDeduct} points
+          </Text>
+        </View>
       </View>
 
-      <View style={{flex: 6, backgroundColor: COLORS.secondary}}>
-        <View style={{
-                width: "100%",
-                paddingHorizontal: SIZES.font,
-                marginTop: 10,
-                flexDirection: "row",
-                justifyContent: "center",
-                // space-between
-              }}>
-                <View
-                  style={{
-                    marginTop: 10,
-                    paddingHorizontal: SIZES.font,
-                    paddingVertical: SIZES.base,
-                    backgroundColor: COLORS.white,
-                    borderRadius: SIZES.font,
-                    justifyContent: "center",
-                    alignItems: "center",
-                    ...SHADOWS.light,
-                    elevation: 10,
-                    maxWidth: "50%",
-                  }}
-                >
-                  <Text
-                    style={{
-                      fontFamily: FONTS.regular,
-                      fontSize: SIZES.small,
-                      color: COLORS.primary,
-                    }}
-                  >
-                    Your points
-                  </Text>
-                  <Text
-                    style={{
-                      fontFamily: FONTS.semiBold,
-                      fontSize: SIZES.medium,
-                      color: COLORS.primary,
-                    }}
-                  >
-                    {12}
-                  </Text>
-                </View>
-              </View>
-      </View>
+      
     </SafeAreaView>
   )
 };

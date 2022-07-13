@@ -143,7 +143,7 @@ create table votes (
 );
 ```
 
-### 6. deduct points function -- not implemented yet  
+### 6. deduct points function  
 ```bash
 create or replace function deduct_points(question_points_input bigint)
 returns bigint 
