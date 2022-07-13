@@ -9,6 +9,7 @@ import { supabase } from "../initSupabase";
 
 const QuestionCard = ({ data }) => {
   const navigation = useNavigation();
+  const noChoice = data.choice;
   const [question_id, setQuestionID] = useState(data.question_id);
   const [totalVotes, setTotalVotes] = useState(null); 
   const isFocused = useIsFocused();
@@ -53,7 +54,7 @@ const QuestionCard = ({ data }) => {
 
       </View>
 
-      <SubInfo question_id = {data.question_id} />
+      <SubInfo question_id = {data.question_id}/>
 
       <View style={{ width: "100%", padding: SIZES.font }}>
         <QuestionTitle
@@ -71,7 +72,7 @@ const QuestionCard = ({ data }) => {
             alignItems: "center",
           }}
         >
-          <EthPrice price={totalVotes} />
+          <EthPrice price={totalVotes - noChoice} />
           <RectButton
             minWidth={120}
             fontSize={SIZES.font}
