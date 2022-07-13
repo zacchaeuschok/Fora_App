@@ -16,7 +16,7 @@ type Question = {
   created_at: Date,
   expire_at: Date,
   choice: number,
-  points: number
+  expired: boolean
 }
 
 const Home = () => {
@@ -25,20 +25,23 @@ const Home = () => {
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    fetchQuestions()
-  }, [isFocused])
+    const fetchQuestions = async() => {
+        const { data: questionData, error } = await supabase
+        .from<Question>('questions')
+        .select('*')
+        .eq("expired", false)
+        .order('question_id', { ascending: false })
 
-  const fetchQuestions = async () => {
-    const { data: questionData, error } = await supabase
-      .from<Question>('questions')
-      .select('*')
-      .order('question_id', { ascending: false })
-    if (error) console.log('error', error)
-    else {
-      setQuestionData(questionData!)
-      setOriginalData(questionData!)
-    }
-  }
+        if (error) console.log('error', error)
+        else {
+          setQuestionData(questionData!)
+          setOriginalData(questionData!)
+        }
+    };
+
+    fetchQuestions();
+
+  },[isFocused]);
 
   const handleSearch = (value) => {
     if (value.length === 0) {
@@ -56,6 +59,7 @@ const Home = () => {
     }
   };
 
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <FocusedStatusBar backgroundColor={COLORS.primary} />
@@ -63,7 +67,7 @@ const Home = () => {
         <View style={{ zIndex: 0 }}>
           <FlatList
             data={questionData}
-            renderItem={({ item }) => <QuestionCard data={item} />}
+            renderItem={({ item }) => <QuestionCard data={item}/>}
             keyExtractor={(item) => `${item.question_id}`}
             showsVerticalScrollIndicator={false}
             ListHeaderComponent={<HomeHeader onSearch={handleSearch}/>}
