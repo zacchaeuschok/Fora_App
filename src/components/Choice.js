@@ -59,7 +59,6 @@ const Choice = ({data, total, submitted}) => {
   //calculate point to be deducted
   useEffect(() => {
     const getPointDeduct = async() => {
-      console.log(total)
       if (total == null) {
         Alert.alert("Return to home and try again")
       }
