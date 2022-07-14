@@ -23,7 +23,7 @@ import {
   useTheme,
   themeColor,
 } from "react-native-rapi-ui";
-import { CircleButton } from "../components";
+import { CircleButton, FocusedStatusBar } from "../components";
 import { COLORS, SIZES, assets, SHADOWS, FONTS } from "../constants";
 import { useNavigation } from "@react-navigation/native";
 
@@ -108,11 +108,12 @@ export default function Profile() {
       setLoading(false);
     }
   }
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
 
   return (
     <KeyboardAvoidingView behavior="height" enabled style={{ flex: 1 }}>
       <Layout>
+      <FocusedStatusBar backgroundColor={COLORS.primary} />
       <ScrollView
           contentContainerStyle={{
             flexGrow: 1,
@@ -132,12 +133,13 @@ export default function Profile() {
               top={StatusBar.currentHeight + 10}
             />
             <Text
-              fontWeight="bold"
               style={{
+                fontWeight: "bold",
                 alignSelf: "center",
                 padding: 30,
+                color:COLORS.white,
+                fontSize: SIZES.large
               }}
-              size="h3"
             >
               Portfolio
             </Text>
@@ -152,7 +154,7 @@ export default function Profile() {
              keyboardType="email-address"
             /> */}
             <Userpoint/>
-            <Text style={{ marginTop: 15 }}>Username</Text>
+            <Text style={{ marginTop: 15, color: COLORS.white }}>Username</Text>
             <TextInput
              containerStyle={{ marginTop: 15 }}
              placeholder="Enter your username"
@@ -164,7 +166,8 @@ export default function Profile() {
              onChangeText={(text) => setUsername(text)}
             />
             <Button
-              text= {loading ? "Loading ..." : "Update"}
+              color={COLORS.secondary}
+              text= {loading ? "Loading ..." : "Update Username"}
               onPress={() => {
                 if (username.length > 3) {
                   updateProfile({ username });
@@ -173,11 +176,21 @@ export default function Profile() {
                 }
               }}
               style={{
+                marginTop: 50
+              }}
+              disabled={loading}
+            />
+            <Button
+              color={COLORS.secondary}
+              text= {loading ? "Loading ..." : "Expired Questions"}
+              onPress={() => navigation.navigate('Expired')}
+              style={{
                 marginTop: 20,
               }}
               disabled={loading}
             />
             <Button
+              color={COLORS.secondary}
               text= "Sign Out"
               onPress={() => {
                 supabase.auth.signOut();
@@ -187,7 +200,21 @@ export default function Profile() {
               }}
               disabled={loading}
             />
-          </View>        
+          </View> 
+          <View
+          style={{
+            position: "absolute",
+            top: 0,
+            bottom: 0,
+            right: 0,
+            left: 0,
+            zIndex: -1,
+          }}
+        >
+          <View
+            style={{ height: 300, backgroundColor: COLORS.primary }} />
+          <View style={{ flex: 1, backgroundColor: COLORS.white }} />
+        </View>
         </ScrollView>
       </Layout>
     </KeyboardAvoidingView>

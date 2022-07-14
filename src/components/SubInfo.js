@@ -109,7 +109,7 @@ export const EndDate = ({question_id}) => {
       if (data == null) { //loading when null
         setDifference("loading");
       } else if (data.substring(0,1) == '-') { //when expired
-        setDifference(0);
+        setDifference('0 day');
         updateExpired();
       }else if (data.substring(0,6) == '1 day ') { //when 1 day
         setDifference(data.substring(0,6));
