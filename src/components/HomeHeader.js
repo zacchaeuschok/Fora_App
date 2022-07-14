@@ -91,7 +91,7 @@ const HomeHeader = ({ onSearch}) => {
 
           <ProfileButton 
             imgUrl={assets.person02} 
-            handlePress={() => navigation.navigate("Profile")}
+            handlePress={() => navigation.navigate("Portfolio")}
             />
           <Image
             source={assets.badge}
