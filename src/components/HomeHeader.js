@@ -85,7 +85,7 @@ const HomeHeader = ({ onSearch}) => {
           style={{ width: 80, height: 50 }}
         />
 
-        <Text style={{color: COLORS.white, textAlign: "right"}}>{point} points</Text>
+        <Text style={{color: COLORS.white, textAlign: "right", fontSize: SIZES.large}}>{point} points</Text>
         
         <View style={{ width: 45, height: 45 }}>
 

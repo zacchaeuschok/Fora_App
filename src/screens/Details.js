@@ -6,6 +6,7 @@ import { CircleButton, RectButton, SubInfo, DetailsDesc, DetailsBid, FocusedStat
 import CreatePoll from "../components/Poll";
 
 
+
 const DetailsHeader = ({ data, navigation }) => (
   <View style={{ width: "100%", height: 373 }}>
     <Image
