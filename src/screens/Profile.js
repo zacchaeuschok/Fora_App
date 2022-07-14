@@ -21,14 +21,12 @@ import { CircleButton, FocusedStatusBar } from "../components";
 import { COLORS, SIZES, assets, SHADOWS, FONTS } from "../constants";
 import { useNavigation } from "@react-navigation/native";
 
-export default function Profile() {
-
-  
+const Profile = () => {
   const [loading, setLoading] = useState(false);
   const [username, setUsername] = useState("");
   const [avatar_url, setAvatarUrl] = useState("");
 
-  const [session, setSession] = useState<Session | null>(null)
+  const [session, setSession] = useState(null)
 
   useEffect(() => {
     setSession(supabase.auth.session())
@@ -62,17 +60,13 @@ export default function Profile() {
         setAvatarUrl(data.avatar_url);
       }
     } catch (error) {
-      Alert.alert((error as ApiError).message);
+      Alert.alert(error);
     } finally {
       setLoading(false);
     }
   }
 
-  async function updateProfile({
-    username,
-  }: {
-    username: string;
-  }) {
+  async function updateProfile({username}) {
     try {
       setLoading(true);
       const user = supabase.auth.user();
@@ -95,12 +89,12 @@ export default function Profile() {
         Alert.alert("Update successful")
       }
     } catch (error) {
-      Alert.alert((error as ApiError).message);
+      Alert.alert(error);
     } finally {
       setLoading(false);
     }
   }
-  const navigation = useNavigation<any>();
+  const navigation = useNavigation();
 
   return (
     <KeyboardAvoidingView behavior="height" enabled style={{ flex: 1 }}>
@@ -133,19 +127,8 @@ export default function Profile() {
                 fontSize: SIZES.large
               }}
             >
-              Portfolio
+              Profile
             </Text>
-            {/* <Text style={{ marginTop: 15 }}>Email</Text>
-            <TextInput
-             containerStyle={{ marginTop: 15 }}
-             placeholder="Enter your email"
-             value={session?.user?.email} 
-             autoCapitalize="none"
-             autoCompleteType="off"
-             autoCorrect={false}
-             keyboardType="email-address"
-            /> */}
-            <Userpoint/>
             <Text style={{ marginTop: 15, color: COLORS.white }}>Username</Text>
             <TextInput
              containerStyle={{ marginTop: 15 }}
@@ -168,7 +151,7 @@ export default function Profile() {
                 }
               }}
               style={{
-                marginTop: 50
+                marginTop: 20
               }}
               disabled={loading}
             />
@@ -204,10 +187,12 @@ export default function Profile() {
           }}
         >
           <View
-            style={{ height: 300, backgroundColor: COLORS.primary }} />
+            style={{ height: 200, backgroundColor: COLORS.primary }} />
           <View style={{ flex: 1, backgroundColor: COLORS.white }} />
         </View>
         </ScrollView>
       </Layout>
-    </KeyboardAvoidingView>
-)}
+    </KeyboardAvoidingView>)
+};
+
+export default Profile;
