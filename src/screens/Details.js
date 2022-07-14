@@ -71,6 +71,7 @@ const Details = ({ route, navigation }) => {
                 }}
               >Pick one of the choices listed below. {data.points} points will be deducted. </Text>
               <CreatePoll data={data}/>
+
             </View>
           </React.Fragment>
         )}

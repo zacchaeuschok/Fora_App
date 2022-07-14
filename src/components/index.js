@@ -5,6 +5,7 @@ import { SubInfo, People, EndDate, EthPrice, QuestionTitle } from "./SubInfo";
 import DetailsBid from "./DetailsBid";
 import FocusedStatusBar from "./FocusedStatusBar";
 import DetailsDesc from './DetailsDesc';
+import Comment from "./Comment";
 
 export {
   HomeHeader,
@@ -20,4 +21,5 @@ export {
   DetailsBid,
   FocusedStatusBar,
   DetailsDesc,
+  Comment
 };

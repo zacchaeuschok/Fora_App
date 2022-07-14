@@ -36,7 +36,12 @@ const QuestionCard = ({ data }) => {
           }}
         />
 
-        {/*<CircleButton imgUrl={assets.heart} right={10} top={10} />*/}
+        <CircleButton 
+          imgUrl={assets.forum} 
+          right={10} 
+          top={10} 
+          handlePress={() => navigation.navigate("Forum", { data })}
+          />
 
       </View>
 
@@ -48,6 +53,7 @@ const QuestionCard = ({ data }) => {
           subTitle={data.question}
           titleSize={SIZES.large}
           subTitleSize={SIZES.small}
+          color={COLORS.primary}
         />
 
         <View
@@ -59,10 +65,16 @@ const QuestionCard = ({ data }) => {
           }}
         >
           <EthPrice price={data.points} />
+
+          {/* <CircleButton imgUrl={assets.heart} right={150} /> */}
+
           <RectButton
             minWidth={120}
             fontSize={SIZES.font}
             handlePress={() => navigation.navigate("Details", { data })}
+            text = "Place a bid"
+            backgroundColor={COLORS.primary}
+            textColor={COLORS.white}
           />
         </View>
       </View>
