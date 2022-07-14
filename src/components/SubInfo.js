@@ -106,7 +106,6 @@ export const EndDate = ({question_id}) => {
   useEffect(() => {
     const duration = async () => {
       const { data } = await supabase.rpc('duration', {id_input: question_id});
-      console.log(data);
       if (data == null) { //loading when null
         setDifference("loading");
       } else if (data.substring(0,1) == '-') { //when expired
