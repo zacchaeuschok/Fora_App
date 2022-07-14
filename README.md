@@ -139,7 +139,8 @@ create table votes (
   voter_id uuid references profiles (id) on delete cascade,
   choice_id bigint references choices (choice_id) on delete cascade,
   created_at timestamp default timezone('utc'::text, now()) not null,
-  question_id bigint references questions (question_id) on delete cascade
+  question_id bigint references questions (question_id) on delete cascade,
+  points_used bigint
 );
 ```
 

@@ -13,7 +13,7 @@ import { COLORS, SIZES, assets, SHADOWS, FONTS } from "../constants";
 import { supabase } from "../initSupabase";
 import { useNavigation } from "@react-navigation/native";
 
-const Choice = ({data, totalVotes, submitted}) => {
+const Choice = ({data, total, submitted}) => {
   const [choice,SetChoice] = useState(data.choice);
   const [choiceId,SetChoiceId] = useState(data.choice_id);
   const [questionId,SetQuestionId] = useState(data.question_id);
@@ -53,13 +53,17 @@ const Choice = ({data, totalVotes, submitted}) => {
   //Increase vote by 1 after user have voted
   //Record the vote  
   const updateVote = async () => {
-    const { data } = await supabase.rpc('update_vote', {choice_id_input: choiceId, question_id_input: questionId});
+    const { data } = await supabase.rpc('update_vote', {choice_id_input: choiceId, question_id_input: questionId, points_used_input: pointDeduct});
   };
 
   //calculate point to be deducted
   useEffect(() => {
     const getPointDeduct = async() => {
-      SetPointDeduct(Math.floor((data.votes/totalVotes)*100))
+      console.log(total)
+      if (total == null) {
+        Alert.alert("Return to home and try again")
+      }
+      SetPointDeduct(Math.floor((data.votes/total)*100))
     };
     getPointDeduct();
   },[]);
