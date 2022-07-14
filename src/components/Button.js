@@ -55,12 +55,12 @@ export const ProfileButton = ({ imgUrl, handlePress, ...props }) => {
   );
 };
 
-export const RectButton = ({ minWidth, fontSize, handlePress, ...props }) => {
+export const RectButton = ({ minWidth, fontSize, handlePress, text, backgroundColor, textColor, ...props }) => {
   return (
     <TouchableOpacity
       testID="rect"
       style={{
-        backgroundColor: COLORS.primary,
+        backgroundColor: backgroundColor,
         padding: SIZES.small,
         borderRadius: SIZES.extraLarge,
         minWidth: minWidth,
@@ -72,11 +72,11 @@ export const RectButton = ({ minWidth, fontSize, handlePress, ...props }) => {
         style={{
           fontFamily: FONTS.semiBold,
           fontSize: fontSize,
-          color: COLORS.white,
+          color: textColor,
           textAlign: "center",
         }}
       >
-        Place a bid
+        {text}
       </Text>
     </TouchableOpacity>
   );

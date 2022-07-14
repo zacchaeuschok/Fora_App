@@ -3,14 +3,15 @@ import { View, Image, Text } from "react-native";
 
 import { SIZES, FONTS, COLORS, SHADOWS, assets } from "../constants";
 
-export const QuestionTitle = ({ title, subTitle, titleSize, subTitleSize }) => {
+export const QuestionTitle = ({ title, subTitle, titleSize, subTitleSize, color }) => {
   return (
     <View>
       <Text
         style={{
           fontFamily: FONTS.semiBold,
           fontSize: titleSize,
-          color: COLORS.primary,
+          // color: COLORS.primary,
+          color: color,
         }}
       >
         {title}
@@ -19,7 +20,7 @@ export const QuestionTitle = ({ title, subTitle, titleSize, subTitleSize }) => {
         style={{
           fontFamily: FONTS.regular,
           fontSize: subTitleSize,
-          color: COLORS.primary,
+          color: color,
         }}
       >
         {subTitle}

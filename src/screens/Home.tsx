@@ -26,7 +26,7 @@ const Home = () => {
     fetchQuestions()
   }, [])
 
-  const fetchQuestions = async () => {
+  async function fetchQuestions() {
     const { data: questionData, error } = await supabase
       .from<Question>('questions')
       .select('*')
