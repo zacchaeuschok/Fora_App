@@ -1,17 +1,13 @@
 import { useState, useEffect } from "react";
 import {
   ScrollView,
-  TouchableOpacity,
   KeyboardAvoidingView,
-  Image,
   View,
   Alert,
-  StyleSheet,
   StatusBar
 } from "react-native";
 import { supabase } from "../initSupabase";
 import { ApiError, Session } from "@supabase/supabase-js";
-// import { useNavigation } from "@react-navigation/native";
 import 'react-native-url-polyfill/auto'
 import { Userpoint } from "../components/Userpoint";
 
@@ -20,14 +16,10 @@ import {
   Text,
   TextInput,
   Button,
-  useTheme,
-  themeColor,
 } from "react-native-rapi-ui";
 import { CircleButton, FocusedStatusBar } from "../components";
 import { COLORS, SIZES, assets, SHADOWS, FONTS } from "../constants";
 import { useNavigation } from "@react-navigation/native";
-
-
 
 export default function Profile() {
 

@@ -8,10 +8,6 @@ import Poll from "../components/Poll.js"
 import Points from "../screens/Points.js"
 import Expired from "../screens/Expired"
 
-// import { useState, useEffect } from 'react';
-// import { Session } from '@supabase/supabase-js'
-// import { supabase } from '../initSupabase'
-
 const MainStack = createNativeStackNavigator();
 const Main = () => {
 
@@ -32,13 +28,3 @@ const Main = () => {
 };
 
 export default Main;
-
-{/* <Stack.Navigator
-screenOptions={{
-  headerShown: false,
-}}
-initialRouteName="Home"
->
-<Stack.Screen name="Home" component={Home} />
-<Stack.Screen name="Details" component={Details} />
-</Stack.Navigator> */}
