@@ -242,6 +242,99 @@ as $$
 $$;
 ```
 
+### 11. update expired - check if question just expired
+```bash
+create or replace function update_expired(question_id_input bigint)
+returns boolean
+language plpgsql
+as $$
+
+    declare
+    expired_input boolean;
+
+	begin
+    --get expired from question 
+    select expired
+    into expired_input
+    from public.questions
+    where question_id = question_id_input;
+
+    --if expired question table is false
+    if expired_input = false then
+        --update expired in question table to true
+        update public.questions
+        set expired = true
+        where question_id = question_id_input;
+
+        return false;
+    end if; 
+
+    return true;
+
+	end;
+$$;
+```
+
+### 11. add points - add point to user when question expire
+```bash
+create or replace function add_points(question_id_input bigint)
+returns void
+language plpgsql
+as $$
+
+    declare
+    choice_id_input bigint;
+    end_point_input bigint;
+    total bigint;
+    num_vote bigint;
+    points_used_input bigint;
+
+	begin
+    --find choice_id from votes
+    select choice_id
+    into choice_id_input
+    from public.votes
+    where voter_id = auth.uid() and question_id = question_id_input;
+
+    --find total vote
+    select sum(votes)
+    into total
+    from public.choices
+    where question_id = question_id_input;
+
+    --find votes from choice
+    select votes
+    into num_vote
+    from public.choices
+    where choice_id = choice_id_input;
+
+    --find points_used from votes
+    select points_used
+    into points_used_input
+    from public.votes
+    where voter_id = auth.uid() and question_id = question_id_input;
+
+    --find end_point
+    end_point_input = (CAST(num_vote AS float8)/CAST(total AS float8))*100; 
+
+    --update end_point in vote table
+    update public.votes
+    set end_point = end_point_input
+    where voter_id = auth.uid() and question_id = question_id_input;
+
+    --update change_point in vote table
+    update public.votes
+    set change_point = end_point_input - points_used_input
+    where voter_id = auth.uid() and question_id = question_id_input;
+
+    --update user_points in vote table
+    update public.profiles
+    set user_points = user_points + end_point_input
+    where id = auth.uid();
+
+	end;
+$$;
+```
 
 
 
