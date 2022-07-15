@@ -62,7 +62,7 @@ const Choice = ({data, total, submitted}) => {
       if (total == null) {
         Alert.alert("Return to home and try again")
       }
-      SetPointDeduct(Math.floor((data.votes/total)*100))
+      SetPointDeduct(Math.floor((parseFloat(data.votes)/parseFloat(total))*100))
     };
     getPointDeduct();
   },[]);

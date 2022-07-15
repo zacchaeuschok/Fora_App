@@ -4,7 +4,8 @@ import {
   KeyboardAvoidingView,
   View,
   Alert,
-  StatusBar
+  StatusBar,
+  FlatList
 } from "react-native";
 import { supabase } from "../initSupabase";
 import { ApiError, Session } from "@supabase/supabase-js";
@@ -18,11 +19,13 @@ import {
   Button,
 } from "react-native-rapi-ui";
 import { CircleButton, FocusedStatusBar } from "../components";
-import { COLORS, SIZES, assets, SHADOWS, FONTS } from "../constants";
+import { COLORS, SIZES, assets, SHADOWS, FONTS, QuestionData } from "../constants";
 import { useNavigation } from "@react-navigation/native";
+
 
 const Portfolio = () => {
   const navigation = useNavigation();
+  const [data,setData] = useState(QuestionData);
 
   return (
     <KeyboardAvoidingView behavior="height" enabled style={{ flex: 1 }}>
@@ -40,7 +43,7 @@ const Portfolio = () => {
               paddingBottom: 20,
             }}
           >
-            <View style={{ width: "100%", height: 373 }}>
+            <View style={{ width: "100%", height: 200 }}>
               <CircleButton
                   imgUrl={assets.left}
                   handlePress={() => navigation.goBack()}
