@@ -106,7 +106,7 @@ export const EndDate = ({question_id}) => {
       if (data == null) { //loading when null
         setDifference("loading");
       } else if (data.substring(0,1) == '-') { //when expired
-        setDifference('0 day');
+        setDifference('Expired');
         updateExpired();
         if (expired == false) addPoint();
       }else if (data.substring(0,6) == '1 day ') { //when 1 day
@@ -145,7 +145,7 @@ export const EndDate = ({question_id}) => {
           color: COLORS.primary,
         }}
       >
-        Ending in
+        {difference == "Expired" ? "Status:" : "Ending in"}
       </Text>
       <Text
         style={{
