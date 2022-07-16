@@ -53,7 +53,7 @@ const Item = ({ item }) => (
     <View
       style={{
         flex: 1,
-        alignItems: "center",
+        alignItems: "flex-start",
         paddingHorizontal: SIZES.base,
       }}
     >
@@ -62,7 +62,7 @@ const Item = ({ item }) => (
           fontFamily: FONTS.semiBold,
           fontSize: SIZES.small,
           color: COLORS.primary,
-          textAlign: "center"
+          textAlign: "left"
         }}
       >
         {item.question}
