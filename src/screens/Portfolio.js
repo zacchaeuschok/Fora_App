@@ -1,38 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { View, SafeAreaView, FlatList, StatusBar, Text, Image} from "react-native";
-import { QuestionCard, HomeHeader, FocusedStatusBar, CircleButton } from "../components";
-import { COLORS, SIZES, assets, QuestionData, FONTS} from "../constants";
+import {  CircleButton } from "../components";
+import { COLORS, SIZES, assets, FONTS} from "../constants";
 import {Userpoint} from "../components/Userpoint"
 import { useNavigation } from "@react-navigation/native";
+import { supabase } from "../initSupabase";
 
-const DATA = [
-  {
-    vote_id: "1",
-    question: "Will the CDC identify a variant of high consequence by September 30, 2022?",
-    choice: "Yes, it will",
-    image: assets.up,
-    change_point: +50,
-    expired_date: "2022-02-23"
-  },
-  {
-    vote_id: "2",
-    question: "Will Singapore go into a recession in 2022?",
-    choice: "Yes, it will",
-    image: assets.down,
-    change_point: -50,
-    expired_date: "2022-02-27"
-  },
-  {
-    vote_id: "3",
-    question: "Will inflation rise more than 0.8% in July?",
-    choice: "Yes, it will",
-    image: assets.up,
-    change_point: +50,
-    expired_date: "2022-02-25"
-  },
-];
+const Item = ({ item }) => {
+  const [question, setQuestion] = useState();
+  const [choice, setChoice] = useState();
+  useEffect(() => {
+    const fetchQuestion = async() => {
+      const { data } = await supabase.rpc('get_question',{question_id_input: item.question_id});
+      setQuestion(data);
+    };
 
-const Item = ({ item }) => (
+    const fetchChoice = async() => {
+      const { data } = await supabase.rpc('get_choice',{choice_id_input: item.choice_id});
+      setChoice(data);
+    };
+
+    fetchQuestion();
+    fetchChoice();
+
+  },[]);
+
+
+  return(
   <View
     style={{
       width: "100%",
@@ -44,11 +38,19 @@ const Item = ({ item }) => (
     }}
     key={item.vote_id}
   >
+    {item.change_point > 0 ?
     <Image
-      source={item.image}
+      source={assets.up}
       resizeMode="contain"
       style={{ width: 48, height: 48 }}
     />
+    :
+    <Image
+      source={assets.down}
+      resizeMode="contain"
+      style={{ width: 48, height: 48 }}
+    />
+    }
 
     <View
       style={{
@@ -65,7 +67,7 @@ const Item = ({ item }) => (
           textAlign: "left"
         }}
       >
-        {item.question}
+        {question}
       </Text>
       <Text
         style={{
@@ -75,23 +77,35 @@ const Item = ({ item }) => (
           marginTop: 3,
         }}
       >
-        {item.choice} : {item.change_point} points
+        {choice} : {item.change_point} points
       </Text>
     </View>
   </View>
-);
+  );
+};
 
 const Portfolio = () => {
+  const [recordData, setRecordData] = useState([]);
   const renderItem = ({ item }) => (
     <Item item={item} />
   );
+
+  useEffect(() => {
+    const fetchRecords = async() => {
+      const { data } = await supabase.rpc('get_records');
+      setRecordData(data);
+    };
+
+    fetchRecords();
+
+  },[]);
 
   const navigation = useNavigation();
 
   return (
     <SafeAreaView>
       <FlatList
-        data={DATA}
+        data={recordData}
         renderItem={renderItem}
         keyExtractor={item => item.vote_id}
         showsVerticalScrollIndicator={false}
@@ -135,7 +149,7 @@ const Portfolio = () => {
           
                   }}
                 >
-                  {DATA.length > 0 ? "Vote History" : "No History"}
+                  {recordData.length > 0 ? "Vote History" : "No History"}
                 </Text>
             </View>
           </React.Fragment>

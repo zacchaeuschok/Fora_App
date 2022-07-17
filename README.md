@@ -275,7 +275,7 @@ as $$
 $$;
 ```
 
-### 11. add points - add point to user when question expire
+### 12. add points - add point to user when question expire
 ```bash
 create or replace function add_points(question_id_input bigint)
 returns void
@@ -335,6 +335,56 @@ as $$
 	end;
 $$;
 ```
+
+### 13. get record - get record from vote table which is expired
+```bash
+create or replace function get_records() 
+returns setof votes
+language sql
+as $$
+  select * 
+  from public.votes
+  where change_point is not null and voter_id = auth.uid()
+  order by vote_id desc;
+$$;
+```
+
+### 14. get question - get question
+```bash
+create or replace function get_question(question_id_input bigint)
+returns text
+language plpgsql
+as $$
+    declare
+    res text;
+	begin
+    select question
+    into res
+    from public.questions
+    where question_id = question_id_input;
+    return res;
+	end;
+$$;
+```
+
+### 15. get choice - get choice
+```bash
+create or replace function get_choice(choice_id_input bigint)
+returns text
+language plpgsql
+as $$
+    declare
+    res text;
+	begin
+    select choice
+    into res
+    from public.choices
+    where choice_id = choice_id_input;
+    return res;
+	end;
+$$;
+```
+
 
 
 
