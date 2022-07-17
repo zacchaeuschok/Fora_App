@@ -13,13 +13,15 @@ import { COLORS, SIZES, assets, SHADOWS, FONTS } from "../constants";
 import { supabase } from "../initSupabase";
 import { useNavigation } from "@react-navigation/native";
 
-const Choice = ({data, total, submitted}) => {
+const Choice = ({data, submitted}) => {
   const [choice,SetChoice] = useState(data.choice);
   const [choiceId,SetChoiceId] = useState(data.choice_id);
   const [questionId,SetQuestionId] = useState(data.question_id);
   const navigation = useNavigation();
   const [pointDeduct, SetPointDeduct]=useState(null); 
   const [point, setPoint] = useState(null);
+  const [totalVotes, setTotalVotes] = useState(null); 
+
 
   //user current point 
   useEffect(() => {
@@ -56,16 +58,26 @@ const Choice = ({data, total, submitted}) => {
     const { data } = await supabase.rpc('update_vote', {choice_id_input: choiceId, question_id_input: questionId, points_used_input: pointDeduct});
   };
 
+  //get total vote with choice id
+  const getTotalVotes = async () => {
+    const { data } = await supabase.rpc('get_total_votes_with_choice', {choice_id_input: choiceId});
+    setTotalVotes(data);
+    console.log(data);
+  };
+
+  //calculate point to be deducted
+  const getPointDeduct = async() => {
+    console.log("choice:" + totalVotes);
+    SetPointDeduct(Math.floor((parseFloat(data.votes)/parseFloat(totalVotes))*100))
+  };
+
   //calculate point to be deducted
   useEffect(() => {
-    const getPointDeduct = async() => {
-      if (total == null) {
-        Alert.alert("Return to home and try again")
-      }
-      SetPointDeduct(Math.floor((parseFloat(data.votes)/parseFloat(total))*100))
-    };
+    getTotalVotes();
     getPointDeduct();
-  },[]);
+  },[totalVotes]);
+
+
 
   //deductPoint
   const deductPoints = async () => {
