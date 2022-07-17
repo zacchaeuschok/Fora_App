@@ -94,6 +94,15 @@ const Profile = () => {
       setLoading(false);
     }
   }
+
+  async function logout() {
+    setLoading(true);
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      setLoading(false);
+      alert(error.message);
+    }
+  }
   const navigation = useNavigation();
 
   return (
@@ -159,7 +168,7 @@ const Profile = () => {
               color={COLORS.secondary}
               text= "Sign Out"
               onPress={() => {
-                supabase.auth.signOut();
+                logout();
               }}
               style={{
                 marginTop: 20,
