@@ -5,6 +5,7 @@ import { Section, SectionContent } from 'react-native-rapi-ui';
 import { COLORS, SIZES, assets, SHADOWS, FONTS } from "../constants";
 import { QuestionTitle } from "../components/SubInfo";
 import { CircleButton, RectButton, ProfileButton, SubInfo, DetailsDesc, DetailsBid, FocusedStatusBar, Comment} from "../components";
+import { Ionicons } from 'react-native-vector-icons' 
 import { supabase } from "../initSupabase";
 
   
@@ -13,29 +14,31 @@ const ForumHeader = ({data, navigation}) => (
    <View 
     style = {{
         width: "100%",
-        height: 330,
-        // flexDirection: "row",
+        // flex: 1,
+        // flexDirection: "column",
         // justifyContent: "space-between",
-        // alignSelf: "stretch",
-        // alignItems: "center",
         padding: SIZES.font,
         backgroundColor: COLORS.primary,
         borderBottomLeftRadius: 15,
         borderBottomRightRadius: 15
     }}
    >
-        <CircleButton
-        imgUrl={assets.left}
-        handlePress={() => navigation.goBack()}
-        left={25}
-        top = {15}
-        />
-        <ProfileButton 
-        imgUrl={assets.person02} 
-        handlePress={() => navigation.navigate("Profile")}
-        right = {25}
-        top = {15}
-        />
+        <View style = {{
+            flexDirection: 'column'
+        }}>
+            <CircleButton
+            imgUrl={assets.left}
+            handlePress={() => navigation.goBack()}
+            left = {25}
+            top = {15}
+            />
+            <ProfileButton 
+            imgUrl={assets.person02} 
+            handlePress={() => navigation.navigate("Profile")}
+            right = {25}
+            top = {15}
+            />
+        </View>
 
         <View
         style ={{ 
@@ -50,46 +53,61 @@ const ForumHeader = ({data, navigation}) => (
             }}>
                 <Text 
                 style={{
-                    fontFamily: FONTS.bold,
-                    fontSize: SIZES.large,
+                    fontFamily: FONTS.semiBold,
+                    fontSize: SIZES.extraLarge,
                     color: COLORS.white
                 }}
                 >
                 {data.category}
                 </Text>
             </View>
+        </View>
 
-            <View
-            style = {{
-                alignSelf: "flex-end",
-                marginLeft: 'auto'
+        <View style = {{
+            flexDirection: 'column'
+        }}>
+            <Text style ={{
+                fontFamily: FONTS.semiBold,
+                color: COLORS.white,
+                paddingLeft: SIZES.font
             }}>
-                <RectButton
-                    minWidth={90}
-                    fontSize={SIZES.small}
-                    handlePress={() => navigation.navigate("Details", { data })}
-                    text = {"Place a bid"}
-                    backgroundColor={COLORS.white}
-                    textColor={COLORS.primary}
+                {data.question}
+                
+            </Text>
+
+            <Text style ={{
+                color: COLORS.gray,
+                padding: SIZES.font
+            }}>
+                {data.description}
+            </Text>
+        </View>
+
+        <View style = {{
+            justifyContent: "space-around",
+            flexDirection: 'row',
+            padding: SIZES.font,
+        }}>
+            <RectButton
+                minWidth={90}
+                fontSize={SIZES.small}
+                handlePress={() => navigation.navigate("Details", { data })}
+                text = {"Place a bid"}
+                backgroundColor={COLORS.white}
+                textColor={COLORS.primary}
+            />
+            <View style = {{
+                justifyContent: "flex-end",
+                marginRight: "auto"
+            }}>
+                <CircleButton
+                    imgUrl={assets.pen}
+                    handlePress={() => navigation.navigate("Post", { data })}
+                    top={0}
+                    left={20}
                 />
             </View>
         </View>
-
-        <Text style ={{
-            fontFamily: FONTS.semiBold,
-            color: COLORS.white,
-            paddingLeft: SIZES.font
-        }}>
-            {data.question}
-            
-        </Text>
-
-        <Text style ={{
-            color: COLORS.gray,
-            padding: SIZES.font
-        }}>
-            {data.description}
-        </Text>
     </View>
 );
 
@@ -105,7 +123,9 @@ const Forum = ({ route, navigation }) => {
         try {
         const { data: commentData, error } = await supabase
             .from('comments')
-            .select()
+            .select("*")
+            .eq("question_id", data.question_id)
+
             if (error) console.log('error', error)
             else {
                 setCommentData(commentData)
@@ -116,8 +136,6 @@ const Forum = ({ route, navigation }) => {
     }
 
     // const commentSort = (data) => data.sort((a, b) => a.created_at.localeCompare(b.created_at))
-
-    console.log(commentData)
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <ForumHeader data={data} navigation={navigation}></ForumHeader>

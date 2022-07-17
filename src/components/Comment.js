@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, SafeAreaView, Image, StatusBar, FlatList, StyleSheet } from "react-native";
+import { View, Text, SafeAreaView, Image, StatusBar, FlatList, StyleSheet, TouchableOpacity } from "react-native";
 import { COLORS, SIZES, assets, SHADOWS, FONTS } from "../constants";
 import { CircleButton, RectButton, ProfileButton, SubInfo } from "../components";
 import { Ionicons } from 'react-native-vector-icons' 
 import { supabase } from "../initSupabase";
+import ModalDropdown from 'react-native-modal-dropdown';
 
 const Comment = ({ comment }) => {
     const [username, setUsername] = useState("");
+    const [liked, setLiked] = useState(false);
+    const [likes, setLikes] = useState(comment.likes);
+    const [deleted, setDeleted] = useState(false);
+    const [deletable, setDeletable] = useState(false);
     const [text, setText] = useState(comment.message.slice(0, 100));
     const [readMore, setReadMore] = useState(false);
 
@@ -37,21 +42,94 @@ const Comment = ({ comment }) => {
         } 
       }
 
+    async function decreaseLikes() {
+
+      setLikes(likes - 1);
+      setLiked(false);
+
+      const { data, error } = await supabase
+      .from('comments')
+      .update({ likes: likes })
+      .eq("comment_id", comment.comment_id)
+    }
+
+    async function increaseLikes() {
+
+      setLikes(likes + 1);
+      setLiked(true);
+
+      const { data, error } = await supabase
+        .from('comments')
+        .update({ likes: likes })
+        .eq("comment_id", comment.comment_id)
+    }
+
+    async function deleteComment() {
+
+      setDeleted(true);
+      
+      const { data, error } = await supabase
+        .from('comments')
+        .delete()
+        .eq('comment_id', comment.comment_id)
+    }
+
+    function canDelete() {
+
+      const user = supabase.auth.user();
+
+      return user.id == comment.commentor_id;
+    }
+
   return (
     <View style={ styles.container }>
-        <ProfileButton 
-            imgUrl={assets.person02} 
-            handlePress={() => navigation.navigate("Profile")}
-            left = {15}
-            top = {15}
-        />
-        <View style={ styles.commentdata }>
-            <Text style={ styles.username }> {username} </Text>
-            <Text style ={ styles.date }> {comment?.created_at} </Text>
+        <View style={{
+          marginLeft: 15,
+          marginRight: 15,
+          marginTop: 15, 
+          flexDirection:"row", 
+          justifyContent: "space-between"
+        }}>
+          <Text style = 
+            {{ fontFamily: FONTS.bold,
+               fontSize: SIZES.medium,
+               color: COLORS.primary,}}
+          > 
+            {comment.title}
+          </Text>
+          
+          {console.log(canDelete())}
+
+          {canDelete() 
+            ? 
+            <ModalDropdown 
+              options= {['Delete']} 
+              dropdownStyle={{height: 40}}
+              onSelect = {() => deleteComment()} >
+              <Ionicons
+                  name='ellipsis-vertical-outline'
+                  size={20}
+              />
+            </ModalDropdown>
+            : null
+          }
+
+        </View>
+        <View>
+          <ProfileButton 
+              imgUrl={assets.person02} 
+              handlePress={() => navigation.navigate("Profile")}
+              left = {15}
+              top = {15}
+          />
+          <View style={ styles.commentdata }>
+              <Text style={ styles.username }> {username} </Text>
+              <Text style ={ styles.date }>{comment?.created_at.substring(0, 10)} </Text>
+          </View>
         </View>
         <View style ={{ paddingLeft: SIZES.font }}>
             <Text>
-                {text} {!readMore && "..."}
+                {text} {JSON.stringify({text}).length < 110 ? "" : !readMore && "..."}
             </Text>
             <Text
               style={ styles.readmore }
@@ -65,7 +143,7 @@ const Comment = ({ comment }) => {
                 }
               }}
             >
-                {readMore ? "Show Less" : "Read More"}
+                {JSON.stringify({text}).length < 110 ? "" : readMore ? "Show Less" : "Read More"}
             </Text>
         </View>
 
@@ -79,10 +157,11 @@ const Comment = ({ comment }) => {
                 <Ionicons 
                     name='thumbs-up'
                     size={20}
-                // onPress={() => navigation.goBack()}
+                    onPress={() => liked ? decreaseLikes() : increaseLikes()}
                 /> 
-                {' '} {comment.likes}
+                {' '} {likes}
             </Text>
+            <Text style = {{color: COLORS.gray}}>{username} voted YES</Text>
         </View>
     </View>
   )
@@ -120,8 +199,9 @@ const styles = StyleSheet.create({
 
     like: {
         // flex: 1,
-        padding: SIZES.font * 1,
+        padding: SIZES.font,
         justifyContent: "space-between",
+        flexDirection: "row-reverse"
     },
 
     readmore: {
