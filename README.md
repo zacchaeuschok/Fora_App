@@ -332,6 +332,10 @@ as $$
     set user_points = user_points + end_point_input
     where id = auth.uid();
 
+    --insert row in vote to disable choice button 
+    insert into public.votes(voter_id,question_id)
+    values(auth.uid(), question_id_input);
+
 	end;
 $$;
 ```
