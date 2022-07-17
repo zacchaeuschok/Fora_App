@@ -157,15 +157,6 @@ const Profile = () => {
             />
             <Button
               color={COLORS.secondary}
-              text= {loading ? "Loading ..." : "Expired Questions"}
-              onPress={() => navigation.navigate('Expired')}
-              style={{
-                marginTop: 20,
-              }}
-              disabled={loading}
-            />
-            <Button
-              color={COLORS.secondary}
               text= "Sign Out"
               onPress={() => {
                 supabase.auth.signOut();

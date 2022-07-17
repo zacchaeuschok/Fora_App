@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, Image, TextInput } from "react-native";
 import { useNavigation, useIsFocused } from "@react-navigation/native";
-import { ProfileButton } from "./Button";
+import { ProfileButton, ArchiveButton } from "./Button";
 import { supabase } from "../initSupabase";
 import { useState, useEffect } from 'react'
 
@@ -87,23 +87,20 @@ const HomeHeader = ({ onSearch}) => {
 
         <Text style={{color: COLORS.white, textAlign: "right", fontSize: SIZES.large}}>{point} points</Text>
         
-        <View style={{ width: 45, height: 45 }}>
-
-          <ProfileButton 
-            imgUrl={assets.person02} 
-            handlePress={() => navigation.navigate("Portfolio")}
+        <View style={{ width: 90, height: 45 }}>
+          <View style={{alignItems:"flex-start"}}>
+          <ArchiveButton 
+            imgUrl={assets.box} 
+            handlePress={() => navigation.navigate("Expired")}
             />
-          <Image
-            source={assets.badge}
-            resizeMode="contain"
-            style={{
-              position: "absolute",
-              width: 15,
-              height: 15,
-              bottom: 0,
-              right: 0,
-            }}
-          />
+          </View>
+
+          <View style={{alignItems:"flex-end"}}>
+            <ProfileButton 
+              imgUrl={assets.user} 
+              handlePress={() => navigation.navigate("Portfolio")}
+              />
+          </View>
         </View>
       </View>
 
