@@ -14,7 +14,6 @@ import { useIsFocused } from "@react-navigation/native";
 const Poll = ({data}) => {
   const [choices, SetChoices] = useState([]);
   const [question_id,SetQuestionID] =useState(data.question_id);
-  const [total, setTotal] = useState(null); 
   const [submitted, SetSubmitted] = useState(false);
   const isFocused = useIsFocused();
 
@@ -25,15 +24,6 @@ const Poll = ({data}) => {
       SetSubmitted(data);
     };
     questionDone();
-  },[isFocused]);
-
-  //get the total vote from supabase to calculate the percentage of vote per choice when user first visit the page
-  useEffect(() => {
-    const getTotal = async () => {
-      const { data } = await supabase.rpc('get_total_votes', {id_input: question_id});
-      setTotal(data);
-    };
-    getTotal();
   },[isFocused]);
 
   //get the choices from supabase base on the question 
@@ -70,7 +60,7 @@ const Poll = ({data}) => {
       <View style={{ zIndex: 0 }}>
           <FlatList
             data={choices}
-            renderItem={({ item }) => <Choice data={item} total={total} submitted={submitted}/>}
+            renderItem={({ item }) => <Choice data={item} submitted={submitted}/>}
             keyExtractor={(item) => `${item.choice_id}`}
             showsVerticalScrollIndicator={false}
           />
