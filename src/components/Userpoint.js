@@ -6,42 +6,33 @@ import { supabase } from "../initSupabase";
 
 export const Userpoint = () => {
   const [point, setPoint] = useState("");
-  const [session, setSession] = useState(null)
 
   useEffect(() => {
-    setSession(supabase.auth.session())
-
-    supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session)
-    })
-  }, [])
-
-  useEffect(() => {
-    if (session) getPoint();
-  }, [session]);
-
-  async function getPoint() {
-    try {
-      const user = supabase.auth.user();
-      if (!user) throw new Error("No user on the session!");
-
-      let { data, error, status } = await supabase
+    const getPoint = async() => {
+      try {
+        const user = supabase.auth.user();
+        if (!user) throw new Error("No user on the session!");
+        let { data, error, status } = await supabase
         .from("profiles")
         .select(`user_points`)
         .eq("id", user.id)
         .single();
 
-      if (error && status !== 406) {
-        throw error;
-      }
+        if (error && status !== 406) {
+          throw error;
+        }
+  
+        if (data) {
+          setPoint(data.user_points)
+        }
+      } catch (error) {
+        alert(error);
+      } 
+    };
 
-      if (data) {
-        setPoint(data.user_points)
-      }
-    } catch (error) {
-      alert(error);
-    } 
-  }
+    getPoint();
+
+  },[]);
   return (
     <View style={{
       width: "100%",
