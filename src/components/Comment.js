@@ -98,8 +98,6 @@ const Comment = ({ comment }) => {
             {comment.title}
           </Text>
           
-          {console.log(canDelete())}
-
           {canDelete() 
             ? 
             <ModalDropdown 
