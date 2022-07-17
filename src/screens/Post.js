@@ -12,8 +12,10 @@ import { supabase } from "../initSupabase";
 const Post = ({route, navigation}) => {
     const { data } = route.params;
     const [loading, setLoading] = useState(false);
+    const [titleCount, setTitleCount] = useState(0);
     const [title, setTitle] = useState("");
     const [message, setMessage] = useState("");
+    const [messageCount, setMessageCount] = useState(0);
 
     async function postMessage({title, message}) {
         try {
@@ -94,11 +96,15 @@ const Post = ({route, navigation}) => {
             containerStyle={{ margin: 15}}
             placeholder="Enter your Title"
             value={title || ""}
+            maxLength={45}
             autoCapitalize="none"
             autoCompleteType="off"
             autoCorrect={false}
             keyboardType="default"
-            onChangeText={(text) => setTitle(text)}
+            onChangeText={(text) => {
+                    setTitle(text)
+                    setTitleCount(text.length)
+            }}
             />
 
             <View style = {{       
@@ -126,9 +132,23 @@ const Post = ({route, navigation}) => {
                 autoCompleteType="off"
                 autoCorrect={false}
                 keyboardType="default"
-                onChangeText={(text) => setMessage(text)}
+                onChangeText={(text) =>{
+                    setMessage(text)
+                    setMessageCount(text.length)
+                    console.log(messageCount)
+                }}
                 />
             </View>
+
+            <Text style={{
+                textAlign: 'right', 
+                paddingHorizontal: SIZES.font * 2,
+                paddingVertical: SIZES.font / 2,
+                fontSize: SIZES.small,
+                color: COLORS.gray
+            }}> 
+                {1000 - messageCount} characters left
+            </Text>
 
             <View style = {{flexDirection: 'row', justifyContent: "space-evenly"}}>
                 <TouchableOpacity 
