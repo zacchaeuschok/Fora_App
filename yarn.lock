@@ -1227,6 +1227,13 @@
   "resolved" "https://registry.npmjs.org/@expo/sdk-runtime-versions/-/sdk-runtime-versions-1.0.0.tgz"
   "version" "1.0.0"
 
+"@expo/vector-icons@^10.2.1":
+  "integrity" "sha512-clYQZFLeU2y23n03hXg18EEsZS5c73sJJnfderztfSAqkUXkfUtv07fwuprYwbHIvgFkw6L7R6xJOCVYtS85iQ=="
+  "resolved" "https://registry.npmjs.org/@expo/vector-icons/-/vector-icons-10.2.1.tgz"
+  "version" "10.2.1"
+  dependencies:
+    "lodash" "^4.17.4"
+
 "@expo/vector-icons@^12.0.4":
   "integrity" "sha512-zWvHBmkpbi1KrPma6Y+r/bsGI6MjbM1MBSe6W9A4uYMLhNI5NR4JtTnqxhf7g1XdpaDtBdv5aOWKEx4d5rxnhg=="
   "resolved" "https://registry.npmjs.org/@expo/vector-icons/-/vector-icons-12.0.5.tgz"
@@ -5221,7 +5228,7 @@
   "resolved" "https://registry.npmjs.org/lodash.throttle/-/lodash.throttle-4.1.1.tgz"
   "version" "4.1.1"
 
-"lodash@^4.17.14", "lodash@^4.17.15", "lodash@^4.17.19", "lodash@^4.17.21", "lodash@^4.7.0":
+"lodash@^4.17.14", "lodash@^4.17.15", "lodash@^4.17.19", "lodash@^4.17.21", "lodash@^4.17.4", "lodash@^4.7.0":
   "integrity" "sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg=="
   "resolved" "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz"
   "version" "4.17.21"
@@ -6366,6 +6373,20 @@
   dependencies:
     "prop-types" "^15.6.2"
     "react-native-iphone-x-helper" "^1.0.3"
+
+"react-native-modal-dropdown@^1.0.2":
+  "integrity" "sha512-X13RbwoQdaOb9Ffi7fjRVwh9OXauXIJhum0uXGzYZLMyoCQ5yt5cxf27P/YZbdh80Fb7bdPx6vTA4PTpUK2WDQ=="
+  "resolved" "https://registry.npmjs.org/react-native-modal-dropdown/-/react-native-modal-dropdown-1.0.2.tgz"
+  "version" "1.0.2"
+  dependencies:
+    "prop-types" "^15.6.0"
+
+"react-native-modal-select@^1.0.10":
+  "integrity" "sha512-EfRuNDLZCYXzlPNrLvO2/g0+SMvkdkTYyrRqWbQGL6Q0Bl9gPUaw0og61j+fxxzlce0bO5yvcdB/dNFpaLxCzw=="
+  "resolved" "https://registry.npmjs.org/react-native-modal-select/-/react-native-modal-select-1.0.10.tgz"
+  "version" "1.0.10"
+  dependencies:
+    "@expo/vector-icons" "^10.2.1"
 
 "react-native-poll@^0.1.2":
   "integrity" "sha512-NN85vICNLHxqN7hzSnK4bOiRYI/oL8bWWych+yjbXvhjUxhXiIkzRRYH38rId87d1NsuCpoNG8LdY33nG4c0zA=="

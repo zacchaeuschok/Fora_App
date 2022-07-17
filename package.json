@@ -38,6 +38,8 @@
     "react-native-elements": "^3.4.2",
     "react-native-gesture-handler": "~2.1.0",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
+    "react-native-modal-dropdown": "^1.0.2",
+    "react-native-modal-select": "^1.0.10",
     "react-native-poll": "^0.1.2",
     "react-native-rapi-ui": "^0.2.1",
     "react-native-raw-bottom-sheet": "^2.2.0",
