@@ -59,7 +59,6 @@ const Home = () => {
     }
   };
 
-
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <FocusedStatusBar backgroundColor={COLORS.primary} />

@@ -4,6 +4,7 @@ import { RectButton, CircleButton, ProfileButton } from "./Button";
 import { SubInfo, People, EndDate, EthPrice, QuestionTitle } from "./SubInfo";
 import FocusedStatusBar from "./FocusedStatusBar";
 import DetailsDesc from './DetailsDesc';
+import Comment from "./Comment";
 
 export {
   HomeHeader,
@@ -18,4 +19,5 @@ export {
   QuestionTitle,
   FocusedStatusBar,
   DetailsDesc,
+  Comment
 };
