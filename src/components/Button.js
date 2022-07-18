@@ -36,12 +36,36 @@ export const ProfileButton = ({ imgUrl, handlePress, ...props }) => {
       style={{
         width: 40,
         height: 40,
-        backgroundColor: COLORS.white,
         position: "absolute",
         borderRadius: SIZES.extraLarge,
         alignItems: "center",
         justifyContent: "center",
-        ...SHADOWS.light,
+    
+        ...props,
+      }}
+      onPress={handlePress}
+    >
+      <Image
+        source={imgUrl}
+        resizeMode="contain"
+        style={{ width: 40, height: 40 }}
+      />
+    </TouchableOpacity>
+  );
+};
+
+export const ArchiveButton = ({ imgUrl, handlePress, ...props }) => {
+  return (
+    <TouchableOpacity
+      testID="profile"
+      style={{
+        width: 40,
+        height: 40,
+        backgroundColor: "transparent",
+        position: "absolute",
+        borderRadius: SIZES.extraLarge,
+        alignItems: "center",
+        justifyContent: "center",
         ...props,
       }}
       onPress={handlePress}
