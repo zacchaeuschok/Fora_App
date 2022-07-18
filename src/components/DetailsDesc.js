@@ -23,6 +23,7 @@ const DetailsDesc = ({ data }) => {
           subTitle={data.question}
           titleSize={SIZES.extraLarge}
           subTitleSize={SIZES.font}
+          color = {COLORS.primary}
         />
       </View>
 

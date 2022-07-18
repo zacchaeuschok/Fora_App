@@ -3,6 +3,8 @@ import eth from "../assets/icons/eth.png";
 import heart from "../assets/icons/heart.png";
 import left from "../assets/icons/left.png";
 import search from "../assets/icons/search.png";
+import forum from "../assets/icons/forum.png";
+import pen from "../assets/icons/pen.png";
 import home from "../assets/icons/home.png";
 import success from "../assets/icons/success.png";
 import settings from "../assets/icons/settings.png";
@@ -39,6 +41,8 @@ export default {
   heart,
   left,
   search,
+  forum,
+  pen,
   home,
   success,
   settings,
@@ -46,7 +50,6 @@ export default {
   down,
   box,
   user,
-
   logo,
   // nft01,
   // nft02,

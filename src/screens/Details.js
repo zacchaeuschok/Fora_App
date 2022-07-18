@@ -72,6 +72,7 @@ const Details = ({ route, navigation }) => {
                 }}
               >Pick one of the choices listed below. Points will be deducted according to the proportion of people voted.</Text>
               <CreatePoll data={data}/>
+
             </View>
           </React.Fragment>
         )}
