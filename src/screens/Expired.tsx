@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { View, SafeAreaView, FlatList } from "react-native";
 
-import { QuestionCard, HomeHeader, FocusedStatusBar } from "../components";
+import { QuestionCard, FocusedStatusBar } from "../components";
+import { ExpiredHeader } from "../components/ExpiredHeader"
 import { COLORS } from "../constants";
 
 import { supabase } from "../initSupabase";
 import { useIsFocused } from "@react-navigation/native";
+import from from "../../__mocks__/@react-native-async-storage/async-storage";
 
 type Question = {
   question_id: number,
@@ -19,7 +21,7 @@ type Question = {
   expired: boolean
 }
 
-const Home = () => {
+const Expired = () => {
   const [questionData, setQuestionData] = useState<Array<Question>>([]);
   const [originalData, setOriginalData] = useState<Array<Question>>([]);
   const isFocused = useIsFocused();
@@ -29,7 +31,7 @@ const Home = () => {
         const { data: questionData, error } = await supabase
         .from<Question>('questions')
         .select('*')
-        .eq("expired", false)
+        .eq("expired", true)
         .order('question_id', { ascending: false })
 
         if (error) console.log('error', error)
@@ -70,7 +72,7 @@ const Home = () => {
             renderItem={({ item }) => <QuestionCard data={item}/>}
             keyExtractor={(item) => `${item.question_id}`}
             showsVerticalScrollIndicator={false}
-            ListHeaderComponent={<HomeHeader onSearch={handleSearch}/>}
+            ListHeaderComponent={<ExpiredHeader/>}
           />
         </View>
 
@@ -93,4 +95,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Expired;

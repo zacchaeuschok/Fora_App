@@ -3,6 +3,13 @@ import eth from "../assets/icons/eth.png";
 import heart from "../assets/icons/heart.png";
 import left from "../assets/icons/left.png";
 import search from "../assets/icons/search.png";
+import home from "../assets/icons/home.png";
+import success from "../assets/icons/success.png";
+import settings from "../assets/icons/settings.png";
+import up from "../assets/icons/arrowUp.png";
+import down from "../assets/icons/down.png";
+import box from "../assets/icons/box.png";
+import user from "../assets/icons/user.png";
 
 import logo from "../assets/images/logo.png";
 // import nft01 from "../assets/images/nft01.png";
@@ -32,6 +39,13 @@ export default {
   heart,
   left,
   search,
+  home,
+  success,
+  settings,
+  up,
+  down,
+  box,
+  user,
 
   logo,
   // nft01,

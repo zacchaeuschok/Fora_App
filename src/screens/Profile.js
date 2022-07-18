@@ -1,16 +1,13 @@
 import { useState, useEffect } from "react";
 import {
   ScrollView,
-  TouchableOpacity,
   KeyboardAvoidingView,
-  Image,
   View,
   Alert,
-  StyleSheet,
+  StatusBar
 } from "react-native";
 import { supabase } from "../initSupabase";
 import { ApiError, Session } from "@supabase/supabase-js";
-// import { useNavigation } from "@react-navigation/native";
 import 'react-native-url-polyfill/auto'
 import { Userpoint } from "../components/Userpoint";
 
@@ -19,19 +16,17 @@ import {
   Text,
   TextInput,
   Button,
-  useTheme,
-  themeColor,
 } from "react-native-rapi-ui";
+import { CircleButton, FocusedStatusBar } from "../components";
+import { COLORS, SIZES, assets, SHADOWS, FONTS } from "../constants";
+import { useNavigation } from "@react-navigation/native";
 
-
-
-export default function Profile() {
-  
+const Profile = () => {
   const [loading, setLoading] = useState(false);
   const [username, setUsername] = useState("");
   const [avatar_url, setAvatarUrl] = useState("");
 
-  const [session, setSession] = useState<Session | null>(null)
+  const [session, setSession] = useState(null)
 
   useEffect(() => {
     setSession(supabase.auth.session())
@@ -65,17 +60,13 @@ export default function Profile() {
         setAvatarUrl(data.avatar_url);
       }
     } catch (error) {
-      Alert.alert((error as ApiError).message);
+      Alert.alert(error);
     } finally {
       setLoading(false);
     }
   }
 
-  async function updateProfile({
-    username,
-  }: {
-    username: string;
-  }) {
+  async function updateProfile({username}) {
     try {
       setLoading(true);
       const user = supabase.auth.user();
@@ -98,15 +89,26 @@ export default function Profile() {
         Alert.alert("Update successful")
       }
     } catch (error) {
-      Alert.alert((error as ApiError).message);
+      Alert.alert(error);
     } finally {
       setLoading(false);
     }
   }
 
+  async function logout() {
+    setLoading(true);
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      setLoading(false);
+      alert(error.message);
+    }
+  }
+  const navigation = useNavigation();
+
   return (
     <KeyboardAvoidingView behavior="height" enabled style={{ flex: 1 }}>
       <Layout>
+      <FocusedStatusBar backgroundColor={COLORS.primary} />
       <ScrollView
           contentContainerStyle={{
             flexGrow: 1,
@@ -119,28 +121,24 @@ export default function Profile() {
               paddingBottom: 20,
             }}
           >
+            <CircleButton
+              imgUrl={assets.left}
+              handlePress={() => navigation.goBack()}
+              left={15}
+              top={StatusBar.currentHeight + 10}
+            />
             <Text
-              fontWeight="bold"
               style={{
+                fontWeight: "bold",
                 alignSelf: "center",
                 padding: 30,
+                color:COLORS.white,
+                fontSize: SIZES.large
               }}
-              size="h3"
             >
-              Portfolio
+              Profile
             </Text>
-            {/* <Text style={{ marginTop: 15 }}>Email</Text>
-            <TextInput
-             containerStyle={{ marginTop: 15 }}
-             placeholder="Enter your email"
-             value={session?.user?.email} 
-             autoCapitalize="none"
-             autoCompleteType="off"
-             autoCorrect={false}
-             keyboardType="email-address"
-            /> */}
-            <Userpoint/>
-            <Text style={{ marginTop: 15 }}>Username</Text>
+            <Text style={{ marginTop: 15, color: COLORS.white }}>Username</Text>
             <TextInput
              containerStyle={{ marginTop: 15 }}
              placeholder="Enter your username"
@@ -152,27 +150,49 @@ export default function Profile() {
              onChangeText={(text) => setUsername(text)}
             />
             <Button
-              text= {loading ? "Loading ..." : "Update"}
+              color={COLORS.secondary}
+              text= {loading ? "Loading ..." : "Update Username"}
               onPress={() => {
-                updateProfile({ username });
+                if (username.length > 3) {
+                  updateProfile({ username });
+                } else {
+                  Alert.alert("Username too short!")
+                }
               }}
               style={{
-                marginTop: 20,
+                marginTop: 20
               }}
               disabled={loading}
             />
             <Button
+              color={COLORS.secondary}
               text= "Sign Out"
               onPress={() => {
-                supabase.auth.signOut();
+                logout();
               }}
               style={{
                 marginTop: 20,
               }}
               disabled={loading}
             />
-          </View>        
+          </View> 
+          <View
+          style={{
+            position: "absolute",
+            top: 0,
+            bottom: 0,
+            right: 0,
+            left: 0,
+            zIndex: -1,
+          }}
+        >
+          <View
+            style={{ height: 200, backgroundColor: COLORS.primary }} />
+          <View style={{ flex: 1, backgroundColor: COLORS.white }} />
+        </View>
         </ScrollView>
       </Layout>
-    </KeyboardAvoidingView>
-)}
+    </KeyboardAvoidingView>)
+};
+
+export default Profile;
