@@ -7,13 +7,11 @@ import Details from "../screens/Details"
 import Forum from "../screens/Forum"
 import Post from "../screens/Post";
 import Profile from "../screens/Profile"
-import CreatePoll from "../screens/CreatePoll.tsx"
 
 // import { useState, useEffect } from 'react';
 // import { Session } from '@supabase/supabase-js'
 // import { supabase } from '../initSupabase'
 
-import Profile from "../screens/Profile.js"
 import Poll from "../components/Poll.js"
 import Points from "../screens/Points.js"
 import Expired from "../screens/Expired"
