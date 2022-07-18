@@ -1,54 +1,69 @@
 import React from "react";
 import { View, Text, Image, TextInput } from "react-native";
-import { TouchableOpacity, TouchableWithoutFeedback } from "react-native-gesture-handler";
-import { useNavigation } from "@react-navigation/native";
-import { ProfileButton } from "./Button";
-
-import { ApiError, Session } from "@supabase/supabase-js";
+import { useNavigation, useIsFocused } from "@react-navigation/native";
+import { ProfileButton, ArchiveButton } from "./Button";
 import { supabase } from "../initSupabase";
 import { useState, useEffect } from 'react'
 
 import { COLORS, FONTS, SIZES, assets } from "../constants";
+//import from from "../../__mocks__/@react-native-async-storage/async-storage";
 
 const HomeHeader = ({ onSearch}) => {
   const navigation = useNavigation();
   const [username, setUsername] = useState("");
+  const [point, setPoint] = useState("");
   const [session, setSession] = useState(null)
+  const isFocused = useIsFocused();
 
   useEffect(() => {
-    setSession(supabase.auth.session())
-
-    supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session)
-    })
-  }, [])
-
-  useEffect(() => {
-    if (session) getUsername();
-  }, [session]);
-
-  async function getUsername() {
-    try {
-      const user = supabase.auth.user();
-      if (!user) throw new Error("No user on the session!");
-
-      let { data, error, status } = await supabase
+    const getUsername = async() => {
+      try {
+        const user = supabase.auth.user();
+        if (!user) throw new Error("No user on the session!");
+        let { data, error, status } = await supabase
         .from("profiles")
         .select(`username`)
         .eq("id", user.id)
         .single();
 
-      if (error && status !== 406) {
-        throw error;
-      }
+        if (error && status !== 406) {
+          throw error;
+        }
+  
+        if (data) {
+          setUsername(data.username)
+        }
+      } catch (error) {
+        alert(error);
+      } 
+    };
 
-      if (data) {
-        setUsername(data.username)
-      }
-    } catch (error) {
-      alert(error);
-    } 
-  }
+    const getPoint = async() => {
+      try {
+        const user = supabase.auth.user();
+        if (!user) throw new Error("No user on the session!");
+        let { data, error, status } = await supabase
+        .from("profiles")
+        .select(`user_points`)
+        .eq("id", user.id)
+        .single();
+
+        if (error && status !== 406) {
+          throw error;
+        }
+  
+        if (data) {
+          setPoint(data.user_points)
+        }
+      } catch (error) {
+        alert(error);
+      } 
+    };
+
+    getUsername();
+    getPoint();
+
+  },[isFocused]);
 
   return (
     <View
@@ -70,22 +85,22 @@ const HomeHeader = ({ onSearch}) => {
           style={{ width: 80, height: 50 }}
         />
 
-        <View style={{ width: 45, height: 45 }}>
-          <ProfileButton 
-            imgUrl={assets.person02} 
-            handlePress={() => navigation.navigate("Profile")}
+        <Text style={{color: COLORS.white, textAlign: "right", fontSize: SIZES.large}}>{point} points</Text>
+        
+        <View style={{ width: 90, height: 45 }}>
+          <View style={{alignItems:"flex-start"}}>
+          <ArchiveButton 
+            imgUrl={assets.box} 
+            handlePress={() => navigation.navigate("Expired")}
             />
-          <Image
-            source={assets.badge}
-            resizeMode="contain"
-            style={{
-              position: "absolute",
-              width: 15,
-              height: 15,
-              bottom: 0,
-              right: 0,
-            }}
-          />
+          </View>
+
+          <View style={{alignItems:"flex-end"}}>
+            <ProfileButton 
+              imgUrl={assets.user} 
+              handlePress={() => navigation.navigate("Portfolio")}
+              />
+          </View>
         </View>
       </View>
 

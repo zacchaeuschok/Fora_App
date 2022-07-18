@@ -1,7 +1,9 @@
-import React, { useState } from "react";
-import { View, Image, Text } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Image, Text, Alert } from "react-native";
 
 import { SIZES, FONTS, COLORS, SHADOWS, assets } from "../constants";
+import { supabase } from "../initSupabase";
+import { useIsFocused } from "@react-navigation/native";
 
 export const QuestionTitle = ({ title, subTitle, titleSize, subTitleSize, color }) => {
   return (
@@ -76,7 +78,53 @@ export const People = () => {
   );
 };
 
-export const EndDate = ({date}) => {
+export const EndDate = ({question_id}) => {
+  const [difference, setDifference] = useState(null);
+  const [expired, setExpired] = useState(null);
+  const isFocused = useIsFocused();
+  const [loading, setLoading] = useState(false);
+
+  async function updateExpired() {
+      setLoading(true);
+      const user = supabase.auth.user();
+      if (!user) throw new Error("No user on the session!");
+      const { data } = await supabase.rpc('update_expired', {question_id_input: question_id});
+      setExpired(data);
+      setLoading(false);
+  }
+
+  async function addPoint() {
+    setLoading(true);
+    const user = supabase.auth.user();
+    if (!user) throw new Error("No user on the session!");
+    const { data } = await supabase.rpc('add_points', {question_id_input: question_id});
+    setLoading(false);
+}
+
+  useEffect(() => {
+    const duration = async () => {
+      const { data } = await supabase.rpc('duration', {id_input: question_id});
+      if (data == null) { //loading when null
+        setDifference("loading");
+      } else if (data.substring(0,1) == '-') { //when expired
+        setDifference('Expired');
+        updateExpired();
+        if (expired == false) addPoint();
+      }else if (data.substring(0,6) == '1 day ') { //when 1 day
+        setDifference(data.substring(0,6));
+      } else if (data.substring(0,6).slice(-1) == 's') { //when one digit day
+        setDifference(data.substring(0,6));
+      } else if (data.substring(0,7).slice(-3) == 'day') { //when two digit day
+        setDifference(data.substring(0,7)); 
+      } else { // less than 24 hour
+        setDifference(data.substring(0,8));
+      }
+    };
+
+    duration();
+
+  },[isFocused]);
+
   return (
     <View
       style={{
@@ -98,7 +146,7 @@ export const EndDate = ({date}) => {
           color: COLORS.primary,
         }}
       >
-        Ending in
+        {difference == "Expired" ? "Status:" : "Ending in"}
       </Text>
       <Text
         style={{
@@ -107,13 +155,13 @@ export const EndDate = ({date}) => {
           color: COLORS.primary,
         }}
       >
-        {date.substring(0,10)}
+        {difference}
       </Text>
     </View>
   );
 };
 
-export const SubInfo = ({date}) => {
+export const SubInfo = ({question_id}) => {
   return (
     <View
       style={{
@@ -126,7 +174,7 @@ export const SubInfo = ({date}) => {
       }}
     >
       {/* <People /> */}
-      <EndDate date = {date}/>
+      <EndDate question_id = {question_id}/>
     </View>
   );
 };

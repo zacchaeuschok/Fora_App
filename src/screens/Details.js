@@ -3,7 +3,8 @@ import { View, Text, SafeAreaView, Image, StatusBar, FlatList } from "react-nati
 
 import { COLORS, SIZES, assets, SHADOWS, FONTS } from "../constants";
 import { CircleButton, RectButton, SubInfo, DetailsDesc, DetailsBid, FocusedStatusBar } from "../components";
-import CreatePoll from "./CreatePoll";
+import CreatePoll from "../components/Poll";
+
 
 
 const DetailsHeader = ({ data, navigation }) => (
@@ -31,7 +32,7 @@ const DetailsHeader = ({ data, navigation }) => (
 );
 
 const Details = ({ route, navigation }) => {
-  const { data } = route.params;
+  const { data, enable } = route.params;
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -50,7 +51,7 @@ const Details = ({ route, navigation }) => {
         ListHeaderComponent={() => (
           <React.Fragment>
             <DetailsHeader data={data} navigation={navigation} />
-            <SubInfo date = {data.expire_at}/>
+            <SubInfo question_id = {data.question_id}/>
             <View style={{ padding: SIZES.font }}>
               <DetailsDesc data={data} />
               <Text
@@ -69,7 +70,7 @@ const Details = ({ route, navigation }) => {
                   fontFamily: FONTS.regular,
                   lineHeight: SIZES.large,
                 }}
-              >Pick one of the choices listed below. {data.points} points will be deducted. </Text>
+              >Pick one of the choices listed below. Points will be deducted according to the proportion of people voted.</Text>
               <CreatePoll data={data}/>
 
             </View>
