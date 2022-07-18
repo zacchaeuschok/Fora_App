@@ -10,6 +10,7 @@ const Comment = ({ comment }) => {
     const [username, setUsername] = useState("");
     const [liked, setLiked] = useState(false);
     const [likes, setLikes] = useState(comment.likes);
+    const [choice, setChoice] = useState("Yes");
     const [deleted, setDeleted] = useState(false);
     const [deletable, setDeletable] = useState(false);
     const [text, setText] = useState(comment.message.slice(0, 100));
@@ -18,6 +19,35 @@ const Comment = ({ comment }) => {
     useEffect(() => {
       getUsername();
     });
+
+    // async function getVote() {
+    //   let { data: votes, error } = await supabase
+    //     .from('votes')
+    //     .select('choice_id')
+    //     .eq("voter_id", comment.commentor_id)
+    //     .eq("question_id", comment.question_id)
+      
+    //     const { choiceData } = await supabase.rpc('get_choice',{choice_id_input: data.choice_id});
+
+    //     setChoice(choiceData);
+
+    //     return choice;
+    // }
+
+    // useEffect(() => {
+    //   const fetchChoice = async({choice_id}) => {
+    //     const { data } = await supabase.rpc('get_choice',{choice_id_input: choice_id});
+    //     setChoice(data);
+    //   }
+
+    //   let { data: votes, error } = await supabase
+    //       .from('votes')
+    //       .select('choice_id')
+    //       .eq("voter_id", comment.commentor_id)
+    //       .eq("question_id", comment.question_id)
+      
+    //   fetchChoice(data);
+    // })
 
     async function getUsername() {
         try {
@@ -159,7 +189,7 @@ const Comment = ({ comment }) => {
                 /> 
                 {' '} {likes}
             </Text>
-            <Text style = {{color: COLORS.gray}}>{username} voted YES</Text>
+            <Text style = {{color: COLORS.gray}}>{username} voted {choice} </Text>
         </View>
     </View>
   )

@@ -125,6 +125,7 @@ const Forum = ({ route, navigation }) => {
             .from('comments')
             .select("*")
             .eq("question_id", data.question_id)
+            .order("created_at", {ascending: false})
 
             if (error) console.log('error', error)
             else {
