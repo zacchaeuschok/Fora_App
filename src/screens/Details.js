@@ -32,7 +32,7 @@ const DetailsHeader = ({ data, navigation }) => (
 );
 
 const Details = ({ route, navigation }) => {
-  const { data } = route.params;
+  const { data, enable } = route.params;
 
   return (
     <SafeAreaView style={{ flex: 1 }}>

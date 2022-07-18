@@ -332,6 +332,10 @@ as $$
     set user_points = user_points + end_point_input
     where id = auth.uid();
 
+    --insert row in vote to disable choice button 
+    insert into public.votes(voter_id,question_id)
+    values(auth.uid(), question_id_input);
+
 	end;
 $$;
 ```
@@ -384,7 +388,31 @@ as $$
 	end;
 $$;
 ```
+### 16. get total vote with choice - used in choice component
+```bash
+create or replace function get_total_votes_with_choice(choice_id_input bigint)
+returns bigint
+language plpgsql
+as $$
+    declare
+    total bigint;
+    question_id_input bigint;
+	begin
+    --find question_id
+    select question_id
+    into question_id_input
+    from public.choices
+    where choice_id = choice_id_input;
+    --lookup 
+    select sum(votes)
+    into total
+    from public.choices
+    where question_id = question_id_input;
+    return total;
+	end;
+$$;
 
+```
 
 
 
