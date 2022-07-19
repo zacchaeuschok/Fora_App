@@ -62,12 +62,10 @@ const Choice = ({data, submitted}) => {
   const getTotalVotes = async () => {
     const { data } = await supabase.rpc('get_total_votes_with_choice', {choice_id_input: choiceId});
     setTotalVotes(data);
-    console.log(data);
   };
 
   //calculate point to be deducted
   const getPointDeduct = async() => {
-    console.log("choice:" + totalVotes);
     SetPointDeduct(Math.floor((parseFloat(data.votes)/parseFloat(totalVotes))*100))
   };
 
