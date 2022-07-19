@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, SafeAreaView, Image, StatusBar, FlatList } from "react-native";
+import { View, Text, SafeAreaView, Image, StatusBar, FlatList, StyleSheet } from "react-native";
 import { COLORS, SIZES, assets, SHADOWS, FONTS } from "../constants";
 import { CircleButton, RectButton, ProfileButton, SubInfo, DetailsDesc, DetailsBid, FocusedStatusBar, Comment} from "../components"; 
 import { supabase } from "../initSupabase";
-import { useIsFocused } from "@react-navigation/native";
-
+import { ListItem } from 'react-native-elements'
+import { Ionicons } from 'react-native-vector-icons' 
+import ModalDropdown from 'react-native-modal-dropdown';
   
 const ForumHeader = ({data, navigation}) => (
    
@@ -111,11 +112,11 @@ const ForumHeader = ({data, navigation}) => (
 const Forum = ({ route, navigation }) => {
     const { data } = route.params;
     const [commentData, setCommentData] = useState("");
-    const isFocused = useIsFocused();
+    //const isFocused = useIsFocused();
   
     useEffect(() => {
       fetchComments()
-    }, [isFocused])
+    }, [commentData])
   
     const fetchComments = async () => {
         try {
@@ -134,6 +135,18 @@ const Forum = ({ route, navigation }) => {
          }
     }
 
+
+    const deleteComment = async (id) => {
+        const { error } = await supabase.from('comments').delete().eq('comment_id', id)
+        if (error) console.log('error', error)
+        else setCommentData(commentData.filter((x) => x.id !== Number(id)))
+      }
+
+    function canDelete(id) {
+        const user = supabase.auth.user();
+        return user.id == id;
+      }
+
     // const commentSort = (data) => data.sort((a, b) => a.created_at.localeCompare(b.created_at))
     return (
         <SafeAreaView style={{ flex: 1 }}>
@@ -144,14 +157,64 @@ const Forum = ({ route, navigation }) => {
                     style={{flex : 1 }}>
                     <FlatList
                         data={commentData}
-                        renderItem = {({item}) => <Comment comment={item} />}
                         keyExtractor={(item) => `${item.comment_id}`}
                         showsVerticalScrollIndicator={false}
+                        renderItem={({ item }) => (
+                        <ListItem>
+                            <ListItem.Content>
+                                <View style={ styles.container }>
+                                    <View style={ styles.header}>
+                                        <Text style = {styles.title}> {item.title} </Text>
+                                        {canDelete(item.commentor_id) 
+                                        ? 
+                                        <ModalDropdown 
+                                        options= {['Delete']} 
+                                        dropdownStyle={{height: 40}}
+                                        onSelect = {() => deleteComment(item.comment_id)} >
+                                        <Ionicons
+                                            name='ellipsis-vertical-outline'
+                                            size={20}
+                                        />
+                                        </ModalDropdown>
+                                        : null
+                                        }
+                                    </View>
+                                    <Comment comment={item} />
+                                </View>
+                            </ListItem.Content>
+                        </ListItem>
+                        )}
                     />
                 </SafeAreaView>
             </View>
         </SafeAreaView>
     );
 };
+
+const styles = StyleSheet.create({
+    container: {
+        // flex: 1,
+        width: "100%",
+        backgroundColor: COLORS.white,
+        borderRadius: SIZES.font,
+        marginBottom: SIZES.extraLarge,
+        margin: SIZES.base,
+        ...SHADOWS.dark,
+      },
+
+    header: {
+        marginLeft: 15,
+        marginRight: 15,
+        marginTop: 15, 
+        flexDirection:"row", 
+        justifyContent: "space-between"
+    },
+
+    title: {
+        fontFamily: FONTS.bold,
+        fontSize: SIZES.medium,
+        color: COLORS.primary,
+    }
+})
 
 export default Forum;
