@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, SafeAreaView, Image, StatusBar, FlatList, Alert } from "react-native";
 import { Button, TouchableOpacity, KeyboardAvoidingView} from "react-native";
-
-import { COLORS, SIZES, assets, SHADOWS, FONTS } from "../constants";
-import { QuestionTitle } from "../components/SubInfo";
-import { CircleButton, RectButton, ProfileButton, SubInfo, DetailsDesc, DetailsBid, FocusedStatusBar, Comment} from "../components";
-import { Ionicons } from 'react-native-vector-icons' 
+import { COLORS, SIZES, assets, SHADOWS, FONTS } from "../constants"; 
 import { TextInput } from "react-native-rapi-ui"
 import { supabase } from "../initSupabase";
+import { FocusedStatusBar } from "../components"
+
 
 const Post = ({route, navigation}) => {
     const { data } = route.params;
@@ -32,7 +30,6 @@ const Post = ({route, navigation}) => {
                 created_at: new Date()            
             }
 
-            console.log(post)
     
             let { error } = await supabase
                 .from("comments")
@@ -53,6 +50,7 @@ const Post = ({route, navigation}) => {
 
     return (
         <KeyboardAvoidingView behavior="height" enabled style={{ flex: 1 }}>
+            <FocusedStatusBar backgroundColor={COLORS.primary} />
             <View 
             style = {{
                 width: "100%",
@@ -135,7 +133,6 @@ const Post = ({route, navigation}) => {
                 onChangeText={(text) =>{
                     setMessage(text)
                     setMessageCount(text.length)
-                    console.log(messageCount)
                 }}
                 />
             </View>

@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, SafeAreaView, Image, StatusBar, FlatList } from "react-native";
-import { Section, SectionContent } from 'react-native-rapi-ui';
-
 import { COLORS, SIZES, assets, SHADOWS, FONTS } from "../constants";
-import { QuestionTitle } from "../components/SubInfo";
-import { CircleButton, RectButton, ProfileButton, SubInfo, DetailsDesc, DetailsBid, FocusedStatusBar, Comment} from "../components";
-import { Ionicons } from 'react-native-vector-icons' 
+import { CircleButton, RectButton, ProfileButton, SubInfo, DetailsDesc, DetailsBid, FocusedStatusBar, Comment} from "../components"; 
 import { supabase } from "../initSupabase";
+import { useIsFocused } from "@react-navigation/native";
 
   
 const ForumHeader = ({data, navigation}) => (
@@ -33,7 +30,7 @@ const ForumHeader = ({data, navigation}) => (
             top = {15}
             />
             <ProfileButton 
-            imgUrl={assets.person02} 
+            imgUrl={assets.user} 
             handlePress={() => navigation.navigate("Profile")}
             right = {25}
             top = {15}
@@ -114,16 +111,17 @@ const ForumHeader = ({data, navigation}) => (
 const Forum = ({ route, navigation }) => {
     const { data } = route.params;
     const [commentData, setCommentData] = useState("");
+    const isFocused = useIsFocused();
   
     useEffect(() => {
       fetchComments()
-    }, [])
+    }, [isFocused])
   
     const fetchComments = async () => {
         try {
         const { data: commentData, error } = await supabase
             .from('comments')
-            .select("*")
+            .select('*')
             .eq("question_id", data.question_id)
             .order("created_at", {ascending: false})
 
@@ -139,6 +137,7 @@ const Forum = ({ route, navigation }) => {
     // const commentSort = (data) => data.sort((a, b) => a.created_at.localeCompare(b.created_at))
     return (
         <SafeAreaView style={{ flex: 1 }}>
+            <FocusedStatusBar backgroundColor={COLORS.primary} />
             <ForumHeader data={data} navigation={navigation}></ForumHeader>
             <View style={{ flex: 1 }}>
                 <SafeAreaView 

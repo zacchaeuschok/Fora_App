@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, SafeAreaView, Image, StatusBar, FlatList, StyleSheet, TouchableOpacity } from "react-native";
 import { COLORS, SIZES, assets, SHADOWS, FONTS } from "../constants";
-import { CircleButton, RectButton, ProfileButton, SubInfo } from "../components";
 import { Ionicons } from 'react-native-vector-icons' 
 import { supabase } from "../initSupabase";
 import ModalDropdown from 'react-native-modal-dropdown';
+import { useNavigation } from "@react-navigation/native";
 
 const Comment = ({ comment }) => {
     const [username, setUsername] = useState("");
@@ -15,6 +15,7 @@ const Comment = ({ comment }) => {
     const [deletable, setDeletable] = useState(false);
     const [text, setText] = useState(comment.message.slice(0, 100));
     const [readMore, setReadMore] = useState(false);
+    const navigation = useNavigation();
 
     useEffect(() => {
       getUsername();
@@ -143,13 +144,27 @@ const Comment = ({ comment }) => {
           }
 
         </View>
-        <View>
-          <ProfileButton 
-              imgUrl={assets.person02} 
-              handlePress={() => navigation.navigate("Profile")}
-              left = {15}
-              top = {15}
-          />
+        <View style={{flexDirection:"row"}}>
+          <View style={{alignItems:"flex-start",marginTop: 15, marginLeft: 10}}>
+            <TouchableOpacity
+              testID="profile"
+              style={{
+                width: 40,
+                height: 40,
+                position: "absolute",
+                borderRadius: SIZES.extraLarge,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+              onPress={() => navigation.navigate("Portfolio")}
+            >
+              <Image
+                source={assets.person01}
+                resizeMode="contain"
+                style={{ width: 40, height: 40 }}
+              />
+            </TouchableOpacity>
+          </View>
           <View style={ styles.commentdata }>
               <Text style={ styles.username }> {username} </Text>
               <Text style ={ styles.date }>{comment?.created_at.substring(0, 10)} </Text>
