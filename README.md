@@ -434,6 +434,39 @@ create table comments (
 );
 ```
 
+### 18. get user status - return commentor choice
+```bash
+create or replace function get_user_status(commentor_id_input uuid,question_id_input bigint)
+returns text
+language plpgsql
+as $$
+    declare
+    choice_id_input bigint;
+    choice_input text;
+	begin
+    --lookup 
+    select choice_id
+    into choice_id_input
+    from public.votes
+    where question_id = question_id_input and voter_id = commentor_id_input;
+
+    --if voted
+    if choice_id_input > 0 then
+        --return choice
+        select choice
+        into choice_input
+        from public.choices
+        where choice_id = choice_id_input;
+
+        return choice_input;
+    end if; 
+    return null;
+	end;
+$$;
+```
+
+
+
 
 
 

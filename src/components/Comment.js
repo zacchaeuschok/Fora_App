@@ -3,52 +3,36 @@ import { View, Text, SafeAreaView, Image, StatusBar, FlatList, StyleSheet, Touch
 import { COLORS, SIZES, assets, SHADOWS, FONTS } from "../constants";
 import { Ionicons } from 'react-native-vector-icons' 
 import { supabase } from "../initSupabase";
-import ModalDropdown from 'react-native-modal-dropdown';
 import { useNavigation } from "@react-navigation/native";
+
 
 const Comment = ({ comment }) => {
     const [username, setUsername] = useState("");
     const [liked, setLiked] = useState(false);
     const [likes, setLikes] = useState(comment.likes);
-    const [choice, setChoice] = useState("Yes");
     const [deleted, setDeleted] = useState(false);
     const [deletable, setDeletable] = useState(false);
     const [text, setText] = useState(comment.message.slice(0, 100));
     const [readMore, setReadMore] = useState(false);
     const navigation = useNavigation();
+    const [commentorID, setCommentorID] = useState(comment.commentor_id)
+    const [questionID, setQuestionID] = useState(comment.question_id)
+    const [choice, setChoice] = useState(null);
 
     useEffect(() => {
       getUsername();
     });
 
-    // async function getVote() {
-    //   let { data: votes, error } = await supabase
-    //     .from('votes')
-    //     .select('choice_id')
-    //     .eq("voter_id", comment.commentor_id)
-    //     .eq("question_id", comment.question_id)
-      
-    //     const { choiceData } = await supabase.rpc('get_choice',{choice_id_input: data.choice_id});
+    useEffect(() => {
+      const fetchStatus = async() => {
+        const { data } = await supabase.rpc('get_user_status', {commentor_id_input: commentorID,question_id_input:questionID});
+        console.log(data);
+        setChoice(data);
+      };
+  
+      fetchStatus();
 
-    //     setChoice(choiceData);
-
-    //     return choice;
-    // }
-
-    // useEffect(() => {
-    //   const fetchChoice = async({choice_id}) => {
-    //     const { data } = await supabase.rpc('get_choice',{choice_id_input: choice_id});
-    //     setChoice(data);
-    //   }
-
-    //   let { data: votes, error } = await supabase
-    //       .from('votes')
-    //       .select('choice_id')
-    //       .eq("voter_id", comment.commentor_id)
-    //       .eq("question_id", comment.question_id)
-      
-    //   fetchChoice(data);
-    // })
+    },[]);
 
     async function getUsername() {
         try {
@@ -95,55 +79,8 @@ const Comment = ({ comment }) => {
         .eq("comment_id", comment.comment_id)
     }
 
-    async function deleteComment() {
-
-      setDeleted(true);
-      
-      const { data, error } = await supabase
-        .from('comments')
-        .delete()
-        .eq('comment_id', comment.comment_id)
-    }
-
-    function canDelete() {
-
-      const user = supabase.auth.user();
-
-      return user.id == comment.commentor_id;
-    }
-
   return (
-    <View style={ styles.container }>
-        <View style={{
-          marginLeft: 15,
-          marginRight: 15,
-          marginTop: 15, 
-          flexDirection:"row", 
-          justifyContent: "space-between"
-        }}>
-          <Text style = 
-            {{ fontFamily: FONTS.bold,
-               fontSize: SIZES.medium,
-               color: COLORS.primary,}}
-          > 
-            {comment.title}
-          </Text>
-          
-          {canDelete() 
-            ? 
-            <ModalDropdown 
-              options= {['Delete']} 
-              dropdownStyle={{height: 40}}
-              onSelect = {() => deleteComment()} >
-              <Ionicons
-                  name='ellipsis-vertical-outline'
-                  size={20}
-              />
-            </ModalDropdown>
-            : null
-          }
-
-        </View>
+    <View>
         <View style={{flexDirection:"row"}}>
           <View style={{alignItems:"flex-start",marginTop: 15, marginLeft: 10}}>
             <TouchableOpacity
@@ -204,23 +141,19 @@ const Comment = ({ comment }) => {
                 /> 
                 {' '} {likes}
             </Text>
-            <Text style = {{color: COLORS.gray}}>{username} voted {choice} </Text>
+            <Text style = {{color: COLORS.gray}}>
+              { choice != null ? 
+              username + " vote - " + choice  
+              : 
+              username + " have not voted"  
+              }
+            </Text>
         </View>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-    container: {
-        // flex: 1,
-        flexDirection: "column",
-        backgroundColor: COLORS.white,
-        borderRadius: SIZES.font,
-        marginBottom: SIZES.extraLarge,
-        margin: SIZES.base,
-        ...SHADOWS.dark,
-      },
-
     commentdata: {
         // flex: 1,
         flexDirection: "column",
