@@ -37,7 +37,6 @@ const Comment = ({ comment }) => {
       const getLike = async() => {
         const { data } = await supabase.rpc('like_done', {comment_id_input: comment.comment_id});
         setLiked(data);
-        console.log(data);
       };
       getLike();
     },[]);
@@ -97,7 +96,7 @@ const Comment = ({ comment }) => {
                 alignItems: "center",
                 justifyContent: "center",
               }}
-              onPress={() => navigation.navigate("Portfolio")}
+              onPress={() => alert("New feature coming soon!")}
             >
               <Image
                 source={assets.person01}
