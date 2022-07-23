@@ -2,112 +2,145 @@ import React, { useState, useEffect } from "react";
 import { View, Text, SafeAreaView, Image, StatusBar, FlatList, StyleSheet } from "react-native";
 import { COLORS, SIZES, assets, SHADOWS, FONTS } from "../constants";
 import { CircleButton, RectButton, ProfileButton, SubInfo, DetailsDesc, DetailsBid, FocusedStatusBar, Comment} from "../components"; 
-import { supabase } from "../initSupabase";
+import { supabase, supabaseUrl } from "../initSupabase";
 import { ListItem } from 'react-native-elements'
 import { Ionicons } from 'react-native-vector-icons' 
 import ModalDropdown from 'react-native-modal-dropdown';
   
-const ForumHeader = ({data, navigation}) => (
-   
-   <View 
-    style = {{
-        width: "100%",
-        // flex: 1,
-        // flexDirection: "column",
-        // justifyContent: "space-between",
-        padding: SIZES.font,
-        backgroundColor: COLORS.primary,
-        borderBottomLeftRadius: 15,
-        borderBottomRightRadius: 15
-    }}
-   >
-        <View style = {{
-            flexDirection: 'column'
-        }}>
-            <CircleButton
-            imgUrl={assets.left}
-            handlePress={() => navigation.goBack()}
-            left = {25}
-            top = {15}
-            />
-            <ProfileButton 
-            imgUrl={assets.user} 
-            handlePress={() => navigation.navigate("Profile")}
-            right = {25}
-            top = {15}
-            />
-        </View>
 
-        <View
-        style ={{ 
-            flexDirection: "row",
-            marginTop: 60,
+const ForumHeader = ({data, navigation}) => {
+    const [avatarUrl, setAvatarUrl] = useState();
+
+    useEffect(() => {
+        getAvatar();
+    });
+
+    async function getAvatar() {
+        try {
+
+            const user = supabase.auth.user();
+            if (!user) throw new Error("No user on the session!");
+
+            let { data, error, status } = await supabase
+            .from("profiles")
+            .select('avatar_url')
+            .eq("id", user.id)
+            .single();
+
+            if (error && status !== 406) {
+            throw error;
+            }
+
+            if (data) {
+            setAvatarUrl(supabaseUrl + '/storage/v1/object/public/avatars/' + data.avatar_url)
+            }
+
+        } catch (error) {
+            alert(error);
+        } 
+    }
+
+    return (
+    <View 
+        style = {{
+            width: "100%",
+            // flex: 1,
+            // flexDirection: "column",
+            // justifyContent: "space-between",
             padding: SIZES.font,
-        }}>
-            <View
-            style = {{
-                alignSelf: "flex-start",
-
-            }}>
-                <Text 
-                style={{
-                    fontFamily: FONTS.semiBold,
-                    fontSize: SIZES.extraLarge,
-                    color: COLORS.white
-                }}
-                >
-                {data.category}
-                </Text>
-            </View>
-        </View>
-
-        <View style = {{
-            flexDirection: 'column'
-        }}>
-            <Text style ={{
-                fontFamily: FONTS.semiBold,
-                color: COLORS.white,
-                paddingLeft: SIZES.font
-            }}>
-                {data.question}
-                
-            </Text>
-
-            <Text style ={{
-                color: COLORS.gray,
-                padding: SIZES.font
-            }}>
-                {data.description}
-            </Text>
-        </View>
-
-        <View style = {{
-            justifyContent: "space-around",
-            flexDirection: 'row',
-            padding: SIZES.font,
-        }}>
-            <RectButton
-                minWidth={90}
-                fontSize={SIZES.small}
-                handlePress={() => navigation.navigate("Details", { data })}
-                text = {"Place a bid"}
-                backgroundColor={COLORS.white}
-                textColor={COLORS.primary}
-            />
+            backgroundColor: COLORS.primary,
+            borderBottomLeftRadius: 15,
+            borderBottomRightRadius: 15
+        }}
+    >
             <View style = {{
-                justifyContent: "flex-end",
-                marginRight: "auto"
+                flexDirection: 'column'
             }}>
                 <CircleButton
-                    imgUrl={assets.pen}
-                    handlePress={() => navigation.navigate("Post", { data })}
-                    top={0}
-                    left={20}
+                imgUrl={assets.left}
+                handlePress={() => navigation.goBack()}
+                left = {25}
+                top = {15}
+                />
+                <ProfileButton 
+                imgUrl={avatarUrl} 
+                handlePress={() => navigation.navigate("Profile")}
+                right = {25}
+                top = {15}
                 />
             </View>
+
+            <View
+            style ={{ 
+                flexDirection: "row",
+                marginTop: 60,
+                padding: SIZES.font,
+            }}>
+                <View
+                style = {{
+                    alignSelf: "flex-start",
+
+                }}>
+                    <Text 
+                    style={{
+                        fontFamily: FONTS.semiBold,
+                        fontSize: SIZES.extraLarge,
+                        color: COLORS.white
+                    }}
+                    >
+                    {data.category}
+                    </Text>
+                </View>
+            </View>
+
+            <View style = {{
+                flexDirection: 'column'
+            }}>
+                <Text style ={{
+                    fontFamily: FONTS.semiBold,
+                    color: COLORS.white,
+                    paddingLeft: SIZES.font
+                }}>
+                    {data.question}
+                    
+                </Text>
+
+                <Text style ={{
+                    color: COLORS.gray,
+                    padding: SIZES.font
+                }}>
+                    {data.description}
+                </Text>
+            </View>
+
+            <View style = {{
+                justifyContent: "space-around",
+                flexDirection: 'row',
+                padding: SIZES.font,
+            }}>
+                <RectButton
+                    minWidth={90}
+                    fontSize={SIZES.small}
+                    handlePress={() => navigation.navigate("Details", { data })}
+                    text = {"Place a bid"}
+                    backgroundColor={COLORS.white}
+                    textColor={COLORS.primary}
+                />
+                <View style = {{
+                    justifyContent: "flex-end",
+                    marginRight: "auto"
+                }}>
+                    <CircleButton
+                        imgUrl={assets.pen}
+                        handlePress={() => navigation.navigate("Post", { data })}
+                        top={0}
+                        left={20}
+                    />
+                </View>
+            </View>
         </View>
-    </View>
-);
+        )
+};
 
 const Forum = ({ route, navigation }) => {
     const { data } = route.params;

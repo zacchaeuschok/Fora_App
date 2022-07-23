@@ -55,17 +55,20 @@ const Choice = ({data, submitted}) => {
   //Increase vote by 1 after user have voted
   //Record the vote  
   const updateVote = async () => {
+    console.log("updateVote")
     const { data } = await supabase.rpc('update_vote', {choice_id_input: choiceId, question_id_input: questionId, points_used_input: pointDeduct});
   };
 
   //get total vote with choice id
   const getTotalVotes = async () => {
+    console.log("getTotalVotes")
     const { data } = await supabase.rpc('get_total_votes_with_choice', {choice_id_input: choiceId});
     setTotalVotes(data);
   };
 
   //calculate point to be deducted
   const getPointDeduct = async() => {
+    console.log("getPointDeduct")
     SetPointDeduct(Math.floor((parseFloat(data.votes)/parseFloat(totalVotes))*100))
   };
 
@@ -79,6 +82,7 @@ const Choice = ({data, submitted}) => {
 
   //deductPoint
   const deductPoints = async () => {
+    console.log("deductPoints")
     const { data } = await supabase.rpc('deduct_points', {question_points_input: pointDeduct});
   };
   
@@ -90,6 +94,7 @@ const Choice = ({data, submitted}) => {
       Alert.alert("Not enough points!")
     } else {
       deductPoints();
+      console.log("onPress")
       updateVote();
       navigation.navigate("Points", {pointDeduct,point});
     }

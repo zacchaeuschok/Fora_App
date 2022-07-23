@@ -5,6 +5,7 @@ import { SubInfo, People, EndDate, EthPrice, QuestionTitle } from "./SubInfo";
 import FocusedStatusBar from "./FocusedStatusBar";
 import DetailsDesc from './DetailsDesc';
 import Comment from './Comment';
+import Avatar from "./Avatar";
 
 export {
   HomeHeader,
@@ -19,5 +20,6 @@ export {
   QuestionTitle,
   FocusedStatusBar,
   DetailsDesc,
-  Comment
+  Comment,
+  Avatar
 };
