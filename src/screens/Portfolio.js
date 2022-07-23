@@ -141,12 +141,12 @@ const Portfolio = () => {
                 <Userpoint/>
                 <Text
                   style={{
-                    fontSize: SIZES.font,
+                    fontSize: SIZES.large,
                     fontFamily: FONTS.semiBold,
                     color: COLORS.primary,
+                    textAlign: "center",
                     marginTop:50,
                     marginLeft: 10
-          
                   }}
                 >
                   {recordData.length > 0 ? "Vote History" : "No History"}

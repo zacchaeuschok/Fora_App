@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, Image, TextInput } from "react-native";
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 import { ProfileButton, ArchiveButton } from "./Button";
-import { supabase } from "../initSupabase";
+import { supabase, supabaseUrl } from "../initSupabase";
 import { useState, useEffect } from 'react'
 
 import { COLORS, FONTS, SIZES, assets } from "../constants";
@@ -11,6 +11,7 @@ import { COLORS, FONTS, SIZES, assets } from "../constants";
 const HomeHeader = ({ onSearch}) => {
   const navigation = useNavigation();
   const [username, setUsername] = useState("");
+  const [avatarUrl, setAvatarUrl] = useState();
   const [point, setPoint] = useState("");
   const [session, setSession] = useState(null)
   const isFocused = useIsFocused();
@@ -22,7 +23,7 @@ const HomeHeader = ({ onSearch}) => {
         if (!user) throw new Error("No user on the session!");
         let { data, error, status } = await supabase
         .from("profiles")
-        .select(`username`)
+        .select(`username, avatar_url`)
         .eq("id", user.id)
         .single();
 
@@ -32,6 +33,7 @@ const HomeHeader = ({ onSearch}) => {
   
         if (data) {
           setUsername(data.username)
+          setAvatarUrl(supabaseUrl + '/storage/v1/object/public/avatars/' + data.avatar_url)
         }
       } catch (error) {
         alert(error);
@@ -97,7 +99,7 @@ const HomeHeader = ({ onSearch}) => {
 
           <View style={{alignItems:"flex-end"}}>
             <ProfileButton 
-              imgUrl={assets.user} 
+              imgUrl={avatarUrl} 
               handlePress={() => navigation.navigate("Portfolio")}
               />
           </View>

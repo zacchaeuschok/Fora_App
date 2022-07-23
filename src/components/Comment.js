@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { View, Text, SafeAreaView, Image, StatusBar, FlatList, StyleSheet, TouchableOpacity } from "react-native";
 import { COLORS, SIZES, assets, SHADOWS, FONTS } from "../constants";
 import { Ionicons } from 'react-native-vector-icons' 
-import { supabase } from "../initSupabase";
+import { ProfileButton } from "./Button";
+import { supabase, supabaseUrl } from "../initSupabase";
 import { useNavigation } from "@react-navigation/native";
 
 
@@ -12,6 +13,7 @@ const Comment = ({ comment }) => {
     const [likes, setLikes] = useState(comment.likes);
     const [deleted, setDeleted] = useState(false);
     const [deletable, setDeletable] = useState(false);
+    const [avatarUrl, setAvatarUrl] = useState();
     const [text, setText] = useState(comment.message.slice(0, 100));
     const [readMore, setReadMore] = useState(false);
     const navigation = useNavigation();
@@ -20,7 +22,7 @@ const Comment = ({ comment }) => {
     const [choice, setChoice] = useState(null);
 
     useEffect(() => {
-      getUsername();
+      getProfile();
     });
 
     useEffect(() => {
@@ -32,7 +34,7 @@ const Comment = ({ comment }) => {
       fetchStatus();
 
     },[]);
-
+    
     useEffect(() => {
       const getLike = async() => {
         const { data } = await supabase.rpc('like_done', {comment_id_input: comment.comment_id});
@@ -41,23 +43,24 @@ const Comment = ({ comment }) => {
       getLike();
     },[]);
 
-    async function getUsername() {
-      try {
-      //   const user = supabase.auth.user();
-      //   if (!user) throw new Error("No user on the session!");
-        let { data, error, status } = await supabase
-          .from("profiles")
-          .select(`username`)
-          .eq("id", comment.commentor_id)
-          .single();
-  
-        if (error && status !== 406) {
-          throw error;
-        }
-  
-        if (data) {
-          setUsername(data.username)
-        }
+    async function getProfile() {
+        try {
+        //   const user = supabase.auth.user();
+        //   if (!user) throw new Error("No user on the session!");
+          let { data, error, status } = await supabase
+            .from("profiles")
+            .select('username, avatar_url')
+            .eq("id", comment.commentor_id)
+            .single();
+    
+          if (error && status !== 406) {
+            throw error;
+          }
+    
+          if (data) {
+            setUsername(data.username)
+            setAvatarUrl(supabaseUrl + '/storage/v1/object/public/avatars/' + data.avatar_url)
+          }
 
       } catch (error) {
         alert(error);
@@ -85,25 +88,13 @@ const Comment = ({ comment }) => {
   return (
     <View>
         <View style={{flexDirection:"row"}}>
-          <View style={{alignItems:"flex-start",marginTop: 15, marginLeft: 10}}>
-            <TouchableOpacity
-              testID="profile"
-              style={{
-                width: 40,
-                height: 40,
-                position: "absolute",
-                borderRadius: SIZES.extraLarge,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-              onPress={() => alert("New feature coming soon!")}
-            >
-              <Image
-                source={assets.person01}
-                resizeMode="contain"
-                style={{ width: 40, height: 40 }}
-              />
-            </TouchableOpacity>
+          <View style={{alignItems:"flex-start",marginTop: 15, marginLeft: 10 }}>
+            <ProfileButton 
+                  imgUrl={avatarUrl} 
+                  handlePress={() => navigation.navigate("Profile")}
+                  // right = {25}
+                  // top = {15}
+            />
           </View>
           <View style={ styles.commentdata }>
               <Text style={ styles.username }> {username} </Text>
@@ -160,8 +151,8 @@ const styles = StyleSheet.create({
     commentdata: {
         // flex: 1,
         flexDirection: "column",
-        margin: 17,
-        marginLeft: 65
+        margin: 15,
+        marginLeft: 50
     },
 
     username: {
