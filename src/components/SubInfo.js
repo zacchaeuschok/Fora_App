@@ -110,8 +110,10 @@ export const EndDate = ({question_id}) => {
         setDifference('Expired');
         updateExpired();
         if (expired == false) addPoint();
-      }else if (data.substring(0,6) == '1 day ') { //when 1 day
+      } else if (data.substring(0,6) == '1 day ' || data.substring(0,6) == '1 year') { //when 1 day or 1 year
         setDifference(data.substring(0,6));
+      } else if (data.substring(0,5) == '1 mon') { //when 1 mon
+        setDifference(data.substring(0,5));
       } else if (data.substring(0,6).slice(-1) == 's') { //when one digit day
         setDifference(data.substring(0,6));
       } else if (data.substring(0,7).slice(-3) == 'day') { //when two digit day

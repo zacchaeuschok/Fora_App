@@ -168,7 +168,23 @@ const Post = ({route, navigation}) => {
                 </TouchableOpacity>
 
                 <TouchableOpacity 
-                    onPress={() => postMessage({title, message})} 
+                    onPress={() => {
+                        if (title.length == 0 ) {
+                            Alert.alert("Title cannot be empty")
+                        } else if (title.length < 3 ) {
+                            Alert.alert("Title too short!")
+                        } else if (title.length > 45) {
+                            Alert.alert("Title too long!")
+                        } else if (message.length == 0 ) {
+                            Alert.alert("Message cannot be empty")
+                        }else if (message.length < 3) {
+                            Alert.alert("Message too short!") 
+                        } else if (message.length > 1000) {
+                            Alert.alert("Message too long!")
+                        } else {
+                            postMessage({title, message})
+                        }
+                    }} 
                     style = {{
                         marginTop: SIZES.font * 2,
                         borderRadius: 10,
