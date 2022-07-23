@@ -28,12 +28,19 @@ const Comment = ({ comment }) => {
     useEffect(() => {
       const fetchStatus = async() => {
         const { data } = await supabase.rpc('get_user_status', {commentor_id_input: commentorID,question_id_input:questionID});
-        console.log(data);
         setChoice(data);
       };
   
       fetchStatus();
 
+    },[]);
+    
+    useEffect(() => {
+      const getLike = async() => {
+        const { data } = await supabase.rpc('like_done', {comment_id_input: comment.comment_id});
+        setLiked(data);
+      };
+      getLike();
     },[]);
 
     async function getProfile() {
@@ -55,31 +62,27 @@ const Comment = ({ comment }) => {
             setAvatarUrl(supabaseUrl + '/storage/v1/object/public/avatars/' + data.avatar_url)
           }
 
-        } catch (error) {
-          alert(error);
-        } 
-      }
+      } catch (error) {
+        alert(error);
+      } 
+    }
+
+    const updateLikes = async(currentLike) => {
+      const { data } = await supabase.rpc('update_likes', {comment_id_input: comment.comment_id, likes_input: currentLike});
+    };
+
+    
 
     async function decreaseLikes() {
-
       setLikes(likes - 1);
       setLiked(false);
-
-      const { data, error } = await supabase
-      .from('comments')
-      .update({ likes: likes })
-      .eq("comment_id", comment.comment_id)
+      updateLikes(likes - 1);
     }
 
     async function increaseLikes() {
-
       setLikes(likes + 1);
       setLiked(true);
-
-      const { data, error } = await supabase
-        .from('comments')
-        .update({ likes: likes })
-        .eq("comment_id", comment.comment_id)
+      updateLikes(likes + 1);
     }
 
   return (
