@@ -6,6 +6,7 @@ import { supabase, supabaseUrl } from "../initSupabase";
 import { ListItem } from 'react-native-elements'
 import { Ionicons } from 'react-native-vector-icons' 
 import ModalDropdown from 'react-native-modal-dropdown';
+//import { useIsFocused } from "@react-navigation/native";
   
 
 const ForumHeader = ({data, navigation}) => {
@@ -146,9 +147,13 @@ const Forum = ({ route, navigation }) => {
     const { data } = route.params;
     const [commentData, setCommentData] = useState("");
     //const isFocused = useIsFocused();
+    const [state, setState] = useState({});
   
     useEffect(() => {
-      fetchComments()
+      fetchComments();
+      return () => {
+        setState({}); 
+      };
     }, [commentData])
   
     const fetchComments = async () => {
