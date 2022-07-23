@@ -70,7 +70,7 @@ const Details = ({ route, navigation }) => {
                   fontFamily: FONTS.regular,
                   lineHeight: SIZES.large,
                 }}
-              >Pick one of the choices listed below. Points will be deducted according to the proportion of people voted.</Text>
+              >Pick one of the choices listed below. Points will be deducted accordingly. </Text>
               <CreatePoll data={data}/>
 
             </View>

@@ -137,9 +137,9 @@ const Comment = ({ comment }) => {
             </Text>
             <Text style = {{color: COLORS.gray}}>
               { choice != null ? 
-              username + " vote - " + choice  
+              username + " voted: " + choice  
               : 
-              username + " have not voted"  
+              username + " has not voted"  
               }
             </Text>
         </View>

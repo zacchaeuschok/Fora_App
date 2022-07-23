@@ -2,6 +2,7 @@ import React from "react";
 import { TouchableOpacity, Text, Image } from "react-native";
 
 import { COLORS, SIZES, FONTS, SHADOWS } from "../constants";
+import Avatar from "./Avatar";
 
 export const CircleButton = ({ imgUrl, handlePress, ...props }) => {
   return (
@@ -49,7 +50,8 @@ export const ProfileButton = ({ imgUrl, handlePress, ...props }) => {
       onPress={handlePress}
     >
       <Image
-        source={{uri : imgUrl}}
+        // source={imgUrl == null ? {uri : imgUrl} : require("../assets/images/smiley.png")}
+        source = {{uri : imgUrl}}
         resizeMode="contain"
         style={{ width: 40, height: 40 }}
       />
