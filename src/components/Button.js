@@ -37,7 +37,10 @@ export const ProfileButton = ({ imgUrl, handlePress, ...props }) => {
         width: 40,
         height: 40,
         position: "absolute",
-        borderRadius: SIZES.extraLarge,
+        borderRadius: 100,
+        overflow: 'hidden',
+        borderWidth: 1,
+        borderColor: COLORS.white,
         alignItems: "center",
         justifyContent: "center",
     
@@ -46,7 +49,7 @@ export const ProfileButton = ({ imgUrl, handlePress, ...props }) => {
       onPress={handlePress}
     >
       <Image
-        source={imgUrl}
+        source={{uri : imgUrl}}
         resizeMode="contain"
         style={{ width: 40, height: 40 }}
       />

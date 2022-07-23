@@ -20,6 +20,8 @@ import {
 import { CircleButton, FocusedStatusBar } from "../components";
 import { COLORS, SIZES, assets, SHADOWS, FONTS } from "../constants";
 import { useNavigation } from "@react-navigation/native";
+import Avatar from "../components/Avatar";
+import { fonts } from "react-native-elements/dist/config";
 
 const Profile = () => {
   const [loading, setLoading] = useState(false);
@@ -107,38 +109,49 @@ const Profile = () => {
 
   return (
     <KeyboardAvoidingView behavior="height" enabled style={{ flex: 1 }}>
-      <Layout>
-      <FocusedStatusBar backgroundColor={COLORS.primary} />
-      <ScrollView
-          contentContainerStyle={{
-            flexGrow: 1,
-          }}
-        >
+      <FocusedStatusBar backgroundColor={ COLORS.primary } />
           <View
             style={{
               flex: 3,
               paddingHorizontal: 20,
               paddingBottom: 20,
-            }}
-          >
-            <CircleButton
-              imgUrl={assets.left}
-              handlePress={() => navigation.goBack()}
-              left={15}
-              top={StatusBar.currentHeight + 10}
-            />
-            <Text
-              style={{
-                fontWeight: "bold",
-                alignSelf: "center",
-                padding: 30,
-                color:COLORS.white,
-                fontSize: SIZES.large
+            }}>
+            <View style = {{
+              flexDirection: "row",
+              justifyContent: "space-evenly"
+            }}>
+              <CircleButton
+                imgUrl={assets.left}
+                handlePress={() => navigation.goBack()}
+                left={15}
+                top={StatusBar.currentHeight}
+              />
+              <Text
+                style={{
+                  fontWeight: "bold",
+                  alignSelf: "center",
+                  marginTop: 45,
+                  color:COLORS.white,
+                  fontSize: SIZES.large
+                }}
+              >
+                Profile
+              </Text>
+            </View>
+            <Avatar  
+              url={avatar_url}
+              size={150}
+              onUpload={(url) => {
+                setAvatarUrl(url)
+                updateProfile({ username, website, avatar_url: url })
               }}
-            >
-              Profile
+              />
+            <Text style={{ 
+              marginTop: 60,
+              color: COLORS.primary,
+              fontFamily: FONTS.bold,
+              }}>Username
             </Text>
-            <Text style={{ marginTop: 15, color: COLORS.white }}>Username</Text>
             <TextInput
              containerStyle={{ marginTop: 15 }}
              placeholder="Enter your username"
@@ -150,8 +163,8 @@ const Profile = () => {
              onChangeText={(text) => setUsername(text)}
             />
             <Button
-              color={COLORS.secondary}
-              text= {loading ? "Loading ..." : "Update Username"}
+              color={COLORS.primary}
+              text= {loading ? "Loading ..." : "Update"}
               onPress={() => {
                 if (username.length > 3) {
                   updateProfile({ username });
@@ -159,19 +172,19 @@ const Profile = () => {
                   Alert.alert("Username too short!")
                 }
               }}
-              style={{
-                marginTop: 20
+              style = {{
+                marginTop: 40
               }}
               disabled={loading}
             />
             <Button
-              color={COLORS.secondary}
+              color={COLORS.primary}
               text= "Sign Out"
               onPress={() => {
                 logout();
               }}
-              style={{
-                marginTop: 20,
+              style = {{
+                marginTop: 20
               }}
               disabled={loading}
             />
@@ -187,11 +200,13 @@ const Profile = () => {
           }}
         >
           <View
-            style={{ height: 200, backgroundColor: COLORS.primary }} />
+            style={{ 
+              height: 280, 
+              backgroundColor: COLORS.primary, 
+              borderBottomLeftRadius: 15,
+              borderBottomRightRadius: 15}} />
           <View style={{ flex: 1, backgroundColor: COLORS.white }} />
         </View>
-        </ScrollView>
-      </Layout>
     </KeyboardAvoidingView>)
 };
 

@@ -23,6 +23,7 @@ const Poll = ({data}) => {
       const { data } = await supabase.rpc('question_done', {question_id_input: question_id});
       SetSubmitted(data);
     };
+
     questionDone();
   },[isFocused]);
 
