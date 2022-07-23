@@ -114,7 +114,7 @@ const Choice = ({data, submitted}) => {
         fontWeight="bold"
         style={submitted ? styles.disable : styles.option}
         >
-          {choice} - {pointDeduct}%
+          {choice} - {pointDeduct} pts
         </Text> :
         <Text
         size="md"

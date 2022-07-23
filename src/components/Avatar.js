@@ -121,7 +121,7 @@ export default function Avatar({ url, size, onUpload }) {
             alignSelf: "center"
         }}>
             <Image
-                source = { avatarUrl ? {uri : avatarUrl} : require('../assets/images/person01.png')}
+                source = { avatarUrl ? {uri : avatarUrl} : require('../assets/images/smiley.png')}
                 alt={avatarUrl ? 'Avatar' : 'No image'}
                 className="avatar image"
                 style={{ 
