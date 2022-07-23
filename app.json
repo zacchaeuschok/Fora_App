@@ -2,6 +2,7 @@
   "expo": {
     "name": "Fora",
     "slug": "fora",
+    "owner": "xuanyun",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./src/assets/images/palantir.png",
