@@ -142,7 +142,8 @@ create table votes (
   question_id bigint references questions (question_id) on delete cascade,
   points_used bigint,
   end_point bigint default null,
-  change_point bigint default null
+  change_point bigint default null,
+  add_points boolean default false
 );
 ```
 
@@ -334,12 +335,18 @@ as $$
     set user_points = user_points + end_point_input
     where id = auth.uid();
 
+    --update add_points in vote table
+    update public.votes
+    set add_points = true
+    where voter_id = auth.uid() and question_id = question_id_input;
+
     --insert row in vote to disable choice button 
-    insert into public.votes(voter_id,question_id)
-    values(auth.uid(), question_id_input);
+    insert into public.votes(voter_id,question_id,add_points)
+    values(auth.uid(), question_id_input,true);
 
 	end;
 $$;
+
 ```
 
 ### 13. get record - get record from vote table which is expired
@@ -521,7 +528,24 @@ as $$
 	end;
 $$;
 ```
-
+### 22. points added done
+```bash
+create or replace function points_added_done(question_id_input bigint)
+returns bool
+language plpgsql
+as $$
+  declare
+    add_points_input boolean;
+	begin
+    select add_points
+    into add_points_input
+    from public.votes
+    where voter_id = auth.uid() and question_id = question_id_input;
+    
+    return add_points_input;
+	end;
+$$;
+```
 
 
 
