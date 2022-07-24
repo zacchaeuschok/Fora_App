@@ -80,20 +80,25 @@ export const People = () => {
 
 export const EndDate = ({question_id}) => {
   const [difference, setDifference] = useState(null);
-  const [expired, setExpired] = useState(null);
+  const [addedPoints, setAddedPoints] = useState(null);
   const isFocused = useIsFocused();
   const [loading, setLoading] = useState(false);
+
+
 
   async function updateExpired() {
       setLoading(true);
       const user = supabase.auth.user();
       if (!user) throw new Error("No user on the session!");
-      const { data } = await supabase.rpc('update_expired', {question_id_input: question_id});
-      setExpired(data);
+      const { ndata } = await supabase.rpc('update_expired', {question_id_input: question_id});
+      const { data } = await supabase.rpc('points_added_done',{question_id_input: question_id})
+      setAddedPoints(data);
+      console.log(data);
       setLoading(false);
   }
 
   async function addPoint() {
+    console.log("test");
     setLoading(true);
     const user = supabase.auth.user();
     if (!user) throw new Error("No user on the session!");
@@ -109,7 +114,7 @@ export const EndDate = ({question_id}) => {
       } else if (data.substring(0,1) == '-') { //when expired
         setDifference('Expired');
         updateExpired();
-        if (expired == false) addPoint();
+        if (addedPoints == false) addPoint();
       } else if (data.substring(0,6) == '1 day ' || data.substring(0,6) == '1 year') { //when 1 day or 1 year
         setDifference(data.substring(0,6));
       } else if (data.substring(0,5) == '1 mon') { //when 1 mon
