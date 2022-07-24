@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { View, SafeAreaView, FlatList } from "react-native";
 
 import { QuestionCard, HomeHeader, FocusedStatusBar } from "../components";
-import { COLORS } from "../constants";
+import { RectButton } from "react-native-gesture-handler";
+import { COLORS, SIZES } from "../constants";
 
 import { supabase } from "../initSupabase";
 import { useIsFocused } from "@react-navigation/native";
@@ -22,6 +23,7 @@ type Question = {
 const Home = () => {
   const [questionData, setQuestionData] = useState<Array<Question>>([]);
   const [originalData, setOriginalData] = useState<Array<Question>>([]);
+  const [archive, setArchive] = useState(false);
   const isFocused = useIsFocused();
 
   useEffect(() => {

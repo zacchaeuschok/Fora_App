@@ -114,7 +114,7 @@ const Portfolio = () => {
         }}
         ListHeaderComponent={() => (
           <React.Fragment>
-           <View style={{ width: "100%", height: 250 }}>
+           <View style={{ width: "100%", height: 250,}}>
               <CircleButton
                   imgUrl={assets.left}
                   handlePress={() => navigation.goBack()}
@@ -165,7 +165,12 @@ const Portfolio = () => {
             zIndex: -1,
           }}
         >
-          <View style={{ height: 200, backgroundColor: COLORS.primary }} />
+          <View style={{ 
+            height: 200, 
+            backgroundColor: COLORS.primary,
+            borderBottomLeftRadius: 15, 
+            borderBottomRightRadius: 15, 
+            }} />
           <View style={{ backgroundColor: COLORS.white }} />
       </View>
     </SafeAreaView>
