@@ -151,7 +151,7 @@ import {
                     justifyContent: "center",
                   }}
                 >
-                  <TouchableOpacity
+                  {/* <TouchableOpacity
                     onPress={() => {
                       navigation.navigate("ForgetPassword");
                     }}
@@ -159,7 +159,7 @@ import {
                     <Text size="md" fontWeight="bold">
                       Forget password
                     </Text>
-                  </TouchableOpacity>
+                  </TouchableOpacity> */}
                 </View>
                 <View
                   style={{
