@@ -42,7 +42,7 @@ create table profiles (
   id uuid references auth.users not null,
   updated_at timestamp with time zone,
   username text unique,
-  avatar_url text default 'person01.png',
+  avatar_url text default 'smiley.png',
   user_points bigint default 200,
 
   primary key (id),
