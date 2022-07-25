@@ -3,3 +3,6 @@ node_modules
 .DS_Store
 .env
 Fora
+.eslintignore
+.eslintrc.js
+yarn-error.log

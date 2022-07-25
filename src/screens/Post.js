@@ -183,6 +183,7 @@ const Post = ({route, navigation}) => {
                             Alert.alert("Message too long!")
                         } else {
                             postMessage({title, message})
+                            navigation.navigate("Forum", {data})
                         }
                     }} 
                     style = {{
