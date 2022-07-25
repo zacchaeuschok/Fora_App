@@ -44,8 +44,15 @@ const Register = ({ navigation }) => {
           alert("Check your email for the login link!");
         }
         if (error) {
+          console.log(error)
           setLoading(false);
-          alert(error.message);
+          if (error.status == 500) {
+            alert("Please enter a unique username.");
+          } else if (error.message == "Unable to validate email address: invalid format") {
+            alert("Please enter a valid email address.")
+          } else {
+            alert(error.message)
+          }
         }
       }
       return (
