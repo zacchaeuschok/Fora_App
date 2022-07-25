@@ -340,13 +340,9 @@ as $$
     set add_points = true
     where voter_id = auth.uid() and question_id = question_id_input;
 
-    --insert row in vote to disable choice button 
-    insert into public.votes(voter_id,question_id,add_points)
-    values(auth.uid(), question_id_input,true);
 
 	end;
 $$;
-
 ```
 
 ### 13. get record - get record from vote table which is expired
@@ -546,7 +542,20 @@ as $$
 	end;
 $$;
 ```
+### 23. points added done
+```bash
+create or replace function insert_row(question_id_input bigint)
+returns void
+language plpgsql
+as $$
 
+	begin
+    --insert row in vote to disable choice button 
+    insert into public.votes(voter_id,question_id,add_points)
+    values(auth.uid(), question_id_input,true);
+	end;
+$$;
+```
 
 
 
