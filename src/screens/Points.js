@@ -59,7 +59,7 @@ const Points = ({ route, navigation }) => {
               textAlign: "center"
             }}
           >
-            Your choice have been successfully submitted! 
+            Your choice has been successfully submitted! 
           </Text>
         </View>
         <View
@@ -97,7 +97,7 @@ const Points = ({ route, navigation }) => {
               textAlign: "center"
             }}
           >
-            {pointDeduct} points is deducted!{'\n'}
+            {pointDeduct} points deducted!{'\n'}
           </Text>
           <Text
             style={{
@@ -108,7 +108,7 @@ const Points = ({ route, navigation }) => {
               textAlign: "center"
             }}
           >
-            Currently you have {point - pointDeduct} points
+            You have {point - pointDeduct} points remaining
           </Text>
         </View>
       </View>
