@@ -93,18 +93,24 @@ export const EndDate = ({question_id}) => {
       const { ndata } = await supabase.rpc('update_expired', {question_id_input: question_id});
       const { data } = await supabase.rpc('points_added_done',{question_id_input: question_id})
       setAddedPoints(data);
-      console.log(data);
       setLoading(false);
   }
 
   async function addPoint() {
-    console.log("test");
     setLoading(true);
     const user = supabase.auth.user();
     if (!user) throw new Error("No user on the session!");
     const { data } = await supabase.rpc('add_points', {question_id_input: question_id});
     setLoading(false);
-}
+  }
+
+  async function addRow() {
+    setLoading(true);
+    const user = supabase.auth.user();
+    if (!user) throw new Error("No user on the session!");
+    const { data } = await supabase.rpc('insert_row', {question_id_input: question_id});
+    setLoading(false);
+  }
 
   useEffect(() => {
     const duration = async () => {
@@ -115,6 +121,7 @@ export const EndDate = ({question_id}) => {
         setDifference('Expired');
         updateExpired();
         if (addedPoints == false) addPoint();
+        if (addedPoints == null) addRow();
       } else if (data.substring(0,6) == '1 day ' || data.substring(0,6) == '1 year') { //when 1 day or 1 year
         setDifference(data.substring(0,6));
       } else if (data.substring(0,5) == '1 mon') { //when 1 mon
