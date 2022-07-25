@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<RNCSafeAreaView
+  style={
+    Array [
+      undefined,
+      Object {
+        "backgroundColor": "#f7f7f7",
+        "flex": 1,
+      },
+    ]
+  }
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "flex": 1,
+        "justifyContent": "center",
+      }
+    }
+  >
+    <ActivityIndicator
+      animating={true}
+      color="#3366FF"
+      hidesWhenStopped={true}
+      size="large"
+    />
+  </View>
+</RNCSafeAreaView>
+`;
