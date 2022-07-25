@@ -1,4 +1,4 @@
-import { CircleButton, RectButton, ProfileButton } from "../Button";
+import { CircleButton, RectButton, ProfileButton, ArchiveButton } from "../Button";
 import renderer from 'react-test-renderer'
 import { fireEvent, render } from '@testing-library/react-native'
 
@@ -31,5 +31,12 @@ it('renders correctly', () => {
     const mockOnPressFn = jest.fn()
     const { getByTestId } = render(<ProfileButton handlePress={mockOnPressFn} />)
     fireEvent.press(getByTestId('profile'))
+    expect(mockOnPressFn).toHaveBeenCalled()
+  })
+
+  it('on press archive button', () => {
+    const mockOnPressFn = jest.fn()
+    const { getByTestId } = render(<ArchiveButton handlePress={mockOnPressFn} />)
+    fireEvent.press(getByTestId('archive'))
     expect(mockOnPressFn).toHaveBeenCalled()
   })

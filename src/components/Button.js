@@ -62,7 +62,7 @@ export const ProfileButton = ({ imgUrl, handlePress, ...props }) => {
 export const ArchiveButton = ({ imgUrl, handlePress, ...props }) => {
   return (
     <TouchableOpacity
-      testID="profile"
+      testID="archive"
       style={{
         width: 40,
         height: 40,

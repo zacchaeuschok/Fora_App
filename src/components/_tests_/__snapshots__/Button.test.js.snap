@@ -58,7 +58,7 @@ exports[`renders correctly 2`] = `
   onStartShouldSetResponder={[Function]}
   style={
     Object {
-      "backgroundColor": "#001F2D",
+      "backgroundColor": undefined,
       "borderRadius": 24,
       "minWidth": undefined,
       "opacity": 1,
@@ -70,15 +70,13 @@ exports[`renders correctly 2`] = `
   <Text
     style={
       Object {
-        "color": "#FFF",
+        "color": undefined,
         "fontFamily": "InterSemiBold",
         "fontSize": undefined,
         "textAlign": "center",
       }
     }
-  >
-    Place a bid
-  </Text>
+  />
 </View>
 `;
 
@@ -96,20 +94,14 @@ exports[`renders correctly 3`] = `
   style={
     Object {
       "alignItems": "center",
-      "backgroundColor": "#FFF",
-      "borderRadius": 24,
-      "elevation": 3,
+      "borderColor": "#FFF",
+      "borderRadius": 100,
+      "borderWidth": 1,
       "height": 40,
       "justifyContent": "center",
       "opacity": 1,
+      "overflow": "hidden",
       "position": "absolute",
-      "shadowColor": "#74858C",
-      "shadowOffset": Object {
-        "height": 1,
-        "width": 0,
-      },
-      "shadowOpacity": 0.22,
-      "shadowRadius": 2.22,
       "width": 40,
     }
   }
@@ -117,6 +109,11 @@ exports[`renders correctly 3`] = `
 >
   <Image
     resizeMode="contain"
+    source={
+      Object {
+        "uri": undefined,
+      }
+    }
     style={
       Object {
         "height": 40,
