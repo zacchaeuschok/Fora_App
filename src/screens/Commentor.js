@@ -39,7 +39,15 @@ const Item = ({ item }) => {
     }}
     key={item.vote_id}
   >
-    {item.change_point > 0 ?
+    {
+    item.change_point == 0 ?
+    <Image
+      source={assets.equal}
+      resizeMode="contain"
+      style={{ width: 48, height: 48 }}
+    />
+    :
+    (item.change_point > 0 ?
     <Image
       source={assets.up}
       resizeMode="contain"
@@ -50,7 +58,7 @@ const Item = ({ item }) => {
       source={assets.down}
       resizeMode="contain"
       style={{ width: 48, height: 48 }}
-    />
+    />)
     }
 
     <View
@@ -94,7 +102,6 @@ const Commentor = ({ route, navigation }) => {
   );
 
   useEffect(() => {
-    console.log(commentorID);
     const fetchRecords = async() => {
       const { data } = await supabase.rpc('get_commentor_records',{commentor_id_input: commentorID});
       setRecordData(data);
