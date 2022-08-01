@@ -12,6 +12,7 @@ import up from "../assets/icons/arrowUp.png";
 import down from "../assets/icons/down.png";
 import box from "../assets/icons/box.png";
 import user from "../assets/icons/user.png";
+import equal from "../assets/icons/equal.png";
 
 import logo from "../assets/images/logo.png";
 import fora from "../assets/images/fora.png";
@@ -48,6 +49,7 @@ export default {
   fora,
   logo,
   avatar,
+  equal,
 
   img01,
   img02,
