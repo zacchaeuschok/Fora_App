@@ -21,5 +21,5 @@ export {
   FocusedStatusBar,
   DetailsDesc,
   Comment,
-  Avatar
+  Avatar,
 };

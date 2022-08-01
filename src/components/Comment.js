@@ -91,7 +91,7 @@ const Comment = ({ comment }) => {
           <View style={{alignItems:"flex-start",marginTop: 15, marginLeft: 10 }}>
             <ProfileButton 
                   imgUrl={avatarUrl} 
-                  handlePress={() => navigation.navigate("Profile")}
+                  handlePress={() => navigation.navigate("Commentor",{commentorID})}
                   // right = {25}
                   // top = {15}
             />

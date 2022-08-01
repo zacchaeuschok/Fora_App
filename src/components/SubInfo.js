@@ -80,7 +80,7 @@ export const People = () => {
 
 export const EndDate = ({question_id}) => {
   const [difference, setDifference] = useState(null);
-  const [addedPoints, setAddedPoints] = useState(null);
+  const [addedPoints, setAddedPoints] = useState("");
   const isFocused = useIsFocused();
   const [loading, setLoading] = useState(false);
 
@@ -121,7 +121,7 @@ export const EndDate = ({question_id}) => {
         setDifference('Expired');
         updateExpired();
         if (addedPoints == false) addPoint();
-        if (addedPoints == null) addRow();
+        else if (addedPoints == null) addRow();
       } else if (data.substring(0,6) == '1 day ' || data.substring(0,6) == '1 year') { //when 1 day or 1 year
         setDifference(data.substring(0,6));
       } else if (data.substring(0,5) == '1 mon') { //when 1 mon

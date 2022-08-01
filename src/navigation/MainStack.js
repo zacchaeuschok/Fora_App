@@ -16,6 +16,7 @@ import Poll from "../components/Poll.js"
 import Points from "../screens/Points.js"
 import Expired from "../screens/Expired"
 import Portfolio from "../screens/Portfolio"
+import Commentor from "../screens/Commentor"
 
 
 const MainStack = createNativeStackNavigator();
@@ -30,6 +31,7 @@ const Main = () => {
       <MainStack.Screen name="Home" component={Home} />
       <MainStack.Screen name="Details" component={Details} />
       <MainStack.Screen name="Forum" component={Forum} />
+      <MainStack.Screen name="Commentor" component={Commentor}/>
       <MainStack.Screen name="Post" component={Post} />
       <MainStack.Screen name="Portfolio" component={Portfolio} />
       <MainStack.Screen name="Profile" component={Profile} />
