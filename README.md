@@ -353,7 +353,7 @@ language sql
 as $$
   select * 
   from public.votes
-  where change_point is not null and voter_id = auth.uid()
+  where points_used is not null and voter_id = auth.uid() and add_points = true
   order by vote_id desc;
 $$;
 ```
@@ -542,7 +542,7 @@ as $$
 	end;
 $$;
 ```
-### 23. points added done
+### 23. insert_row
 ```bash
 create or replace function insert_row(question_id_input bigint)
 returns void
@@ -557,7 +557,18 @@ as $$
 $$;
 ```
 
-
+### 24. get commentor records
+```bash
+create or replace function get_commentor_records(commentor_id_input uuid) 
+returns setof votes
+language sql
+as $$
+  select * 
+  from public.votes
+  where points_used is not null and voter_id = commentor_id_input and add_points = true
+  order by vote_id desc;
+$$;
+```
 
 
 
