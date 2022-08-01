@@ -2,10 +2,8 @@ import React, { useState, useEffect } from "react";
 import { View, SafeAreaView, FlatList, StatusBar, Text, Image} from "react-native";
 import {  CircleButton } from "../components";
 import { COLORS, SIZES, assets, FONTS} from "../constants";
-import {Userpoint} from "../components/Userpoint"
-import { useNavigation } from "@react-navigation/native";
+import { Commentorpoint } from "../components/Commentorpoint"
 import { supabase } from "../initSupabase";
-import { Colors } from "react-native/Libraries/NewAppScreen";
 
 const Item = ({ item }) => {
   const [question, setQuestion] = useState();
@@ -87,23 +85,24 @@ const Item = ({ item }) => {
   );
 };
 
-const Portfolio = () => {
+const Commentor = ({ route, navigation }) => {
+  const { commentorID } = route.params;
+
   const [recordData, setRecordData] = useState([]);
   const renderItem = ({ item }) => (
     <Item item={item} />
   );
 
   useEffect(() => {
+    console.log(commentorID);
     const fetchRecords = async() => {
-      const { data } = await supabase.rpc('get_records');
+      const { data } = await supabase.rpc('get_commentor_records',{commentor_id_input: commentorID});
       setRecordData(data);
     };
 
     fetchRecords();
 
   },[]);
-
-  const navigation = useNavigation();
 
   return (
     <SafeAreaView>
@@ -133,15 +132,9 @@ const Portfolio = () => {
                     fontSize: SIZES.large
                   }}
                 >
-                  Portfolio
+                  Commentor Portfolio
                 </Text>
-                <CircleButton
-                  imgUrl={assets.settings}
-                  handlePress={() => navigation.navigate("Profile")}
-                  right={15}
-                  top={StatusBar.currentHeight + 10}
-                />
-                <Userpoint/>
+                <Commentorpoint commentorID = {commentorID}/>
                 <Text
                   style={{
                     fontSize: SIZES.large,
@@ -181,4 +174,4 @@ const Portfolio = () => {
   );
 };
 
-export default Portfolio;
+export default Commentor;

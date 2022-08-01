@@ -9,6 +9,7 @@ import * as ImagePicker from 'expo-image-picker';
 export default function Avatar({ url, size, onUpload }) {
   const [avatarUrl, setAvatarUrl] = useState(null)
   const [uploading, setUploading] = useState(false)
+  const [state, setState] = useState({});
 
   useEffect(() => {
     if (url) downloadImage(url)
